@@ -131,6 +131,18 @@ export function Footer() {
                     </div>
                 </div>
 
+                {/* Registration Notice */}
+                <div className="text-center mb-12">
+                    <p
+                        className="text-[var(--color-cream)]/50 text-xs leading-relaxed"
+                        style={{ fontFamily: "var(--font-body)" }}
+                    >
+                        CMRF is a registered NGO in Ghana.
+                        <br />
+                        CMMRF-USA is a registered, federally authorized tax-exempt 501(c)3 charitable organization.
+                    </p>
+                </div>
+
                 {/* Divider */}
                 <div className="border-t border-[var(--color-cream)]/10 pt-8">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
