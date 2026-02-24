@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { NoiseOverlay } from "@/components/ui/NoiseOverlay";
+import { SmoothPageTransition } from "@/components/animation/SmoothPageTransition";
 
 const plusJakarta = Plus_Jakarta_Sans({
     variable: "--font-heading",
@@ -67,7 +68,11 @@ export default function FrontendLayout({
             >
                 <NoiseOverlay />
                 <Navbar />
-                <main>{children}</main>
+                <main>
+                    <SmoothPageTransition>
+                        {children}
+                    </SmoothPageTransition>
+                </main>
                 <Footer />
             </body>
         </html>

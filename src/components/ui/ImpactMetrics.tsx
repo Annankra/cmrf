@@ -23,7 +23,6 @@ function AnimatedNumber({
     trigger: boolean;
 }) {
     const [current, setCurrent] = useState(0);
-    const ref = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
         if (!trigger) return;
@@ -31,7 +30,7 @@ function AnimatedNumber({
         const obj = { val: 0 };
         gsap.to(obj, {
             val: value,
-            duration: 2,
+            duration: 2.2,
             ease: "power2.out",
             onUpdate: () => {
                 setCurrent(Math.round(obj.val));
@@ -40,7 +39,7 @@ function AnimatedNumber({
     }, [trigger, value]);
 
     return (
-        <span ref={ref}>
+        <span>
             {current.toLocaleString()}
             {suffix}
         </span>
@@ -49,6 +48,7 @@ function AnimatedNumber({
 
 export function ImpactMetrics() {
     const sectionRef = useRef<HTMLElement>(null);
+    const metricRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [triggered, setTriggered] = useState(false);
 
     useEffect(() => {
@@ -59,6 +59,24 @@ export function ImpactMetrics() {
                 once: true,
                 onEnter: () => setTriggered(true),
             });
+
+            // Staggered bounce entrance for each metric block
+            metricRefs.current.forEach((el, i) => {
+                if (!el) return;
+                gsap.from(el, {
+                    y: 50,
+                    opacity: 0,
+                    scale: 0.85,
+                    duration: 0.7,
+                    delay: i * 0.12,
+                    ease: "back.out(1.5)",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        once: true,
+                    },
+                });
+            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -67,12 +85,16 @@ export function ImpactMetrics() {
     return (
         <section
             ref={sectionRef}
-            className="section bg-[var(--color-moss)]"
+            className="section bg-[var(--color-moss)] overflow-hidden"
         >
             <div className="container-main px-6 md:px-12">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                    {metrics.map((metric) => (
-                        <div key={metric.label} className="text-center">
+                    {metrics.map((metric, i) => (
+                        <div
+                            key={metric.label}
+                            ref={(el) => { metricRefs.current[i] = el; }}
+                            className="text-center"
+                        >
                             <div
                                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-cream)] mb-2"
                                 style={{ fontFamily: "var(--font-heading)" }}

@@ -1,7 +1,12 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Heart, Globe, HandHeart } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const tiers = [
     {
@@ -50,11 +55,92 @@ const tiers = [
 ];
 
 export function GetInvolvedTiers() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+    const headerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Header entrance
+            if (headerRef.current) {
+                gsap.from(headerRef.current, {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.9,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: headerRef.current,
+                        start: "top 88%",
+                        once: true,
+                    },
+                });
+            }
+
+            // Staggered card entrance
+            cardsRef.current.forEach((card, i) => {
+                if (!card) return;
+
+                gsap.from(card, {
+                    y: 60,
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.8,
+                    delay: i * 0.15,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 90%",
+                        once: true,
+                    },
+                });
+
+                // Icon rotation on reveal
+                const icon = card.querySelector("[data-tier-icon]");
+                if (icon) {
+                    gsap.from(icon, {
+                        rotation: -90,
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.6,
+                        delay: 0.3 + i * 0.15,
+                        ease: "back.out(1.7)",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 90%",
+                            once: true,
+                        },
+                    });
+                }
+
+                // Feature list items stagger
+                const features = card.querySelectorAll("[data-feature]");
+                if (features.length > 0) {
+                    gsap.from(features, {
+                        x: -20,
+                        opacity: 0,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        stagger: 0.08,
+                        delay: 0.5 + i * 0.15,
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 90%",
+                            once: true,
+                        },
+                    });
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="section bg-[var(--color-cream)]">
+        <section ref={sectionRef} className="section bg-[var(--color-cream)]">
             <div className="container-main px-6 md:px-12">
                 {/* Section Header */}
-                <div className="text-center mb-16">
+                <div ref={headerRef} className="text-center mb-16">
+                    <div className="section-divider" />
                     <p
                         className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
                         style={{ fontFamily: "var(--font-mono)" }}
@@ -74,20 +160,22 @@ export function GetInvolvedTiers() {
 
                 {/* Tiers Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                    {tiers.map((tier) => {
+                    {tiers.map((tier, i) => {
                         const Icon = tier.icon;
                         return (
                             <div
                                 key={tier.name}
-                                className={`rounded-[2rem] p-8 transition-all duration-300 hover:translate-y-[-4px] ${tier.highlighted
-                                        ? "bg-[var(--color-moss)] text-[var(--color-cream)] ring-2 ring-[var(--color-clay)] scale-[1.02]"
-                                        : "card"
+                                ref={(el) => { cardsRef.current[i] = el; }}
+                                className={`rounded-[2rem] p-8 transition-all duration-500 hover:translate-y-[-6px] ${tier.highlighted
+                                    ? "bg-[var(--color-moss)] text-[var(--color-cream)] ring-2 ring-[var(--color-clay)] scale-[1.02] shadow-2xl"
+                                    : "card"
                                     }`}
                             >
                                 <div
+                                    data-tier-icon
                                     className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${tier.highlighted
-                                            ? "bg-[var(--color-clay)]"
-                                            : "bg-[var(--color-moss)]/10"
+                                        ? "bg-[var(--color-clay)]"
+                                        : "bg-[var(--color-moss)]/10"
                                         }`}
                                 >
                                     <Icon
@@ -109,8 +197,8 @@ export function GetInvolvedTiers() {
 
                                 <p
                                     className={`text-sm mb-6 ${tier.highlighted
-                                            ? "text-[var(--color-cream)]/70"
-                                            : "text-[var(--color-muted)]"
+                                        ? "text-[var(--color-cream)]/70"
+                                        : "text-[var(--color-muted)]"
                                         }`}
                                 >
                                     {tier.description}
@@ -120,15 +208,16 @@ export function GetInvolvedTiers() {
                                     {tier.features.map((feature) => (
                                         <li
                                             key={feature}
+                                            data-feature
                                             className={`flex items-start gap-2 text-sm ${tier.highlighted
-                                                    ? "text-[var(--color-cream)]/80"
-                                                    : "text-[var(--color-charcoal)]/70"
+                                                ? "text-[var(--color-cream)]/80"
+                                                : "text-[var(--color-charcoal)]/70"
                                                 }`}
                                         >
                                             <span
                                                 className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${tier.highlighted
-                                                        ? "bg-[var(--color-clay)]"
-                                                        : "bg-[var(--color-moss)]/40"
+                                                    ? "bg-[var(--color-clay)]"
+                                                    : "bg-[var(--color-moss)]/40"
                                                     }`}
                                             />
                                             {feature}

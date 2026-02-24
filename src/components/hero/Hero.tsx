@@ -4,33 +4,67 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function Hero() {
     const sectionRef = useRef<HTMLElement>(null);
-    const headingRef = useRef<HTMLDivElement>(null);
-    const ctaRef = useRef<HTMLDivElement>(null);
+    const bgRef = useRef<HTMLDivElement>(null);
+    const particlesRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline({ delay: 0.3 });
+            // ─── Ken Burns zoom ───
+            if (bgRef.current) {
+                gsap.fromTo(
+                    bgRef.current,
+                    { scale: 1.0 },
+                    {
+                        scale: 1.15,
+                        duration: 20,
+                        ease: "none",
+                        repeat: -1,
+                        yoyo: true,
+                    }
+                );
+            }
+
+            // ─── Parallax on scroll ───
+            if (bgRef.current) {
+                gsap.to(bgRef.current, {
+                    yPercent: 25,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+
+            // ─── Staggered text reveal ───
+            const tl = gsap.timeline({ delay: 0.4 });
 
             tl.from("[data-hero-line]", {
-                y: 40,
+                y: 50,
                 opacity: 0,
-                duration: 1,
+                duration: 1.1,
                 ease: "power3.out",
-                stagger: 0.08,
+                stagger: 0.1,
             })
                 .from(
                     "[data-hero-cta]",
                     {
                         y: 30,
                         opacity: 0,
+                        scale: 0.95,
                         duration: 0.8,
-                        ease: "power3.out",
-                        stagger: 0.1,
+                        ease: "back.out(1.4)",
+                        stagger: 0.12,
                     },
-                    "-=0.4"
+                    "-=0.5"
                 )
                 .from(
                     "[data-hero-scroll]",
@@ -42,6 +76,43 @@ export function Hero() {
                     },
                     "-=0.3"
                 );
+
+            // ─── Floating particles ───
+            if (particlesRef.current) {
+                const dots = particlesRef.current.children;
+                gsap.fromTo(
+                    dots,
+                    { opacity: 0, scale: 0 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 1.5,
+                        ease: "power2.out",
+                        stagger: 0.15,
+                        delay: 0.8,
+                    }
+                );
+                Array.from(dots).forEach((dot, i) => {
+                    gsap.to(dot, {
+                        y: `random(-40, 40)`,
+                        x: `random(-20, 20)`,
+                        duration: `random(4, 8)`,
+                        ease: "sine.inOut",
+                        repeat: -1,
+                        yoyo: true,
+                        delay: i * 0.3,
+                    });
+                });
+            }
+
+            // ─── Gradient overlay subtle pulse ───
+            gsap.to("[data-hero-gradient]", {
+                opacity: 0.85,
+                duration: 4,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true,
+            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -52,20 +123,44 @@ export function Hero() {
             ref={sectionRef}
             className="relative h-dvh w-full flex items-end overflow-hidden"
         >
-            {/* Background Image */}
+            {/* Background Image with Ken Burns */}
             <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                ref={bgRef}
+                className="absolute inset-[-10%] bg-cover bg-center bg-no-repeat will-change-transform"
                 style={{
                     backgroundImage: `url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80&auto=format')`,
                 }}
             />
 
-            {/* Gradient Overlay — moss to black */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/70 to-[var(--color-moss)]/30" />
+            {/* Gradient Overlay */}
+            <div
+                data-hero-gradient
+                className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/70 to-[var(--color-moss)]/30"
+            />
+
+            {/* Floating Particles */}
+            <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden">
+                {Array.from({ length: 8 }).map((_, i) => (
+                    <div
+                        key={i}
+                        className="absolute rounded-full"
+                        style={{
+                            width: `${6 + Math.random() * 10}px`,
+                            height: `${6 + Math.random() * 10}px`,
+                            top: `${15 + Math.random() * 60}%`,
+                            left: `${10 + Math.random() * 80}%`,
+                            background: i % 2 === 0
+                                ? "rgba(204, 88, 51, 0.15)"
+                                : "rgba(242, 240, 233, 0.08)",
+                            opacity: 0,
+                        }}
+                    />
+                ))}
+            </div>
 
             {/* Content — pinned to bottom-left */}
             <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pb-16 md:pb-24">
-                <div ref={headingRef} className="max-w-3xl">
+                <div className="max-w-3xl">
                     {/* Subheading */}
                     <p
                         data-hero-line
@@ -75,7 +170,7 @@ export function Hero() {
                         30+ Years · 600+ Communities · Free Healthcare
                     </p>
 
-                    {/* Main Headline — Preset A pattern */}
+                    {/* Main Headline */}
                     <h1 className="mb-6">
                         <span
                             data-hero-line
@@ -104,7 +199,7 @@ export function Hero() {
                     </p>
 
                     {/* CTAs */}
-                    <div ref={ctaRef} className="flex flex-wrap items-center gap-4">
+                    <div className="flex flex-wrap items-center gap-4">
                         <Link href="/get-involved" className="btn btn-primary" data-hero-cta>
                             <span className="btn-text">Support Our Mission</span>
                         </Link>

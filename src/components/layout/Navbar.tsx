@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import gsap from "gsap";
 
 const navLinks = [
     { label: "About", href: "/about" },
@@ -17,6 +18,7 @@ export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const navRef = useRef<HTMLElement>(null);
+    const prevScrolled = useRef(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -26,7 +28,48 @@ export function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Close mobile menu on route change (resize)
+    // GSAP morph on scroll state change
+    useEffect(() => {
+        if (!navRef.current) return;
+        if (scrolled === prevScrolled.current) return;
+        prevScrolled.current = scrolled;
+
+        if (scrolled) {
+            gsap.to(navRef.current, {
+                backgroundColor: "rgba(242, 240, 233, 0.6)",
+                backdropFilter: "blur(20px)",
+                borderColor: "rgba(46, 64, 54, 0.1)",
+                boxShadow: "0 8px 32px rgba(26, 26, 26, 0.08)",
+                width: "min(85vw, 1000px)",
+                duration: 0.5,
+                ease: "power2.out",
+            });
+        } else {
+            gsap.to(navRef.current, {
+                backgroundColor: "rgba(0, 0, 0, 0)",
+                backdropFilter: "blur(0px)",
+                borderColor: "rgba(0, 0, 0, 0)",
+                boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+                width: "min(90vw, 1100px)",
+                duration: 0.5,
+                ease: "power2.out",
+            });
+        }
+    }, [scrolled]);
+
+    // Entrance animation
+    useEffect(() => {
+        if (!navRef.current) return;
+        gsap.from(navRef.current, {
+            y: -30,
+            opacity: 0,
+            duration: 0.8,
+            delay: 0.6,
+            ease: "power3.out",
+        });
+    }, []);
+
+    // Close mobile menu on resize
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) setMobileOpen(false);
@@ -39,18 +82,16 @@ export function Navbar() {
         <>
             <nav
                 ref={navRef}
-                className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 px-6 py-3 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${scrolled
-                        ? "bg-[var(--color-cream)]/60 backdrop-blur-xl border border-[var(--color-moss)]/10 shadow-lg rounded-full"
-                        : "bg-transparent rounded-full"
-                    }`}
+                className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 px-6 py-3 rounded-full border border-transparent"
                 style={{
                     width: "min(90vw, 1100px)",
+                    willChange: "background-color, width, box-shadow",
                 }}
             >
                 {/* Logo */}
                 <Link
                     href="/"
-                    className={`font-[var(--font-heading)] font-extrabold text-xl tracking-tight transition-colors duration-500 no-underline ${scrolled ? "text-[var(--color-moss)]" : "text-[var(--color-cream)]"
+                    className={`font-extrabold text-xl tracking-tight transition-colors duration-500 no-underline ${scrolled ? "text-[var(--color-moss)]" : "text-[var(--color-cream)]"
                         }`}
                     style={{ fontFamily: "var(--font-heading)" }}
                 >
@@ -64,8 +105,8 @@ export function Navbar() {
                             key={link.href}
                             href={link.href}
                             className={`px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 no-underline hover:translate-y-[-1px] ${scrolled
-                                    ? "text-[var(--color-charcoal)] hover:bg-[var(--color-moss)]/5"
-                                    : "text-[var(--color-cream)]/80 hover:text-[var(--color-cream)]"
+                                ? "text-[var(--color-charcoal)] hover:bg-[var(--color-moss)]/5"
+                                : "text-[var(--color-cream)]/80 hover:text-[var(--color-cream)]"
                                 }`}
                             style={{ fontFamily: "var(--font-heading)" }}
                         >
@@ -84,9 +125,9 @@ export function Navbar() {
                         <span className="btn-text">Donate</span>
                     </Link>
                     <button
-                        className={`md:hidden p-2 rounded-full transition-colors ${scrolled
-                                ? "text-[var(--color-moss)]"
-                                : "text-[var(--color-cream)]"
+                        className={`md:hidden p-2 rounded-full transition-colors cursor-pointer ${scrolled
+                            ? "text-[var(--color-moss)]"
+                            : "text-[var(--color-cream)]"
                             }`}
                         onClick={() => setMobileOpen(!mobileOpen)}
                         aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -99,8 +140,8 @@ export function Navbar() {
             {/* Mobile Menu Overlay */}
             <div
                 className={`fixed inset-0 z-40 bg-[var(--color-charcoal)]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 transition-all duration-500 ${mobileOpen
-                        ? "opacity-100 pointer-events-auto"
-                        : "opacity-0 pointer-events-none"
+                    ? "opacity-100 pointer-events-auto"
+                    : "opacity-0 pointer-events-none"
                     }`}
             >
                 {navLinks.map((link, i) => (
