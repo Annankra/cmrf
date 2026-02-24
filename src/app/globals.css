@@ -1,26 +1,319 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ================================================================
+   CMRF — Organic Tech (Preset A) Design Tokens
+   ================================================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Core Palette */
+  --color-moss: #2E4036;
+  --color-moss-light: #3B5247;
+  --color-moss-dark: #1E2D24;
+  --color-clay: #CC5833;
+  --color-clay-light: #E0714F;
+  --color-clay-dark: #A84528;
+  --color-cream: #F2F0E9;
+  --color-cream-dark: #E5E2D8;
+  --color-charcoal: #1A1A1A;
+  --color-charcoal-light: #2A2A2A;
+  --color-ivory: #FAF9F6;
+
+  /* Semantic Aliases */
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-charcoal);
+  --color-primary: var(--color-moss);
+  --color-accent: var(--color-clay);
+  --color-surface: var(--color-ivory);
+  --color-muted: #8A8A7A;
+
+  /* Typography */
+  --font-heading: "Plus Jakarta Sans", "Outfit", sans-serif;
+  --font-drama: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Spacing & Radius */
+  --radius-card: 2rem;
+  --radius-pill: 9999px;
+  --radius-section: 3rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ================================================================
+   Global Base Styles
+   ================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-clay);
+  color: white;
+}
+
+/* ================================================================
+   Typography System
+   ================================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.font-drama {
+  font-family: var(--font-drama);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ================================================================
+   Noise Overlay — Global SVG feTurbulence at 0.05 opacity
+   ================================================================ */
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+}
+
+/* ================================================================
+   Button System — Magnetic hover with sliding background
+   ================================================================ */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: none;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--color-clay);
+  color: white;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 30px rgba(204, 88, 51, 0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-moss);
+  border: 1.5px solid var(--color-moss);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-moss);
+  color: white;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-cream);
+  border: 1.5px solid rgba(242, 240, 233, 0.3);
+}
+
+.btn-ghost:hover {
+  background-color: rgba(242, 240, 233, 0.1);
+  border-color: rgba(242, 240, 233, 0.6);
+}
+
+/* Sliding background span */
+.btn .btn-bg {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.btn:hover .btn-bg {
+  transform: translateY(0);
+}
+
+.btn .btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================================================
+   Card System — rounded-[2rem] with subtle shadows
+   ================================================================ */
+
+.card {
+  background-color: var(--color-ivory);
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(46, 64, 54, 0.08);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card:hover {
+  box-shadow: 0 20px 60px rgba(26, 26, 26, 0.08);
+}
+
+.card-dark {
+  background-color: var(--color-charcoal-light);
+  border-color: rgba(242, 240, 233, 0.06);
+  color: var(--color-cream);
+}
+
+/* ================================================================
+   Interactive Links — translateY(-1px) lift on hover
+   ================================================================ */
+
+a {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+a:hover {
+  transform: translateY(-1px);
+}
+
+/* ================================================================
+   Section Utilities
+   ================================================================ */
+
+.section {
+  padding: 6rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 8rem 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section {
+    padding: 10rem 4rem;
+  }
+}
+
+.section-dark {
+  background-color: var(--color-charcoal);
+  color: var(--color-cream);
+}
+
+.container-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ================================================================
+   Scrollbar Styling
+   ================================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-moss);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-moss-light);
+}
+
+/* ================================================================
+   Reduced Motion Support
+   ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ================================================================
+   Utility Animations
+   ================================================================ */
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes typing-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor {
+  animation: typing-cursor 0.8s step-end infinite;
 }
