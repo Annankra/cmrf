@@ -1,12 +1,15 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
+import Link from "next/link";
+import { getAlbums, getMediaUrl } from "@/lib/payload";
 
-// Placeholder data — will come from CMS
-const albums = [
+export const metadata: Metadata = {
+    title: "Gallery",
+    description:
+        "Photo gallery from CMRF medical missions, community outreach, and outreaches across Ghana and Africa.",
+};
+
+// Fallback data when CMS has no entries
+const fallbackAlbums = [
     {
         slug: "medical-outreach",
         title: "Medical Outreach",
@@ -57,7 +60,24 @@ const albums = [
     },
 ];
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+    const cmsAlbums = await getAlbums();
+
+    // Use CMS data if available, otherwise fallback
+    const albums =
+        cmsAlbums.length > 0
+            ? cmsAlbums.map((a) => ({
+                slug: a.slug,
+                title: a.title,
+                description: a.description,
+                year: a.year,
+                coverImage:
+                    getMediaUrl(a.coverImage) ||
+                    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80&auto=format",
+                imageCount: a.galleryImages?.length || 0,
+            }))
+            : fallbackAlbums;
+
     return (
         <>
             {/* Hero */}

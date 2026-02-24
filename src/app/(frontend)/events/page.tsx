@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { getEvents, getMediaUrl } from "@/lib/payload";
 
 export const metadata: Metadata = {
     title: "Events",
@@ -8,8 +9,8 @@ export const metadata: Metadata = {
         "Upcoming CMRF medical outreaches, mission trips, and community events across Ghana and Africa.",
 };
 
-// Placeholder events — will come from CMS in production
-const upcomingEvents = [
+// Fallback data when CMS has no entries yet
+const fallbackUpcoming = [
     {
         id: "1",
         slug: "tamale-outreach-2025",
@@ -48,22 +49,52 @@ const upcomingEvents = [
     },
 ];
 
-const pastEvents = [
-    {
-        title: "2024 Year-End Medical Outreach",
-        date: "December 2024",
-        location: "Multiple Communities, Ghana",
-        impact: "5,800+ consultations",
-    },
-    {
-        title: "Kpando Medical Mission 2022",
-        date: "2022",
-        location: "Kpando, Volta Region",
-        impact: "1,200+ patients served",
-    },
-];
+// Helper to safely format dates from either ISO strings or legacy text formats
+function formatDate(dateString: string): string {
+    // Legacy fallback string support
+    if (!dateString) return "";
+    if (dateString.includes(" – ") || dateString.includes("202")) {
+        // Simple heuristic: if it contains an en-dash or year string, and isn't a pure ISO, leave it as is.
+        // But let's just try to parse it. If it's valid ISO, format it.
+        const d = new Date(dateString);
+        if (!isNaN(d.getTime()) && dateString.includes("-")) {
+            return new Intl.DateTimeFormat("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+            }).format(d);
+        }
+        return dateString;
+    }
+    return dateString;
+}
 
-export default function EventsPage() {
+export default async function EventsPage() {
+    const cmsEvents = await getEvents();
+
+    // Use CMS data if available, otherwise fall back to placeholders
+    const events =
+        cmsEvents.length > 0
+            ? cmsEvents.map((e) => ({
+                id: String(e.id),
+                slug: e.slug,
+                title: e.title,
+                description: e.description,
+                date: e.startDate && e.endDate && e.startDate !== e.endDate
+                    ? `${formatDate(e.startDate)} – ${formatDate(e.endDate)}`
+                    : formatDate(e.startDate || ""),
+                location: e.location,
+                category: e.category,
+                featured: e.featured ?? false,
+                image:
+                    getMediaUrl(e.image) ||
+                    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format",
+            }))
+            : fallbackUpcoming;
+
+    // Sort: featured first
+    const sorted = [...events].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
     return (
         <>
             {/* Hero */}
@@ -114,7 +145,7 @@ export default function EventsPage() {
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl">
-                        {upcomingEvents.map((event, i) => (
+                        {sorted.map((event, i) => (
                             <div
                                 key={event.id}
                                 className={`card overflow-hidden ${i === 0 ? "lg:col-span-2" : ""}`}
@@ -159,56 +190,6 @@ export default function EventsPage() {
                                         </Link>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Past Events Archive */}
-            <section className="section bg-[var(--color-ivory)]">
-                <div className="container-main px-6 md:px-12 max-w-5xl">
-                    <p
-                        className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                    >
-                        Archive
-                    </p>
-                    <h2
-                        className="text-2xl font-bold text-[var(--color-charcoal)] mb-8"
-                        style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                        Past{" "}
-                        <span className="font-drama text-[var(--color-clay)]">events.</span>
-                    </h2>
-                    <div className="space-y-4">
-                        {pastEvents.map((event) => (
-                            <div
-                                key={event.title}
-                                className="card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                            >
-                                <div>
-                                    <h3
-                                        className="text-base font-bold text-[var(--color-charcoal)]"
-                                        style={{ fontFamily: "var(--font-heading)" }}
-                                    >
-                                        {event.title}
-                                    </h3>
-                                    <div className="flex flex-wrap gap-3 mt-1 text-xs text-[var(--color-muted)]">
-                                        <span className="flex items-center gap-1">
-                                            <Calendar size={10} /> {event.date}
-                                        </span>
-                                        <span className="flex items-center gap-1">
-                                            <MapPin size={10} /> {event.location}
-                                        </span>
-                                    </div>
-                                </div>
-                                <span
-                                    className="text-sm font-semibold text-[var(--color-moss)] whitespace-nowrap"
-                                    style={{ fontFamily: "var(--font-mono)" }}
-                                >
-                                    {event.impact}
-                                </span>
                             </div>
                         ))}
                     </div>
