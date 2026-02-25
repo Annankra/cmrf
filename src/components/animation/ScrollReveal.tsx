@@ -45,7 +45,7 @@ export function ScrollReveal({
         const fromVars = animationConfigs[animation];
 
         const ctx = gsap.context(() => {
-            gsap.from(targets, {
+            const vars: gsap.TweenVars = {
                 ...fromVars,
                 duration,
                 delay,
@@ -55,9 +55,14 @@ export function ScrollReveal({
                     trigger: el,
                     start: threshold,
                     once: true,
-                },
-                clearProps: animation === "blur-in" ? "filter" : undefined,
-            });
+                }
+            };
+
+            if (animation === "blur-in") {
+                vars.clearProps = "filter";
+            }
+
+            gsap.from(targets, vars);
         }, el);
 
         return () => ctx.revert();

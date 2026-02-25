@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero/Hero";
+import { WhoWeAre } from "@/components/sections/WhoWeAre";
 import { ServicesCarousel } from "@/components/features/ServicesCarousel";
 import { Philosophy } from "@/components/philosophy/Philosophy";
 import { StickyStacker } from "@/components/protocol/StickyStacker";
@@ -11,6 +12,9 @@ export default function Home() {
         <>
             {/* A. Hero — "The Opening Shot" */}
             <Hero />
+
+            {/* B. Who We Are */}
+            <WhoWeAre />
 
             {/* C. Features — "Interactive Functional Artifacts" / Services Carousel */}
             <section className="section bg-[var(--color-cream)]">
