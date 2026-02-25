@@ -8,15 +8,29 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const HERO_IMAGES = [
+    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80&auto=format", // Kids smiling
+    "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1920&q=80&auto=format", // Medical outreach
+    "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920&q=80&auto=format", // Healthcare professional
+    "https://images.unsplash.com/photo-1593113580332-ceb4b88d227f?w=1920&q=80&auto=format", // Humanitarian aid
+    "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=1920&q=80&auto=format", // Doctor and child
+    "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80&auto=format"  // Hands holding
+];
+
 export function Hero() {
     const sectionRef = useRef<HTMLElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const particlesRef = useRef<HTMLDivElement>(null);
 
+    const [bgImage, setBgImage] = useState<string>(HERO_IMAGES[0]);
     const [particles, setParticles] = useState<Array<{ width: string, height: string, top: string, left: string, background: string }>>([]);
 
-    // Generate random particles only on the client
+    // Generate random particles and select random background only on the client
     useEffect(() => {
+        // Randomly select one of the 6 images
+        const randomImageIndex = Math.floor(Math.random() * HERO_IMAGES.length);
+        setBgImage(HERO_IMAGES[randomImageIndex]);
+
         const generatedParticles = Array.from({ length: 8 }).map((_, i) => ({
             width: `${6 + Math.random() * 10}px`,
             height: `${6 + Math.random() * 10}px`,
@@ -132,7 +146,7 @@ export function Hero() {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, [particles]);
+    }, [particles, bgImage]);
 
     return (
         <section
@@ -144,7 +158,7 @@ export function Hero() {
                 ref={bgRef}
                 className="absolute inset-[-10%] bg-cover bg-center bg-no-repeat will-change-transform"
                 style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80&auto=format')`,
+                    backgroundImage: `url('${bgImage}')`,
                 }}
             />
 

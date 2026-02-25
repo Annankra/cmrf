@@ -1,6 +1,7 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -31,4 +32,13 @@ export default buildConfig({
     typescript: {
         outputFile: path.resolve(dirname, 'payload-types.ts'),
     },
+    plugins: [
+        vercelBlobStorage({
+            collections: {
+                media: true
+            },
+            // The token is pulled automatically from process.env.BLOB_READ_WRITE_TOKEN by default
+            token: process.env.BLOB_READ_WRITE_TOKEN,
+        }),
+    ],
 })
