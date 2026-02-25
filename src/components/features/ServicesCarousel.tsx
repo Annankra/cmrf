@@ -88,7 +88,10 @@ export function ServicesCarousel() {
     useEffect(() => {
         gsap.set(slideRefs.current, { zIndex: 1, clipPath: "inset(0 0 0 100%)" });
         gsap.set(slideRefs.current[0], { zIndex: 2, clipPath: "inset(0 0 0 0%)" });
-        gsap.set(slideRefs.current[0]?.querySelector('.slide-img'), { scale: 1 });
+        const imgEl = slideRefs.current[0]?.querySelector('.slide-img');
+        if (imgEl) {
+            gsap.set(imgEl, { scale: 1 });
+        }
     }, []);
 
     // Text Animate IN
@@ -235,7 +238,7 @@ export function ServicesCarousel() {
                         className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-[var(--color-charcoal)] m-0 flex flex-wrap"
                         style={{ fontFamily: "var(--font-heading)" }}
                     >
-                        {services[currentIndex].title.split(" ").map((word, i, arr) => (
+                        {services[currentIndex]?.title?.split(" ").map((word, i, arr) => (
                             <span key={`${currentIndex}-${i}`} className="inline-flex items-center">
                                 <span className="inline-block overflow-hidden pb-1 -mb-1">
                                     <span className="stagger-word inline-block translate-y-[110%] opacity-0 tracking-tight text-[var(--color-charcoal)]">

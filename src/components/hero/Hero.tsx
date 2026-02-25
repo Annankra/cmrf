@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import gsap from "gsap";
@@ -12,6 +12,22 @@ export function Hero() {
     const sectionRef = useRef<HTMLElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const particlesRef = useRef<HTMLDivElement>(null);
+
+    const [particles, setParticles] = useState<Array<{ width: string, height: string, top: string, left: string, background: string }>>([]);
+
+    // Generate random particles only on the client
+    useEffect(() => {
+        const generatedParticles = Array.from({ length: 8 }).map((_, i) => ({
+            width: `${6 + Math.random() * 10}px`,
+            height: `${6 + Math.random() * 10}px`,
+            top: `${15 + Math.random() * 60}%`,
+            left: `${10 + Math.random() * 80}%`,
+            background: i % 2 === 0
+                ? "rgba(204, 88, 51, 0.15)"
+                : "rgba(242, 240, 233, 0.08)",
+        }));
+        setParticles(generatedParticles);
+    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -78,7 +94,7 @@ export function Hero() {
                 );
 
             // ─── Floating particles ───
-            if (particlesRef.current) {
+            if (particlesRef.current && particlesRef.current.children.length > 0) {
                 const dots = particlesRef.current.children;
                 gsap.fromTo(
                     dots,
@@ -116,14 +132,14 @@ export function Hero() {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, []);
+    }, [particles]);
 
     return (
         <section
             ref={sectionRef}
             className="relative h-dvh w-full flex items-end overflow-hidden"
         >
-            {/* Background Image with Ken Burns */}
+            {/* Background Image */}
             <div
                 ref={bgRef}
                 className="absolute inset-[-10%] bg-cover bg-center bg-no-repeat will-change-transform"
@@ -140,28 +156,21 @@ export function Hero() {
 
             {/* Floating Particles */}
             <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden">
-                {Array.from({ length: 8 }).map((_, i) => (
+                {particles.map((style, i) => (
                     <div
                         key={i}
                         className="absolute rounded-full"
                         style={{
-                            width: `${6 + Math.random() * 10}px`,
-                            height: `${6 + Math.random() * 10}px`,
-                            top: `${15 + Math.random() * 60}%`,
-                            left: `${10 + Math.random() * 80}%`,
-                            background: i % 2 === 0
-                                ? "rgba(204, 88, 51, 0.15)"
-                                : "rgba(242, 240, 233, 0.08)",
+                            ...style,
                             opacity: 0,
                         }}
                     />
                 ))}
             </div>
 
-            {/* Content — pinned to bottom-left */}
+            {/* Content */}
             <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pb-16 md:pb-24">
                 <div className="max-w-3xl">
-                    {/* Subheading */}
                     <p
                         data-hero-line
                         className="text-[var(--color-cream)]/60 text-sm md:text-base uppercase tracking-[0.2em] mb-4"
@@ -170,7 +179,6 @@ export function Hero() {
                         30+ Years · 600+ Communities · Free Healthcare
                     </p>
 
-                    {/* Main Headline */}
                     <h1 className="mb-6">
                         <span
                             data-hero-line
@@ -187,18 +195,16 @@ export function Hero() {
                         </span>
                     </h1>
 
-                    {/* Sub-description */}
                     <p
                         data-hero-line
                         className="text-[var(--color-cream)]/70 text-base md:text-lg max-w-xl leading-relaxed mb-8"
                         style={{ fontFamily: "var(--font-body)" }}
                     >
                         CMRF mobilizes Christians and resources worldwide to bring free
-                        medical care, hope, and God&apos;s love to underserved communities
+                        medical care, hope, and God's love to underserved communities
                         across Ghana and Africa.
                     </p>
 
-                    {/* CTAs */}
                     <div className="flex flex-wrap items-center gap-4">
                         <Link href="/get-involved" className="btn btn-primary" data-hero-cta>
                             <span className="btn-text">Support Our Mission</span>
