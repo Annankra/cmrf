@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
+import ContactForm from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
     title: "Contact",
@@ -51,69 +52,8 @@ export default function ContactPage() {
                                     message.
                                 </span>
                             </h2>
-                            <form className="space-y-5">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <div>
-                                        <label
-                                            className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                            style={{ fontFamily: "var(--font-heading)" }}
-                                        >
-                                            Full Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            required
-                                            className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-ivory)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all"
-                                            placeholder="Your name"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label
-                                            className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                            style={{ fontFamily: "var(--font-heading)" }}
-                                        >
-                                            Email Address
-                                        </label>
-                                        <input
-                                            type="email"
-                                            required
-                                            className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-ivory)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all"
-                                            placeholder="your@email.com"
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label
-                                        className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                        style={{ fontFamily: "var(--font-heading)" }}
-                                    >
-                                        Subject
-                                    </label>
-                                    <input
-                                        type="text"
-                                        required
-                                        className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-ivory)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all"
-                                        placeholder="What is this about?"
-                                    />
-                                </div>
-                                <div>
-                                    <label
-                                        className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                        style={{ fontFamily: "var(--font-heading)" }}
-                                    >
-                                        Message
-                                    </label>
-                                    <textarea
-                                        rows={5}
-                                        required
-                                        className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-ivory)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all resize-none"
-                                        placeholder="Your message..."
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary">
-                                    <span className="btn-text">Send Message</span>
-                                </button>
-                            </form>
+                            <ContactForm />
+
                         </div>
 
                         {/* Contact Info */}
