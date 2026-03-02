@@ -28,6 +28,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata = {
+    metadataBase: new URL("https://www.cmrfgh.com"),
     title: {
         default: "CMRF — Christian Medical Missions Resource Foundation",
         template: "%s | CMRF",

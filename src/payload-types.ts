@@ -72,6 +72,9 @@ export interface Config {
     events: Event;
     posts: Post;
     albums: Album;
+    donations: Donation;
+    subscribers: Subscriber;
+    volunteers: Volunteer;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +87,9 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     albums: AlbumsSelect<false> | AlbumsSelect<true>;
+    donations: DonationsSelect<false> | DonationsSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    volunteers: VolunteersSelect<false> | VolunteersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -295,6 +301,50 @@ export interface Album {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donations".
+ */
+export interface Donation {
+  id: number;
+  donorName?: string | null;
+  donorEmail?: string | null;
+  /**
+   * Donation amount in cents (e.g. 2500 = $25.00)
+   */
+  amount: number;
+  currency?: string | null;
+  status: 'pending' | 'completed' | 'failed';
+  stripeSessionId?: string | null;
+  stripePaymentIntentId?: string | null;
+  receiptSent?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: number;
+  email: string;
+  source: 'newsletter' | 'prayer';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "volunteers".
+ */
+export interface Volunteer {
+  id: number;
+  name: string;
+  email: string;
+  area: 'medical' | 'dental' | 'optical' | 'counselling' | 'logistics' | 'photography' | 'other';
+  message?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -336,6 +386,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'albums';
         value: number | Album;
+      } | null)
+    | ({
+        relationTo: 'donations';
+        value: number | Donation;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: number | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'volunteers';
+        value: number | Volunteer;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -510,6 +572,44 @@ export interface AlbumsSelect<T extends boolean = true> {
         caption?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donations_select".
+ */
+export interface DonationsSelect<T extends boolean = true> {
+  donorName?: T;
+  donorEmail?: T;
+  amount?: T;
+  currency?: T;
+  status?: T;
+  stripeSessionId?: T;
+  stripePaymentIntentId?: T;
+  receiptSent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "volunteers_select".
+ */
+export interface VolunteersSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  area?: T;
+  message?: T;
   updatedAt?: T;
   createdAt?: T;
 }

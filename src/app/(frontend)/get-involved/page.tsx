@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Heart, Globe, HandHeart, ExternalLink } from "lucide-react";
+import { Heart, Globe, HandHeart } from "lucide-react";
+import VolunteerForm from "@/components/forms/VolunteerForm";
+import NewsletterForm from "@/components/forms/NewsletterForm";
 
 export const metadata: Metadata = {
     title: "Get Involved",
@@ -63,16 +65,12 @@ export default function GetInvolvedPage() {
                         </p>
                     </div>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a
-                            href="#"
+                        <Link
+                            href="/donate"
                             className="btn btn-primary text-lg px-8"
-                            target="_blank"
-                            rel="noopener noreferrer"
                         >
-                            <span className="btn-text flex items-center gap-2">
-                                Donate Now <ExternalLink size={16} />
-                            </span>
-                        </a>
+                            <span className="btn-text">Donate Now</span>
+                        </Link>
                         <a
                             href="mailto:cmmrf@usa.com"
                             className="btn btn-secondary"
@@ -104,74 +102,7 @@ export default function GetInvolvedPage() {
                             offer, we welcome volunteers to join our next mission deployment.
                         </p>
                     </div>
-
-                    <form className="card p-8 space-y-5">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            <div>
-                                <label
-                                    className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                    style={{ fontFamily: "var(--font-heading)" }}
-                                >
-                                    Full Name
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-cream)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all"
-                                    placeholder="Your name"
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                    style={{ fontFamily: "var(--font-heading)" }}
-                                >
-                                    Email Address
-                                </label>
-                                <input
-                                    type="email"
-                                    required
-                                    className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-cream)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all"
-                                    placeholder="your@email.com"
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <label
-                                className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                style={{ fontFamily: "var(--font-heading)" }}
-                            >
-                                Area of Interest
-                            </label>
-                            <select
-                                className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-cream)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all"
-                            >
-                                <option>Medical (Doctor / Nurse)</option>
-                                <option>Dental</option>
-                                <option>Optical / Eye Care</option>
-                                <option>Counselling</option>
-                                <option>Logistics & Administration</option>
-                                <option>Photography / Media</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label
-                                className="block text-sm font-medium text-[var(--color-charcoal)] mb-1.5"
-                                style={{ fontFamily: "var(--font-heading)" }}
-                            >
-                                Message
-                            </label>
-                            <textarea
-                                rows={4}
-                                className="w-full px-4 py-3 rounded-xl border border-[var(--color-moss)]/10 bg-[var(--color-cream)] text-[var(--color-charcoal)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/30 transition-all resize-none"
-                                placeholder="Tell us about yourself and how you'd like to contribute..."
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary w-full">
-                            <span className="btn-text">Submit Interest</span>
-                        </button>
-                    </form>
+                    <VolunteerForm />
                 </div>
             </section>
 
@@ -195,17 +126,7 @@ export default function GetInvolvedPage() {
                         monthly prayer guides, mission field updates, and be part of our
                         global intercession community.
                     </p>
-                    <form className="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
-                        <input
-                            type="email"
-                            placeholder="Your email address"
-                            required
-                            className="w-full px-5 py-3.5 rounded-full bg-[var(--color-cream)]/10 border border-[var(--color-cream)]/10 text-[var(--color-cream)] placeholder:text-[var(--color-cream)]/30 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/50 transition-all"
-                        />
-                        <button type="submit" className="btn btn-primary whitespace-nowrap">
-                            <span className="btn-text">Join</span>
-                        </button>
-                    </form>
+                    <NewsletterForm source="prayer" variant="dark" />
                 </div>
             </section>
         </>

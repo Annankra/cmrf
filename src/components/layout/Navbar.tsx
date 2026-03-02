@@ -118,7 +118,7 @@ export function Navbar() {
                 {/* CTA + Mobile Trigger */}
                 <div className="flex items-center gap-3">
                     <Link
-                        href="/get-involved"
+                        href="/donate"
                         className={`hidden md:inline-flex btn text-sm py-2 px-5 ${scrolled ? "btn-primary" : "btn-ghost"
                             }`}
                     >
@@ -159,7 +159,7 @@ export function Navbar() {
                     </Link>
                 ))}
                 <Link
-                    href="/get-involved"
+                    href="/donate"
                     onClick={() => setMobileOpen(false)}
                     className="btn btn-primary mt-6 text-lg"
                 >

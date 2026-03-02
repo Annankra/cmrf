@@ -6,6 +6,7 @@ import { StickyStacker } from "@/components/protocol/StickyStacker";
 import { ImpactMetrics } from "@/components/ui/ImpactMetrics";
 import { GetInvolvedTiers } from "@/components/sections/GetInvolvedTiers";
 import { ScrollReveal } from "@/components/animation/ScrollReveal";
+import NewsletterForm from "@/components/forms/NewsletterForm";
 
 export default function Home() {
     return (
@@ -108,17 +109,7 @@ export default function Home() {
                         </div>
                     </ScrollReveal>
                     <ScrollReveal animation="fade-up" delay={0.2}>
-                        <form className="flex flex-col sm:flex-row items-center gap-3 max-w-lg mx-auto">
-                            <input
-                                type="email"
-                                placeholder="Your email address"
-                                className="w-full px-5 py-3.5 rounded-full bg-[var(--color-cream)]/10 border border-[var(--color-cream)]/10 text-[var(--color-cream)] placeholder:text-[var(--color-cream)]/30 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-clay)]/50 transition-all"
-                                style={{ fontFamily: "var(--font-body)" }}
-                            />
-                            <button type="submit" className="btn btn-primary whitespace-nowrap">
-                                <span className="btn-text">Subscribe</span>
-                            </button>
-                        </form>
+                        <NewsletterForm source="newsletter" variant="dark" />
                     </ScrollReveal>
                 </div>
             </section>

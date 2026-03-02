@@ -10,6 +10,9 @@ import { Media } from './collections/Media.ts'
 import { Events } from './collections/Events.ts'
 import { Posts } from './collections/Posts.ts'
 import { Albums } from './collections/Albums.ts'
+import { Donations } from './collections/Donations.ts'
+import { Subscribers } from './collections/Subscribers.ts'
+import { Volunteers } from './collections/Volunteers.ts'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,7 +24,7 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
     },
-    collections: [Users, Media, Events, Posts, Albums],
+    collections: [Users, Media, Events, Posts, Albums, Donations, Subscribers, Volunteers],
     editor: lexicalEditor({}),
     db: postgresAdapter({
         pool: {
