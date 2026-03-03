@@ -42,6 +42,8 @@ export default buildConfig({
             },
             // The token is pulled automatically from process.env.BLOB_READ_WRITE_TOKEN by default
             token: process.env.BLOB_READ_WRITE_TOKEN,
+            // Client-side uploads bypass Vercel's 4.5MB serverless function limit
+            clientUploads: true,
         }),
     ],
 })
