@@ -289,6 +289,10 @@ export interface Album {
   year: string;
   coverImage: number | Media;
   description: string;
+  /**
+   * Select multiple images here, then save. They will be added to the Gallery Images below automatically.
+   */
+  bulkImages?: (number | Media)[] | null;
   galleryImages?:
     | {
         image: number | Media;
@@ -565,6 +569,7 @@ export interface AlbumsSelect<T extends boolean = true> {
   year?: T;
   coverImage?: T;
   description?: T;
+  bulkImages?: T;
   galleryImages?:
     | T
     | {

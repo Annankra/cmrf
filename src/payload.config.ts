@@ -31,6 +31,7 @@ export default buildConfig({
         pool: {
             connectionString: process.env.DATABASE_URI || '',
         },
+        push: true, // Force schema push in production to avoid migration build failures
     }),
     secret: process.env.PAYLOAD_SECRET || 'fallback-secret-for-dev',
     typescript: {
