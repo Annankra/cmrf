@@ -4,6 +4,8 @@ import { getAlbumBySlug, getMediaUrl, getMediaAlt } from "@/lib/payload";
 import { AlbumGalleryClient } from "@/components/gallery/AlbumGalleryClient";
 import type { GalleryImage } from "@/components/gallery/FullscreenViewer";
 
+export const dynamic = 'force-dynamic';
+
 type PageProps = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

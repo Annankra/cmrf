@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAlbums, getMediaUrl } from "@/lib/payload";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "Gallery",
     description:
@@ -119,10 +121,10 @@ export default async function GalleryPage() {
                                 <div className="relative overflow-hidden">
                                     <div
                                         className={`bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105 ${i % 3 === 0
-                                                ? "h-72"
-                                                : i % 3 === 1
-                                                    ? "h-56"
-                                                    : "h-64"
+                                            ? "h-72"
+                                            : i % 3 === 1
+                                                ? "h-56"
+                                                : "h-64"
                                             }`}
                                         style={{ backgroundImage: `url('${album.coverImage}')` }}
                                     />
