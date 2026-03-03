@@ -11,16 +11,18 @@ export const Albums: CollectionConfig = {
     hooks: {
         beforeChange: [
             ({ data }) => {
-                // Auto-merge bulk-uploaded images into the galleryImages array
-                if (data?.bulkImages && Array.isArray(data.bulkImages) && data.bulkImages.length > 0) {
+                // Auto-merge the single helper image into the galleryImages array
+                if (data?.bulkImage) {
                     const existing = Array.isArray(data.galleryImages) ? data.galleryImages : []
-                    const newEntries = data.bulkImages.map((mediaId: string) => ({
-                        image: mediaId,
-                        caption: '',
-                    }))
-                    data.galleryImages = [...existing, ...newEntries]
-                    // Clear the bulk field so it doesn't persist
-                    data.bulkImages = []
+                    data.galleryImages = [
+                        ...existing,
+                        {
+                            image: data.bulkImage,
+                            caption: '',
+                        },
+                    ]
+                    // Clear the helper field so it doesn't persist
+                    data.bulkImage = null
                 }
                 return data
             },
@@ -60,14 +62,13 @@ export const Albums: CollectionConfig = {
             type: 'textarea',
             required: true,
         },
-        // Bulk upload field — select multiple images at once, they auto-merge into Gallery Images on save
+        // Helper field — select a single image here, then save. It will be added to the Gallery Images below automatically.
         {
-            name: 'bulkImages',
+            name: 'bulkImage',
             type: 'upload',
             relationTo: 'media',
-            hasMany: true,
             admin: {
-                description: 'Select multiple images here, then save. They will be added to the Gallery Images below automatically.',
+                description: 'Select an image here, then save. It will be added to the Gallery Images array below, and this field will reset for the next image.',
             },
         },
         {
