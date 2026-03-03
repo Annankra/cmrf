@@ -20,8 +20,7 @@ export async function GET() {
 
     // Test 2: Try to upload a tiny test file
     try {
-        const testContent = new Uint8Array([137, 80, 78, 71]) // PNG header bytes
-        const blob = await put('_test_diagnostic.txt', testContent, {
+        const blob = await put('_test_diagnostic.txt', 'hello', {
             access: 'public',
             token: process.env.BLOB_READ_WRITE_TOKEN,
         })
