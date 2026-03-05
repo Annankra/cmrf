@@ -75,8 +75,8 @@ function MagneticSelection({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             className={`relative group overflow-hidden py-6 rounded-[1.5rem] border transition-all duration-500 cursor-pointer ${isSelected
-                    ? "bg-[var(--color-clay)] border-[var(--color-clay)] shadow-2xl shadow-[var(--color-clay)]/20 text-white"
-                    : "bg-[var(--color-cream-dark)]/10 border-[var(--color-moss)]/10 text-[var(--color-charcoal)] hover:border-[var(--color-clay)]/40"
+                ? "bg-[var(--color-clay)] border-[var(--color-clay)] shadow-2xl shadow-[var(--color-clay)]/20 text-white"
+                : "bg-[var(--color-cream-dark)]/10 border-[var(--color-moss)]/10 text-[var(--color-charcoal)] hover:border-[var(--color-clay)]/40"
                 }`}
         >
             <span
@@ -306,8 +306,8 @@ export default function DonatePage() {
                                                 setCustomAmount(e.target.value);
                                                 setSelectedCents(0);
                                             }}
-                                            placeholder="Enter amount..."
-                                            className="w-full bg-[var(--color-cream-dark)]/10 border-2 border-transparent focus:border-[var(--color-clay)]/20 rounded-[2rem] py-6 px-12 text-3xl font-bold text-[var(--color-charcoal)] transition-all outline-none"
+                                            placeholder="Amount..."
+                                            className="w-full bg-[var(--color-cream-dark)]/10 border-2 border-transparent focus:border-[var(--color-clay)]/20 rounded-[2rem] py-5 md:py-6 pl-14 pr-6 md:px-12 text-2xl md:text-3xl font-bold text-[var(--color-charcoal)] transition-all outline-none placeholder:text-charcoal/20"
                                             style={{ fontFamily: "var(--font-heading)" }}
                                         />
                                     </div>
