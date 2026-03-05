@@ -89,6 +89,7 @@ export function FullscreenViewer({
     const [barsVisible, setBarsVisible] = useState(true);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [canFullscreen, setCanFullscreen] = useState(false);
 
     const overlayRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
@@ -100,9 +101,12 @@ export function FullscreenViewer({
 
     const SLIDE_DURATION = 8000;
 
-    // 1. Lifecycle: Body Scroll Lock
-    useLayoutEffect(() => {
+    // 1. Lifecycle: // Set mounted for portal
+    useEffect(() => {
         setMounted(true);
+        setCanFullscreen(!!document.fullscreenEnabled);
+
+        // Disable scroll
         const originalStyle = window.getComputedStyle(document.body).overflow;
         document.body.style.overflow = "hidden";
         return () => {
@@ -344,10 +348,21 @@ export function FullscreenViewer({
                 </div>
 
                 <div className="flex gap-2">
-                    <MagneticButton onClick={toggleFullscreen} className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/30 backdrop-blur-xl text-white/50 hover:text-white border border-white/10">
-                        {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-                    </MagneticButton>
-                    <MagneticButton onClick={handleClose} className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/30 backdrop-blur-xl text-white/50 hover:text-red-400 border border-white/10">
+                    {canFullscreen && (
+                        <MagneticButton
+                            onClick={toggleFullscreen}
+                            className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl text-white/50 hover:text-white"
+                            ariaLabel="Toggle Fullscreen"
+                        >
+                            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+                        </MagneticButton>
+                    )}
+
+                    <MagneticButton
+                        onClick={handleClose}
+                        className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl text-white/50 hover:text-red-400"
+                        ariaLabel="Close Viewer"
+                    >
                         <X size={18} />
                     </MagneticButton>
                 </div>
