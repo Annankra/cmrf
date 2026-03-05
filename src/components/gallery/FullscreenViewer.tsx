@@ -333,8 +333,8 @@ export function FullscreenViewer({
             </div>
 
             {/* ─── UI: Header ─── */}
-            <div className={`absolute top-0 left-0 right-0 z-50 p-4 md:p-8 flex justify-between items-start transition-all duration-700 ${barsVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"}`}>
-                <div className="flex flex-col gap-1 md:gap-2 max-w-[65%]">
+            <div className={`absolute top-0 left-0 right-0 z-50 p-6 pt-12 md:p-8 flex justify-between items-start transition-all duration-700 ${barsVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"}`}>
+                <div className="flex flex-col gap-1 md:gap-2 max-w-[60%]">
                     <h3 className="text-[var(--color-cream)] text-[10px] md:text-lg font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase font-mono bg-black/40 backdrop-blur-md px-4 md:px-6 py-1.5 md:py-2 rounded-full border border-white/10 truncate">
                         {albumTitle}
                     </h3>
@@ -354,14 +354,14 @@ export function FullscreenViewer({
             </div>
 
             {/* ─── UI: Navigation ─── */}
-            <div className={`fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 transition-all duration-700 hidden sm:block ${barsVisible ? "opacity-100" : "opacity-0 translate-x-[-20px]"}`}>
-                <MagneticButton onClick={goPrev} className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-black/20 backdrop-blur-xl text-cream/70 border border-white/10">
-                    <ChevronLeft size={28} strokeWidth={1} />
+            <div className={`fixed left-2 md:left-8 top-1/2 -translate-y-1/2 z-50 transition-all duration-700 ${barsVisible ? "opacity-100" : "opacity-0 translate-x-[-20px]"}`}>
+                <MagneticButton onClick={goPrev} className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-black/20 backdrop-blur-xl text-cream/70 border border-white/10">
+                    <ChevronLeft size={20} className="sm:w-7 sm:h-7" strokeWidth={1} />
                 </MagneticButton>
             </div>
-            <div className={`fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 transition-all duration-700 hidden sm:block ${barsVisible ? "opacity-100" : "opacity-0 translate-x-[20px]"}`}>
-                <MagneticButton onClick={goNext} className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-black/20 backdrop-blur-xl text-cream/70 border border-white/10">
-                    <ChevronRight size={28} strokeWidth={1} />
+            <div className={`fixed right-2 md:right-8 top-1/2 -translate-y-1/2 z-50 transition-all duration-700 ${barsVisible ? "opacity-100" : "opacity-0 translate-x-[20px]"}`}>
+                <MagneticButton onClick={goNext} className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-black/20 backdrop-blur-xl text-cream/70 border border-white/10">
+                    <ChevronRight size={20} className="sm:w-7 sm:h-7" strokeWidth={1} />
                 </MagneticButton>
             </div>
 
