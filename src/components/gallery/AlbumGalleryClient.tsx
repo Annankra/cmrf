@@ -26,34 +26,34 @@ export function AlbumGalleryClient({ images, albumTitle }: AlbumGalleryClientPro
 
     return (
         <>
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {images.map((img, i) => (
                     <button
                         key={i}
                         onClick={() => setViewerIndex(i)}
-                        className="break-inside-avoid relative overflow-hidden group rounded-[1rem] sm:rounded-[2rem] shadow-sm block w-full text-left cursor-pointer border-none bg-transparent p-0"
+                        className="group relative w-full aspect-square sm:aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-[var(--color-charcoal)]/5 block text-left outline-none cursor-pointer will-change-transform shadow-sm hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] transition-shadow duration-[0.8s]"
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={img.url}
                             alt={img.alt}
-                            className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.05]"
                         />
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-[var(--color-charcoal)]/0 group-hover:bg-[var(--color-charcoal)]/30 transition-colors duration-500 flex items-center justify-center">
-                            <span
-                                className="text-[var(--color-cream)] text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm"
-                                style={{ fontFamily: "var(--font-heading)" }}
-                            >
-                                View →
-                            </span>
+
+                        {/* Soft Vignette/Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)]/90 via-[var(--color-charcoal)]/20 to-[var(--color-charcoal)]/10 opacity-60 group-hover:opacity-80 transition-opacity duration-700 mix-blend-multiply" />
+
+                        {/* Hover overlay with modern expand icon micro-interaction */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-14 h-14 rounded-full bg-[var(--color-cream)]/90 backdrop-blur-md text-[var(--color-charcoal)] flex items-center justify-center translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-lg">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+                            </div>
                         </div>
+
+                        {/* Elegant Caption Overlay */}
                         {img.caption && (
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[var(--color-charcoal)]/90 to-transparent p-6 pt-12 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                <p
-                                    className="text-[var(--color-cream)] text-sm"
-                                    style={{ fontFamily: "var(--font-heading)" }}
-                                >
+                            <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
+                                <p className="text-[var(--color-cream)] text-sm md:text-base font-medium leading-relaxed drop-shadow-md line-clamp-2">
                                     {img.caption}
                                 </p>
                             </div>

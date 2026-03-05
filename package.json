@@ -20,6 +20,8 @@
     "@payloadcms/storage-vercel-blob": "^3.77.0",
     "@stripe/stripe-js": "^8.8.0",
     "@supabase/supabase-js": "^2.97.0",
+    "@use-gesture/react": "^10.3.1",
+    "fast-average-color": "^9.5.0",
     "graphql": "^16.13.0",
     "gsap": "^3.14.2",
     "lucide-react": "^0.575.0",

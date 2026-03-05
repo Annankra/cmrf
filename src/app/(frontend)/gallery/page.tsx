@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getAlbums, getMediaUrl } from "@/lib/payload";
 
 export const dynamic = 'force-dynamic';
@@ -111,57 +112,47 @@ export default async function GalleryPage() {
             {/* Albums Grid */}
             <section className="section bg-[var(--color-cream)]">
                 <div className="container-main px-6 md:px-12">
-                    <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                        {albums.map((album, i) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {albums.map((album) => (
                             <Link
                                 key={album.slug}
                                 href={`/gallery/${album.slug}`}
-                                className="card block break-inside-avoid overflow-hidden group no-underline"
+                                className="block group no-underline h-full"
                             >
-                                <div className="relative overflow-hidden">
-                                    <div
-                                        className={`bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105 ${i % 3 === 0
-                                            ? "h-72"
-                                            : i % 3 === 1
-                                                ? "h-56"
-                                                : "h-64"
-                                            }`}
-                                        style={{ backgroundImage: `url('${album.coverImage}')` }}
-                                    />
-                                    {/* Overlay on hover */}
-                                    <div className="absolute inset-0 bg-[var(--color-charcoal)]/0 group-hover:bg-[var(--color-charcoal)]/40 transition-colors duration-500 flex items-center justify-center">
-                                        <span
-                                            className="text-[var(--color-cream)] text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                            style={{ fontFamily: "var(--font-heading)" }}
-                                        >
-                                            View Album →
-                                        </span>
+                                <div className="relative rounded-[2.5rem] overflow-hidden bg-[var(--color-cream)] border border-[var(--color-charcoal)]/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 will-change-transform hover:-translate-y-1">
+                                    {/* Image Container */}
+                                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-[var(--color-charcoal)]/5">
+                                        <div
+                                            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.03]"
+                                            style={{ backgroundImage: `url('${album.coverImage}')` }}
+                                        />
+                                        {/* Elegant Top Badge */}
+                                        <div className="absolute top-6 left-6 bg-[var(--color-cream)]/90 backdrop-blur-md text-[var(--color-charcoal)] text-[10px] px-4 py-2 rounded-full uppercase tracking-widest font-mono shadow-sm border border-white/20 transition-transform duration-500 group-hover:-translate-y-1">
+                                            {album.imageCount} {album.imageCount === 1 ? 'Photo' : 'Photos'}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="p-5">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <h3
-                                            className="text-base font-bold text-[var(--color-charcoal)]"
-                                            style={{ fontFamily: "var(--font-heading)" }}
-                                        >
+
+                                    {/* Content Container */}
+                                    <div className="p-8 relative bg-[var(--color-cream)]">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <span className="text-xs font-mono text-[var(--color-clay)] tracking-[0.25em] uppercase">
+                                                {album.year}
+                                            </span>
+
+                                            {/* Arrow Interaction */}
+                                            <div className="w-10 h-10 rounded-full bg-[var(--color-charcoal)] flex items-center justify-center text-[var(--color-cream)] -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
+                                                <ArrowRight className="w-5 h-5" />
+                                            </div>
+                                        </div>
+
+                                        <h3 className="text-2xl lg:text-3xl font-bold text-[var(--color-charcoal)] font-heading mb-4 pr-4 group-hover:text-[var(--color-clay)] transition-colors duration-300">
                                             {album.title}
                                         </h3>
-                                        <span
-                                            className="text-xs text-[var(--color-muted)]"
-                                            style={{ fontFamily: "var(--font-mono)" }}
-                                        >
-                                            {album.year}
-                                        </span>
+
+                                        <p className="text-base text-[var(--color-charcoal)]/60 line-clamp-2 leading-relaxed font-light">
+                                            {album.description || "Explore the gallery narrative and moments captured during our events."}
+                                        </p>
                                     </div>
-                                    <p className="text-sm text-[var(--color-muted)]">
-                                        {album.description}
-                                    </p>
-                                    <span
-                                        className="text-xs text-[var(--color-clay)] mt-2 block"
-                                        style={{ fontFamily: "var(--font-mono)" }}
-                                    >
-                                        {album.imageCount} photos
-                                    </span>
                                 </div>
                             </Link>
                         ))}
