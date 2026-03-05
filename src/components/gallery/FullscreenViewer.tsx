@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { X, ChevronLeft, ChevronRight, Play, Pause, Maximize, Minimize } from "lucide-react";
 import gsap from "gsap";
 
@@ -87,6 +88,7 @@ export function FullscreenViewer({
     const [isPlaying, setIsPlaying] = useState(true);
     const [barsVisible, setBarsVisible] = useState(true);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     const overlayRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
@@ -97,6 +99,17 @@ export function FullscreenViewer({
     const kenBurnsRef = useRef<gsap.core.Timeline | null>(null);
 
     const SLIDE_DURATION = 8000; // 8s for cinematic experience
+
+    // Set mounted for portal
+    useEffect(() => {
+        setMounted(true);
+        // Disable scroll
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = originalStyle;
+        };
+    }, []);
 
     // ---------------------------------------------------------------
     // Ken Burns Effect
@@ -323,9 +336,11 @@ export function FullscreenViewer({
         return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
     }, []);
 
+    if (!mounted) return null;
+
     const current = images[currentIndex];
 
-    return (
+    return createPortal(
         <div
             ref={overlayRef}
             className="fixed inset-0 z-[99999] bg-[var(--color-charcoal)] overflow-hidden select-none"
@@ -360,96 +375,96 @@ export function FullscreenViewer({
 
             {/* ─── Navigation: Top Header ─── */}
             <div
-                className={`absolute top-0 left-0 right-0 z-40 p-8 flex justify-between items-start transition-all duration-1000 ease-out ${barsVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
+                className={`absolute top-0 left-0 right-0 z-40 p-4 md:p-8 flex justify-between items-start transition-all duration-1000 ease-out ${barsVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
                     }`}
             >
-                <div className="flex flex-col gap-2">
-                    <h3 className="text-[var(--color-cream)] text-sm md:text-lg font-bold tracking-[0.3em] uppercase font-mono bg-black/20 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 shadow-2xl">
+                <div className="flex flex-col gap-1 md:gap-2 max-w-[65%]">
+                    <h3 className="text-[var(--color-cream)] text-[10px] md:text-lg font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase font-mono bg-black/40 backdrop-blur-md px-4 md:px-6 py-1.5 md:py-2 rounded-full border border-white/10 shadow-2xl truncate">
                         {albumTitle}
                     </h3>
-                    <p className="text-[var(--color-clay)] text-[10px] md:text-xs uppercase tracking-[0.4em] ml-6 font-bold">
-                        Archive No. 00{currentIndex + 1}
+                    <p className="text-[var(--color-clay)] text-[8px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.4em] ml-4 md:ml-6 font-bold">
+                        Archive No. {(currentIndex + 1).toString().padStart(3, '0')}
                     </p>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-2 md:gap-4">
                     <MagneticButton
                         onClick={toggleFullscreen}
-                        className="w-12 h-12 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl text-white/50 hover:text-white"
+                        className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl text-white/50 hover:text-white"
                         ariaLabel="Toggle Fullscreen"
                     >
-                        {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
+                        {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
                     </MagneticButton>
 
                     <MagneticButton
                         onClick={handleClose}
-                        className="w-12 h-12 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl text-white/50 hover:text-red-400"
+                        className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl text-white/50 hover:text-red-400"
                         ariaLabel="Close Viewer"
                     >
-                        <X size={20} />
+                        <X size={18} />
                     </MagneticButton>
                 </div>
             </div>
 
             {/* ─── Side Navigation ─── */}
             <div
-                className={`fixed left-8 top-1/2 -translate-y-1/2 z-40 transition-all duration-700 ${barsVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+                className={`fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 transition-all duration-700 hidden sm:block ${barsVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
                     }`}
             >
                 <MagneticButton
                     onClick={goPrev}
-                    className="w-16 h-16 rounded-full border border-white/10 bg-black/20 backdrop-blur-xl text-[var(--color-cream)]/70 hover:text-[var(--color-cream)]"
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-white/10 bg-black/20 backdrop-blur-xl text-[var(--color-cream)]/70 hover:text-[var(--color-cream)]"
                 >
-                    <ChevronLeft size={32} strokeWidth={1} />
+                    <ChevronLeft size={28} strokeWidth={1} />
                 </MagneticButton>
             </div>
 
             <div
-                className={`fixed right-8 top-1/2 -translate-y-1/2 z-40 transition-all duration-700 ${barsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
+                className={`fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 transition-all duration-700 hidden sm:block ${barsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
                     }`}
             >
                 <MagneticButton
                     onClick={goNext}
-                    className="w-16 h-16 rounded-full border border-white/10 bg-black/20 backdrop-blur-xl text-[var(--color-cream)]/70 hover:text-[var(--color-cream)]"
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-white/10 bg-black/20 backdrop-blur-xl text-[var(--color-cream)]/70 hover:text-[var(--color-cream)]"
                 >
-                    <ChevronRight size={32} strokeWidth={1} />
+                    <ChevronRight size={28} strokeWidth={1} />
                 </MagneticButton>
             </div>
 
             {/* ─── Bottom Console ─── */}
             <div
-                className={`absolute bottom-0 left-0 right-0 z-40 p-10 flex flex-col items-center gap-8 transition-all duration-1000 ease-out ${barsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                className={`absolute bottom-0 left-0 right-0 z-40 p-4 md:p-10 flex flex-col items-center gap-4 md:gap-8 transition-all duration-1000 ease-out ${barsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
                     }`}
             >
                 {/* Caption Mask */}
                 {current.caption && (
-                    <div className="overflow-hidden">
-                        <p className="text-[var(--color-cream)] text-lg md:text-3xl font-drama italic text-center leading-relaxed drop-shadow-2xl max-w-4xl px-6">
+                    <div className="overflow-hidden px-4">
+                        <p className="text-[var(--color-cream)] text-sm md:text-3xl font-drama italic text-center leading-relaxed drop-shadow-2xl max-w-4xl">
                             "{current.caption}"
                         </p>
                     </div>
                 )}
 
                 {/* Main Control Dock */}
-                <div className="bg-black/30 backdrop-blur-3xl border border-white/10 p-3 rounded-full flex items-center gap-6 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
+                <div className="bg-black/30 backdrop-blur-3xl border border-white/10 p-2 md:p-3 rounded-full flex items-center gap-4 md:gap-6 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
                     <MagneticButton
                         onClick={() => setIsPlaying((p) => !p)}
-                        className="w-14 h-14 rounded-full bg-[var(--color-clay)] text-white shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[var(--color-clay)] text-white shadow-lg"
                     >
-                        {isPlaying ? <Pause size={24} className="fill-current" /> : <Play size={24} className="fill-current ml-1" />}
+                        {isPlaying ? <Pause size={20} className="fill-current" /> : <Play size={20} className="fill-current ml-1" />}
                     </MagneticButton>
 
-                    <div className="w-[1px] h-8 bg-white/20" />
+                    <div className="w-[1px] h-6 md:h-8 bg-white/20" />
 
-                    <div className="flex gap-4 pr-6 pl-2 items-center">
-                        <span className="text-[var(--color-cream)]/40 font-mono text-xs tracking-widest uppercase">
+                    <div className="flex gap-2 md:gap-4 pr-4 md:pr-6 pl-1 md:pl-2 items-center">
+                        <span className="text-[var(--color-cream)]/40 font-mono text-[8px] md:text-xs tracking-widest uppercase">
                             Index
                         </span>
                         <div className="flex items-baseline gap-1">
-                            <span className="text-[var(--color-clay)] font-bold text-2xl font-mono tabular-nums">
+                            <span className="text-[var(--color-clay)] font-bold text-lg md:text-2xl font-mono tabular-nums">
                                 {(currentIndex + 1).toString().padStart(2, '0')}
                             </span>
-                            <span className="text-white/20 font-mono text-sm">
+                            <span className="text-white/20 font-mono text-[10px] md:text-sm">
                                 / {images.length.toString().padStart(2, '0')}
                             </span>
                         </div>
@@ -457,7 +472,7 @@ export function FullscreenViewer({
                 </div>
 
                 {/* Thumb Strip */}
-                <div className="flex gap-3 px-4 py-2 overflow-x-auto max-w-[90vw] scrollbar-hide snap-x">
+                <div className="flex gap-2 md:gap-3 px-4 py-2 overflow-x-auto max-w-[95vw] scrollbar-hide snap-x">
                     {images.map((img, i) => (
                         <button
                             key={i}
@@ -465,7 +480,7 @@ export function FullscreenViewer({
                                 const dir = i > currentIndex ? "left" : "right";
                                 goTo(i, dir);
                             }}
-                            className={`flex-shrink-0 w-20 h-10 md:w-28 md:h-14 rounded-lg overflow-hidden transition-all duration-700 snap-center border-2 ${i === currentIndex
+                            className={`flex-shrink-0 w-16 h-8 md:w-28 md:h-14 rounded-lg overflow-hidden transition-all duration-700 snap-center border-2 ${i === currentIndex
                                 ? "border-[var(--color-clay)] scale-110 shadow-2xl"
                                 : "border-transparent opacity-30 grayscale hover:grayscale-0 hover:opacity-100"
                                 }`}
@@ -475,6 +490,7 @@ export function FullscreenViewer({
                     ))}
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
