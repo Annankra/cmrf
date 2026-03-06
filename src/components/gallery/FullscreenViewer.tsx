@@ -232,7 +232,7 @@ export function FullscreenViewer({
     }, [mounted, startKenBurns]);
 
     useEffect(() => {
-        if (!isPlaying || !progressRef.current) return;
+        if (!mounted || !isPlaying || !progressRef.current) return;
 
         gsap.set(progressRef.current, { scaleX: 0 });
         gsap.to(progressRef.current, {
@@ -247,7 +247,7 @@ export function FullscreenViewer({
             if (autoPlayRef.current) clearInterval(autoPlayRef.current);
             if (progressRef.current) gsap.killTweensOf(progressRef.current);
         };
-    }, [isPlaying, currentIndex, goNext]);
+    }, [mounted, isPlaying, currentIndex, goNext]);
 
     // ---------------------------------------------------------------
     // UI Logic
