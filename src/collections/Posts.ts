@@ -56,7 +56,6 @@ export const Posts: CollectionConfig = {
             name: 'image',
             type: 'upload',
             relationTo: 'media',
-            required: true,
         },
         {
             name: 'excerpt',
@@ -71,6 +70,14 @@ export const Posts: CollectionConfig = {
             type: 'richText',
             admin: {
                 description: 'Full rich text blog content.',
+            },
+        },
+        {
+            name: 'legacyUrl',
+            type: 'text',
+            admin: {
+                position: 'sidebar',
+                description: 'Original Squarespace URL (for reference/redirects).',
             },
         },
     ],

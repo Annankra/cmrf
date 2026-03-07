@@ -252,7 +252,7 @@ export interface Post {
       }[]
     | null;
   featured?: boolean | null;
-  image: number | Media;
+  image?: (number | null) | Media;
   /**
    * Short summary for the blog card grid.
    */
@@ -275,6 +275,10 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Original Squarespace URL (for reference/redirects).
+   */
+  legacyUrl?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -555,6 +559,7 @@ export interface PostsSelect<T extends boolean = true> {
   image?: T;
   excerpt?: T;
   content?: T;
+  legacyUrl?: T;
   updatedAt?: T;
   createdAt?: T;
 }

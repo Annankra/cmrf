@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         notFound();
     }
 
-    const coverImageUrl = getMediaUrl(post.image) || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80&auto=format";
+    const coverImageUrl = getMediaUrl(post.image) || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80&auto=format";  // fallback for legacy posts without hero images
     const tags = post.tags?.map((t) => t.tag || "").filter(Boolean) || [];
 
     return (

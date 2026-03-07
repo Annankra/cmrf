@@ -38,7 +38,7 @@ export async function getPosts(): Promise<Post[]> {
     const result = await payload.find({
         collection: 'posts',
         sort: '-date',
-        limit: 50,
+        limit: 100,
         depth: 1,
     })
     return result.docs
