@@ -10,7 +10,7 @@ import NewsletterForm from "@/components/forms/NewsletterForm";
 
 export default function Home() {
     return (
-        <>
+        <div className="bg-[var(--color-charcoal)] min-h-screen text-[var(--color-cream)]">
             {/* A. Hero — "The Opening Shot" */}
             <Hero />
 
@@ -18,11 +18,11 @@ export default function Home() {
             <WhoWeAre />
 
             {/* C. Features — "Interactive Functional Artifacts" / Services Carousel */}
-            <section className="section bg-[var(--color-cream)]">
+            <section className="section">
                 <div className="container-main px-6 md:px-12">
                     <ScrollReveal animation="fade-up">
                         <div className="text-center mb-16">
-                            <div className="section-divider" />
+                            <div className="section-divider bg-white/10" />
                             <p
                                 className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
                                 style={{ fontFamily: "var(--font-mono)" }}
@@ -30,11 +30,11 @@ export default function Home() {
                                 What We Do
                             </p>
                             <h2
-                                className="text-3xl md:text-5xl font-bold text-[var(--color-charcoal)]"
+                                className="text-3xl md:text-5xl font-bold text-white"
                                 style={{ fontFamily: "var(--font-heading)" }}
                             >
                                 Service in{" "}
-                                <span className="font-drama text-[var(--color-clay)]">
+                                <span className="font-drama text-[var(--color-clay)] italic pr-2">
                                     action.
                                 </span>
                             </h2>
@@ -56,8 +56,8 @@ export default function Home() {
             {/* E. Protocol — "Sticky Stacking Archive" */}
             <section>
                 <ScrollReveal animation="fade-up">
-                    <div className="text-center py-16 bg-[var(--color-cream)]">
-                        <div className="section-divider" />
+                    <div className="text-center py-16">
+                        <div className="section-divider bg-white/10" />
                         <p
                             className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
                             style={{ fontFamily: "var(--font-mono)" }}
@@ -65,11 +65,11 @@ export default function Home() {
                             Our Process
                         </p>
                         <h2
-                            className="text-3xl md:text-5xl font-bold text-[var(--color-charcoal)]"
+                            className="text-3xl md:text-5xl font-bold text-white"
                             style={{ fontFamily: "var(--font-heading)" }}
                         >
                             How we{" "}
-                            <span className="font-drama text-[var(--color-clay)]">
+                            <span className="font-drama text-[var(--color-clay)] italic pr-2">
                                 deliver hope.
                             </span>
                         </h2>
@@ -86,7 +86,7 @@ export default function Home() {
                 <div className="container-main px-6 md:px-12 text-center">
                     <ScrollReveal animation="fade-up">
                         <div>
-                            <div className="section-divider" />
+                            <div className="section-divider bg-white/10" />
                             <p
                                 className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
                                 style={{ fontFamily: "var(--font-mono)" }}
@@ -98,7 +98,7 @@ export default function Home() {
                                 style={{ fontFamily: "var(--font-heading)" }}
                             >
                                 Join our{" "}
-                                <span className="font-drama text-[var(--color-clay)]">
+                                <span className="font-drama text-[var(--color-clay)] italic pr-2">
                                     newsletter.
                                 </span>
                             </h2>
@@ -113,6 +113,7 @@ export default function Home() {
                     </ScrollReveal>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
+

@@ -85,7 +85,7 @@ export function ImpactMetrics() {
     return (
         <section
             ref={sectionRef}
-            className="section bg-[var(--color-moss)] overflow-hidden"
+            className="section bg-transparent border-y border-white/5 py-24 overflow-hidden"
         >
             <div className="container-main px-6 md:px-12">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
@@ -96,8 +96,8 @@ export function ImpactMetrics() {
                             className="text-center"
                         >
                             <div
-                                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-cream)] mb-2"
-                                style={{ fontFamily: "var(--font-heading)" }}
+                                className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4"
+                                style={{ fontFamily: "var(--font-mono)" }}
                             >
                                 <AnimatedNumber
                                     value={metric.value}
@@ -105,12 +105,15 @@ export function ImpactMetrics() {
                                     trigger={triggered}
                                 />
                             </div>
-                            <p
-                                className="text-[var(--color-cream)]/50 text-xs md:text-sm uppercase tracking-widest"
-                                style={{ fontFamily: "var(--font-mono)" }}
-                            >
-                                {metric.label}
-                            </p>
+                            <div className="flex items-center justify-center gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-clay)] animate-pulse-dot" style={{ animationDelay: `${i * 0.2}s` }} />
+                                <p
+                                    className="text-[var(--color-clay)] text-xs md:text-sm uppercase tracking-widest font-semibold"
+                                    style={{ fontFamily: "var(--font-mono)" }}
+                                >
+                                    {metric.label}
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>

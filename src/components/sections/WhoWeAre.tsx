@@ -47,7 +47,7 @@ export function WhoWeAre() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="section bg-[var(--color-cream)] relative overflow-hidden">
+        <section ref={sectionRef} className="section relative overflow-hidden">
             {/* Background Decoration */}
             <div className="absolute top-0 right-0 -mr-[20%] -mt-[10%] w-[60%] h-[100%] rounded-full bg-[var(--color-moss)]/5 blur-3xl pointer-events-none" />
 
@@ -58,17 +58,17 @@ export function WhoWeAre() {
                     <div className="order-2 lg:order-1 flex justify-center lg:justify-end">
                         <div
                             ref={imageRef}
-                            className="relative w-full max-w-lg aspect-square flex items-center justify-center p-8"
+                            className="relative w-full max-w-lg aspect-square flex items-center justify-center p-8 bg-[var(--color-charcoal-light)]/30 backdrop-blur-md rounded-[3rem] border border-white/5 shadow-2xl"
                         >
                             {/* Glowing accent behind the logo */}
-                            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-[var(--color-clay)]/10 !via-[var(--color-moss)]/5 to-transparent -z-10 blur-2xl opacity-60" />
+                            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-[var(--color-clay)]/20 !via-[var(--color-moss)]/10 to-transparent -z-10 blur-2xl opacity-60" />
 
                             <div className="relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96">
                                 <Image
                                     src="/cmrflog.webp"
                                     alt="CMMRF Logo - Christian Medical Missions Resource Foundation"
                                     fill
-                                    className="object-contain drop-shadow-2xl"
+                                    className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
                                     priority
                                 />
                             </div>
@@ -86,21 +86,21 @@ export function WhoWeAre() {
                                 Who We Are
                             </p>
                             <h2
-                                className="text-3xl md:text-5xl font-bold text-[var(--color-charcoal)] leading-tight mb-8"
+                                className="text-3xl md:text-5xl font-bold text-white leading-tight mb-8"
                                 style={{ fontFamily: "var(--font-heading)" }}
                             >
                                 Mobilizing Human and Material Resources{" "}
-                                <span className="font-drama text-[var(--color-clay)] block mt-2">
+                                <span className="font-drama text-[var(--color-clay)] italic block mt-2 pr-4">
                                     Worldwide.
                                 </span>
                             </h2>
                         </div>
 
                         <div
-                            className="space-y-6 text-[var(--color-charcoal-light)]/80 text-base md:text-lg leading-relaxed"
+                            className="space-y-6 text-white/70 text-base md:text-lg leading-relaxed"
                             style={{ fontFamily: "var(--font-body)" }}
                         >
-                            <p className="font-medium text-[var(--color-charcoal)]">
+                            <p className="font-medium text-white/90">
                                 CMRF - CMMRF (Christian Medical Missions Resource Foundation) exists to show God’s Love through Words and Actions.
                             </p>
 
@@ -114,15 +114,15 @@ export function WhoWeAre() {
                         </div>
 
                         <div className="mt-10 flex flex-wrap gap-4">
-                            <div className="flex items-center gap-3 bg-[var(--color-ivory)] px-5 py-3 rounded-full border border-[var(--color-moss)]/10 shadow-sm">
+                            <div className="flex items-center gap-3 bg-[var(--color-charcoal-light)] px-5 py-3 rounded-[1rem] border border-white/5 shadow-sm transform transition-transform duration-300 hover:-translate-y-1">
                                 <div className="w-2 h-2 rounded-full bg-[var(--color-clay)] animate-pulse-dot" />
-                                <span className="text-sm font-semibold text-[var(--color-charcoal)]" style={{ fontFamily: "var(--font-mono)" }}>
+                                <span className="text-xs tracking-widest uppercase font-semibold text-white/90" style={{ fontFamily: "var(--font-mono)" }}>
                                     Est. 1991
                                 </span>
                             </div>
-                            <div className="flex items-center gap-3 bg-[var(--color-ivory)] px-5 py-3 rounded-full border border-[var(--color-moss)]/10 shadow-sm">
+                            <div className="flex items-center gap-3 bg-[var(--color-charcoal-light)] px-5 py-3 rounded-[1rem] border border-white/5 shadow-sm transform transition-transform duration-300 hover:-translate-y-1">
                                 <div className="w-2 h-2 rounded-full bg-[var(--color-moss)] animate-pulse-dot" style={{ animationDelay: "1s" }} />
-                                <span className="text-sm font-semibold text-[var(--color-charcoal)]" style={{ fontFamily: "var(--font-mono)" }}>
+                                <span className="text-xs tracking-widest uppercase font-semibold text-white/90" style={{ fontFamily: "var(--font-mono)" }}>
                                     10 Outreaches / Year
                                 </span>
                             </div>

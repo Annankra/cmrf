@@ -270,36 +270,43 @@ export function StickyStacker() {
                     <div
                         key={step.step}
                         ref={(el) => { cardRefs.current[i] = el; }}
-                        className="h-screen w-full flex items-center justify-center px-4 md:px-8"
-                        style={{
-                            backgroundColor:
-                                i % 2 === 0 ? "var(--color-cream)" : "var(--color-ivory)",
-                        }}
+                        className="h-screen w-full flex items-center justify-center px-4 md:px-8 bg-transparent"
                     >
                         <div
-                            className="card w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden"
-                            style={{ minHeight: "400px" }}
+                            className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] bg-[var(--color-charcoal-light)]/40 backdrop-blur-md border border-white/10 shadow-2xl"
+                            style={{ minHeight: "450px" }}
                         >
                             {/* Canvas Animation */}
-                            <div className="relative bg-[var(--color-charcoal)] h-64 lg:h-auto">
+                            <div className="relative bg-[var(--color-charcoal)] border-b lg:border-b-0 lg:border-r border-white/5 h-64 lg:h-auto">
                                 <AnimComponent />
                             </div>
 
                             {/* Content */}
-                            <div className="p-8 md:p-12 flex flex-col justify-center">
+                            <div className="p-8 md:p-14 flex flex-col justify-center">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-clay)] animate-pulse-dot" />
+                                    <span
+                                        className="text-white/60 text-xs uppercase tracking-[0.2em] font-bold"
+                                        style={{ fontFamily: "var(--font-mono)" }}
+                                    >
+                                        Protocol Node
+                                    </span>
+                                </div>
+
                                 <span
-                                    className="text-[var(--color-clay)] text-xs uppercase tracking-widest mb-4"
-                                    style={{ fontFamily: "var(--font-mono)" }}
+                                    className="text-[var(--color-clay)]/40 text-6xl md:text-8xl font-bold leading-none mb-2"
+                                    style={{ fontFamily: "var(--font-mono)", position: 'absolute', right: '40px', top: '40px', userSelect: 'none' }}
                                 >
-                                    Step {step.step}
+                                    {step.step}
                                 </span>
+
                                 <h3
-                                    className="text-3xl md:text-4xl font-bold text-[var(--color-charcoal)] mb-4"
+                                    className="text-4xl md:text-5xl font-bold text-white mb-6 pr-16"
                                     style={{ fontFamily: "var(--font-heading)" }}
                                 >
                                     {step.title}
                                 </h3>
-                                <p className="text-[var(--color-muted)] text-base leading-relaxed">
+                                <p className="text-white/70 text-lg leading-relaxed max-w-md" style={{ fontFamily: "var(--font-body)" }}>
                                     {step.description}
                                 </p>
                             </div>

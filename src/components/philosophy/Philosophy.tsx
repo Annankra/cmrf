@@ -48,7 +48,7 @@ export function Philosophy() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="relative overflow-hidden section-dark">
+        <section ref={sectionRef} className="relative overflow-hidden section border-t border-white/5 py-32">
             {/* Parallax Background Texture */}
             <div
                 data-parallax-bg
@@ -77,27 +77,27 @@ export function Philosophy() {
 
                 {/* Bold manifesto */}
                 <div className="max-w-5xl">
-                    <p className="text-3xl md:text-5xl lg:text-6xl leading-tight">
+                    <p className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight">
                         {"We measure it in"
                             .split(" ")
                             .map((word, i) => (
                                 <span
                                     key={i}
                                     data-word
-                                    className="inline-block mr-[0.3em] font-drama text-[var(--color-cream)]"
+                                    className="inline-block mr-[0.3em] font-drama text-[var(--color-cream)] italic"
                                 >
                                     {word}
                                 </span>
                             ))}
                         <span
                             data-word
-                            className="inline-block mr-[0.3em] font-drama text-[var(--color-clay)]"
+                            className="inline-block mr-[0.3em] font-drama text-[var(--color-clay)] italic"
                         >
                             lives
                         </span>
                         <span
                             data-word
-                            className="inline-block font-drama text-[var(--color-clay)]"
+                            className="inline-block font-drama text-[var(--color-clay)] italic"
                         >
                             healed.
                         </span>
@@ -105,10 +105,10 @@ export function Philosophy() {
                 </div>
 
                 {/* Supporting line */}
-                <div className="max-w-2xl mt-8">
+                <div className="max-w-2xl mt-12">
                     <p
                         data-word
-                        className="text-[var(--color-cream)]/30 text-sm md:text-base leading-relaxed"
+                        className="text-[var(--color-cream)]/30 text-sm md:text-base leading-relaxed uppercase tracking-widest font-semibold"
                         style={{ fontFamily: "var(--font-mono)" }}
                     >
                         700+ communities · 6 countries · 30+ years of service

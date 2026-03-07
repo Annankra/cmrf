@@ -136,88 +136,94 @@ export function GetInvolvedTiers() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="section bg-[var(--color-cream)]">
-            <div className="container-main px-6 md:px-12">
+        <section ref={sectionRef} className="section bg-transparent py-24 border-t border-white/5 relative overflow-hidden">
+            {/* Background texture for the section */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--color-charcoal-light)_0%,_transparent_50%)] opacity-30 pointer-events-none" />
+
+            <div className="container-main px-6 md:px-12 relative z-10">
                 {/* Section Header */}
-                <div ref={headerRef} className="text-center mb-16">
-                    <div className="section-divider" />
+                <div ref={headerRef} className="text-center mb-20">
+                    <div className="section-divider bg-white/10" />
                     <p
-                        className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
+                        className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4 font-bold"
                         style={{ fontFamily: "var(--font-mono)" }}
                     >
                         Get Involved
                     </p>
                     <h2
-                        className="text-3xl md:text-5xl font-bold text-[var(--color-charcoal)] mb-4"
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
                         style={{ fontFamily: "var(--font-heading)" }}
                     >
                         Three ways to{" "}
-                        <span className="font-drama text-[var(--color-clay)]">
+                        <span className="font-drama text-[var(--color-clay)] italic pr-2">
                             make a difference.
                         </span>
                     </h2>
                 </div>
 
                 {/* Tiers Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     {tiers.map((tier, i) => {
                         const Icon = tier.icon;
                         return (
                             <div
                                 key={tier.name}
                                 ref={(el) => { cardsRef.current[i] = el; }}
-                                className={`rounded-[2rem] p-8 transition-all duration-500 hover:translate-y-[-6px] ${tier.highlighted
-                                    ? "bg-[var(--color-moss)] text-[var(--color-cream)] ring-2 ring-[var(--color-clay)] scale-[1.02] shadow-2xl"
-                                    : "card"
+                                className={`rounded-[2rem] p-8 md:p-10 transition-all duration-500 hover:scale-[1.03] group relative overflow-hidden ${tier.highlighted
+                                        ? "bg-gradient-to-br from-[var(--color-moss)] to-[var(--color-charcoal)] border border-[var(--color-clay)]/30 shadow-[0_20px_50px_rgba(204,88,51,0.15)]"
+                                        : "bg-[var(--color-charcoal-light)]/40 backdrop-blur-xl border border-white/10 shadow-2xl hover:border-white/20 hover:bg-[var(--color-charcoal-light)]/60"
                                     }`}
                             >
+                                {/* Magnetic glow on hover */}
+                                <div className="absolute -inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--color-clay)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
                                 <div
                                     data-tier-icon
-                                    className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${tier.highlighted
+                                    className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${tier.highlighted
                                         ? "bg-[var(--color-clay)]"
-                                        : "bg-[var(--color-moss)]/10"
+                                        : "bg-white/5 border border-white/10"
                                         }`}
                                 >
                                     <Icon
-                                        size={22}
+                                        size={26}
                                         className={
                                             tier.highlighted
                                                 ? "text-white"
-                                                : "text-[var(--color-moss)]"
+                                                : "text-[var(--color-clay)]"
                                         }
                                     />
                                 </div>
 
                                 <h3
-                                    className="text-2xl font-bold mb-2"
+                                    className="text-3xl font-bold mb-4 text-white"
                                     style={{ fontFamily: "var(--font-heading)" }}
                                 >
                                     {tier.name}
                                 </h3>
 
                                 <p
-                                    className={`text-sm mb-6 ${tier.highlighted
-                                        ? "text-[var(--color-cream)]/70"
-                                        : "text-[var(--color-muted)]"
+                                    className={`text-base mb-8 min-h-[50px] ${tier.highlighted
+                                        ? "text-[var(--color-cream)]/90"
+                                        : "text-white/60"
                                         }`}
                                 >
                                     {tier.description}
                                 </p>
 
-                                <ul className="space-y-3 mb-8">
+                                <ul className="space-y-4 mb-10">
                                     {tier.features.map((feature) => (
                                         <li
                                             key={feature}
                                             data-feature
-                                            className={`flex items-start gap-2 text-sm ${tier.highlighted
-                                                ? "text-[var(--color-cream)]/80"
-                                                : "text-[var(--color-charcoal)]/70"
+                                            className={`flex items-start gap-3 text-sm ${tier.highlighted
+                                                ? "text-[var(--color-cream)]"
+                                                : "text-white/80"
                                                 }`}
                                         >
                                             <span
-                                                className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${tier.highlighted
-                                                    ? "bg-[var(--color-clay)]"
-                                                    : "bg-[var(--color-moss)]/40"
+                                                className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 shadow-[0_0_8px_currentColor] ${tier.highlighted
+                                                    ? "bg-[var(--color-clay)] text-[var(--color-clay)]"
+                                                    : "bg-[var(--color-moss)] text-[var(--color-moss)]"
                                                     }`}
                                             />
                                             {feature}
@@ -227,10 +233,13 @@ export function GetInvolvedTiers() {
 
                                 <Link
                                     href={tier.href}
-                                    className={`btn w-full text-center ${tier.highlighted ? "btn-primary" : "btn-secondary"
+                                    className={`block w-full text-center py-4 px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300 ${tier.highlighted
+                                        ? "bg-[var(--color-clay)] text-[var(--color-charcoal)] hover:bg-white hover:text-[var(--color-charcoal)] shadow-lg"
+                                        : "bg-white/10 text-white hover:bg-white hover:text-[var(--color-charcoal)]"
                                         }`}
+                                    style={{ fontFamily: 'var(--font-mono)' }}
                                 >
-                                    <span className="btn-text">{tier.cta}</span>
+                                    <span className="relative z-10">{tier.cta}</span>
                                 </Link>
                             </div>
                         );

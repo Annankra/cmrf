@@ -220,7 +220,7 @@ export function ServicesCarousel() {
     return (
         <div
             ref={containerRef}
-            className="w-full h-[600px] md:h-[700px] bg-[var(--color-cream)] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12"
+            className="w-full h-[600px] md:h-[700px] bg-transparent grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12"
             onMouseEnter={() => setIsAutoplaying(false)}
             onMouseLeave={() => setIsAutoplaying(true)}
         >
@@ -228,20 +228,20 @@ export function ServicesCarousel() {
             <div className="col-span-1 lg:col-span-5 flex flex-col justify-center lg:justify-between py-6 lg:py-16 pr-0 lg:pr-8 z-20 order-2 lg:order-1 h-full max-h-[400px] lg:max-h-full">
 
                 {/* Top: Index Indicator */}
-                <div className="hidden lg:block font-mono text-sm tracking-widest text-[var(--color-clay)]">
+                <div className="hidden lg:block font-mono text-sm tracking-widest text-[var(--color-clay)] font-bold">
                     {(currentIndex + 1).toString().padStart(2, '0')} / {services.length.toString().padStart(2, '0')}
                 </div>
 
                 {/* Middle: Typography */}
                 <div className="flex flex-col gap-6" ref={textRef}>
                     <h3
-                        className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-[var(--color-charcoal)] m-0 flex flex-wrap"
+                        className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-white m-0 flex flex-wrap"
                         style={{ fontFamily: "var(--font-heading)" }}
                     >
                         {services[currentIndex]?.title && services[currentIndex].title.split(" ").map((word, i, arr) => (
                             <span key={`${currentIndex}-${i}`} className="inline-flex items-center">
                                 <span className="inline-block overflow-hidden pb-1 -mb-1">
-                                    <span className="stagger-word inline-block translate-y-[110%] opacity-0 tracking-tight text-[var(--color-charcoal)]">
+                                    <span className="stagger-word inline-block translate-y-[110%] opacity-0 tracking-tight text-white">
                                         {word}
                                     </span>
                                 </span>
@@ -251,7 +251,7 @@ export function ServicesCarousel() {
                     </h3>
                     <div className="overflow-hidden">
                         <p
-                            className="stagger-desc text-lg md:text-xl text-[var(--color-charcoal)]/70 max-w-md leading-relaxed translate-y-[30px] opacity-0"
+                            className="stagger-desc text-lg md:text-xl text-white/70 max-w-md leading-relaxed translate-y-[30px] opacity-0"
                             style={{ fontFamily: "var(--font-body)" }}
                         >
                             {services[currentIndex].description}
@@ -263,14 +263,14 @@ export function ServicesCarousel() {
                 <div className="flex items-center gap-6 mt-8 lg:mt-0">
                     <button
                         onClick={toggleAutoplay}
-                        className="text-[var(--color-charcoal)]/50 hover:text-[var(--color-clay)] transition-colors w-6 flex items-center justify-center flex-shrink-0"
+                        className="text-white/50 hover:text-[var(--color-clay)] transition-colors w-6 flex items-center justify-center flex-shrink-0"
                         aria-label={isAutoplaying ? "Pause autoplay" : "Start autoplay"}
                     >
                         {isAutoplaying ? <Pause size={18} /> : <Play size={18} fill="currentColor" className="ml-0.5" />}
                     </button>
 
                     {/* Animated Progress Line */}
-                    <div className="flex-1 h-[2px] bg-[var(--color-charcoal)]/10 rounded-full relative overflow-hidden">
+                    <div className="flex-1 h-[2px] bg-white/10 rounded-full relative overflow-hidden">
                         <div ref={progressRef} className="absolute inset-0 bg-[var(--color-clay)] origin-left scale-x-0" />
                     </div>
 
@@ -278,14 +278,14 @@ export function ServicesCarousel() {
                     <div className="flex items-center gap-2">
                         <button
                             onClick={handlePrev}
-                            className="w-12 h-12 rounded-full border border-[var(--color-charcoal)]/20 flex items-center justify-center text-[var(--color-charcoal)] hover:bg-[var(--color-charcoal)] hover:text-white transition-all duration-300"
+                            className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[var(--color-clay)] transition-all duration-300 transform hover:scale-105"
                             aria-label="Previous slide"
                         >
                             <ChevronLeft size={20} strokeWidth={1.5} />
                         </button>
                         <button
                             onClick={handleNext}
-                            className="w-12 h-12 rounded-full border border-[var(--color-charcoal)]/20 flex items-center justify-center text-[var(--color-charcoal)] hover:bg-[var(--color-charcoal)] hover:text-white transition-all duration-300"
+                            className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[var(--color-clay)] transition-all duration-300 transform hover:scale-105"
                             aria-label="Next slide"
                         >
                             <ChevronRight size={20} strokeWidth={1.5} />
@@ -295,7 +295,7 @@ export function ServicesCarousel() {
             </div>
 
             {/* RIGHT: Mask Reveals Image Stage */}
-            <div className="col-span-1 lg:col-span-7 relative w-full h-full min-h-[300px] lg:min-h-full rounded-[2rem] overflow-hidden order-1 lg:order-2 shadow-2xl shadow-[var(--color-charcoal)]/10">
+            <div className="col-span-1 lg:col-span-7 relative w-full h-full min-h-[300px] lg:min-h-full rounded-[3rem] overflow-hidden order-1 lg:order-2 shadow-2xl border border-white/5">
                 {services.map((service, idx) => (
                     <div
                         key={service.id}
@@ -307,7 +307,7 @@ export function ServicesCarousel() {
                             style={{ backgroundImage: `url(${service.image})` }}
                         />
                         {/* Subtle Overlay to enhance cinematic feel */}
-                        <div className="absolute inset-0 bg-[var(--color-charcoal)]/10 mix-blend-multiply" />
+                        <div className="absolute inset-0 bg-[var(--color-charcoal)]/40 mix-blend-overlay" />
                     </div>
                 ))}
             </div>
