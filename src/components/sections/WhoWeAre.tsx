@@ -58,7 +58,7 @@ export function WhoWeAre() {
                     <div className="order-2 lg:order-1 flex justify-center lg:justify-end">
                         <div
                             ref={imageRef}
-                            className="relative w-full max-w-lg aspect-square flex items-center justify-center p-8 bg-[var(--color-charcoal-light)]/30 backdrop-blur-md rounded-[3rem] border border-white/5 shadow-2xl"
+                            className="relative w-full max-w-lg aspect-square flex items-center justify-center p-8 bg-black/20 backdrop-blur-md rounded-[3rem] border border-white/5 shadow-2xl"
                         >
                             {/* Glowing accent behind the logo */}
                             <div className="absolute inset-8 rounded-full bg-gradient-to-br from-[var(--color-clay)]/20 !via-[var(--color-moss)]/10 to-transparent -z-10 blur-2xl opacity-60" />
@@ -114,13 +114,13 @@ export function WhoWeAre() {
                         </div>
 
                         <div className="mt-10 flex flex-wrap gap-4">
-                            <div className="flex items-center gap-3 bg-[var(--color-charcoal-light)] px-5 py-3 rounded-[1rem] border border-white/5 shadow-sm transform transition-transform duration-300 hover:-translate-y-1">
+                            <div className="flex items-center gap-3 bg-black/20 px-5 py-3 rounded-[1rem] border border-white/5 shadow-sm transform transition-transform duration-300 hover:-translate-y-1">
                                 <div className="w-2 h-2 rounded-full bg-[var(--color-clay)] animate-pulse-dot" />
                                 <span className="text-xs tracking-widest uppercase font-semibold text-white/90" style={{ fontFamily: "var(--font-mono)" }}>
                                     Est. 1991
                                 </span>
                             </div>
-                            <div className="flex items-center gap-3 bg-[var(--color-charcoal-light)] px-5 py-3 rounded-[1rem] border border-white/5 shadow-sm transform transition-transform duration-300 hover:-translate-y-1">
+                            <div className="flex items-center gap-3 bg-black/20 px-5 py-3 rounded-[1rem] border border-white/5 shadow-sm transform transition-transform duration-300 hover:-translate-y-1">
                                 <div className="w-2 h-2 rounded-full bg-[var(--color-moss)] animate-pulse-dot" style={{ animationDelay: "1s" }} />
                                 <span className="text-xs tracking-widest uppercase font-semibold text-white/90" style={{ fontFamily: "var(--font-mono)" }}>
                                     10 Outreaches / Year

@@ -169,9 +169,9 @@ export function GetInvolvedTiers() {
                             <div
                                 key={tier.name}
                                 ref={(el) => { cardsRef.current[i] = el; }}
-                                className={`rounded-[2rem] p-8 md:p-10 transition-all duration-500 hover:scale-[1.03] group relative overflow-hidden ${tier.highlighted
-                                        ? "bg-gradient-to-br from-[var(--color-moss)] to-[var(--color-charcoal)] border border-[var(--color-clay)]/30 shadow-[0_20px_50px_rgba(204,88,51,0.15)]"
-                                        : "bg-[var(--color-charcoal-light)]/40 backdrop-blur-xl border border-white/10 shadow-2xl hover:border-white/20 hover:bg-[var(--color-charcoal-light)]/60"
+                                className={`rounded-[2rem] p-8 md:p-10 transition-all duration-500 hover:scale-[1.03] group relative overflow-hidden flex flex-col h-full ${tier.highlighted
+                                    ? "bg-gradient-to-br from-[#2A2A2A] to-[#1A1A1A] border border-[var(--color-clay)]/30 shadow-[0_20px_50px_rgba(204,88,51,0.15)]"
+                                    : "bg-black/20 backdrop-blur-xl border border-white/10 shadow-2xl hover:border-white/20 hover:bg-black/30"
                                     }`}
                             >
                                 {/* Magnetic glow on hover */}
@@ -233,7 +233,7 @@ export function GetInvolvedTiers() {
 
                                 <Link
                                     href={tier.href}
-                                    className={`block w-full text-center py-4 px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300 ${tier.highlighted
+                                    className={`mt-auto block w-full text-center py-4 px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300 ${tier.highlighted
                                         ? "bg-[var(--color-clay)] text-[var(--color-charcoal)] hover:bg-white hover:text-[var(--color-charcoal)] shadow-lg"
                                         : "bg-white/10 text-white hover:bg-white hover:text-[var(--color-charcoal)]"
                                         }`}

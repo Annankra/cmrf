@@ -273,7 +273,7 @@ export function StickyStacker() {
                         className="h-screen w-full flex items-center justify-center px-4 md:px-8 bg-transparent"
                     >
                         <div
-                            className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] bg-[var(--color-charcoal-light)]/40 backdrop-blur-md border border-white/10 shadow-2xl"
+                            className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] bg-black/20 backdrop-blur-md border border-white/10 shadow-2xl"
                             style={{ minHeight: "450px" }}
                         >
                             {/* Canvas Animation */}

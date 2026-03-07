@@ -10,7 +10,7 @@ import NewsletterForm from "@/components/forms/NewsletterForm";
 
 export default function Home() {
     return (
-        <div className="bg-[var(--color-charcoal)] min-h-screen text-[var(--color-cream)]">
+        <div className="bg-[var(--color-charcoal-light)] min-h-screen text-[var(--color-cream)]">
             {/* A. Hero — "The Opening Shot" */}
             <Hero />
 
