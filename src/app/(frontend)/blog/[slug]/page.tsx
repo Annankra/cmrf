@@ -47,18 +47,18 @@ export default async function BlogPostPage({ params }: PageProps) {
     return (
         <article>
             {/* Hero */}
-            <section className="relative h-[60vh] min-h-[500px] flex items-end overflow-hidden">
+            <section className="relative min-h-[60vh] flex flex-col justify-end overflow-hidden pt-40 pb-16">
                 <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105"
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105 opacity-70 mix-blend-overlay"
                     style={{ backgroundImage: `url('${coverImageUrl}')` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/80 to-[var(--color-charcoal)]/30" />
-                <div className="relative z-10 container-main px-6 md:px-12 pb-16">
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
+                <div className="relative z-10 container-main px-6 md:px-12 w-full">
                     <div className="flex flex-wrap gap-2 mb-6">
                         {tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="px-3 py-1 bg-[var(--color-clay)]/20 text-[var(--color-clay)] backdrop-blur-md rounded-full text-xs tracking-wider uppercase"
+                                className="hero-anim px-4 py-1.5 border border-white/10 bg-black/40 text-white backdrop-blur-md rounded-full text-[10px] tracking-widest uppercase font-bold"
                                 style={{ fontFamily: "var(--font-mono)" }}
                             >
                                 {tag}
@@ -66,25 +66,25 @@ export default async function BlogPostPage({ params }: PageProps) {
                         ))}
                     </div>
                     <h1
-                        className="text-4xl md:text-5xl lg:text-7xl font-bold text-[var(--color-cream)] mb-6 max-w-5xl leading-tight"
+                        className="hero-anim text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 max-w-5xl leading-[1.1] tracking-tight text-balance"
                         style={{ fontFamily: "var(--font-heading)" }}
                     >
                         {post.title}
                     </h1>
-                    <div className="flex items-center gap-4 text-[var(--color-cream)]/70 text-sm" style={{ fontFamily: "var(--font-mono)" }}>
+                    <div className="hero-anim flex items-center gap-4 text-[var(--color-clay)] text-xs uppercase tracking-widest font-bold" style={{ fontFamily: "var(--font-mono)" }}>
                         <span>{formatDate(post.date)}</span>
                     </div>
                 </div>
             </section>
 
             {/* Content */}
-            <section className="section bg-[var(--color-cream)]">
+            <section className="section bg-transparent relative z-10 border-t border-white/5">
                 <div className="container-main px-6 md:px-12">
-                    <div className="max-w-3xl mx-auto prose prose-lg md:prose-xl prose-headings:font-heading prose-p:font-sans prose-a:text-[var(--color-clay)] text-[var(--color-charcoal)]">
+                    <div className="max-w-3xl mx-auto prose prose-lg md:prose-xl prose-invert prose-headings:font-heading prose-headings:text-white prose-p:font-sans prose-p:text-white/70 prose-p:font-light prose-a:text-[var(--color-clay)] text-white/70 selection:bg-[var(--color-clay)]/30 selection:text-white">
                         {post.content ? (
                             <RichText data={post.content} />
                         ) : (
-                            <p className="opacity-50 italic">No content provided.</p>
+                            <p className="text-white/30 italic font-mono text-sm uppercase tracking-widest">No content mapped to this dossier.</p>
                         )}
                     </div>
                 </div>

@@ -55,8 +55,8 @@ html {
 }
 
 body {
-  background-color: var(--color-cream);
-  color: var(--color-charcoal);
+  background-color: var(--color-charcoal-light);
+  color: white;
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;

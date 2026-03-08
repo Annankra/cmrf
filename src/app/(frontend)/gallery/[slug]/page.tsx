@@ -56,39 +56,39 @@ export default async function AlbumPage({ params }: PageProps) {
             {/* Hero */}
             <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden">
                 <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105"
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105 opacity-70 mix-blend-overlay"
                     style={{ backgroundImage: `url('${coverImageUrl}')` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/80 to-[var(--color-charcoal)]/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
                 <div className="relative z-10 container-main px-6 md:px-12 pb-12 w-full">
                     <p
-                        className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
+                        className="hero-anim text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
                         style={{ fontFamily: "var(--font-mono)" }}
                     >
                         Gallery / {album.year}
                     </p>
                     <h1
-                        className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-cream)] mb-4 max-w-4xl leading-tight"
+                        className="hero-anim text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 max-w-4xl leading-[0.9] tracking-tight"
                         style={{ fontFamily: "var(--font-heading)" }}
                     >
                         {album.title}
                     </h1>
-                    <p className="text-[var(--color-cream)]/80 text-lg md:text-xl max-w-2xl font-light">
+                    <p className="hero-anim text-white/50 text-lg md:text-xl max-w-2xl font-light">
                         {album.description}
                     </p>
                 </div>
             </section>
 
             {/* Images Grid — interactive client component */}
-            <section className="section bg-[var(--color-cream)]">
+            <section className="section bg-transparent relative z-10 border-t border-white/5">
                 <div className="container-main px-6 md:px-12">
                     <div className="flex justify-end mb-8">
                         <Link
                             href="/gallery"
-                            className="inline-flex items-center text-[var(--color-charcoal)]/70 hover:text-[var(--color-clay)] transition-colors group"
+                            className="inline-flex items-center text-white/50 hover:text-[var(--color-clay)] transition-all duration-300 group hover:translate-x-[-4px]"
                         >
                             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                            <span className="uppercase tracking-[0.1em] text-xs font-bold" style={{ fontFamily: "var(--font-mono)" }}>
+                            <span className="uppercase tracking-[0.1em] text-[10px] font-bold" style={{ fontFamily: "var(--font-mono)" }}>
                                 Back to Gallery
                             </span>
                         </Link>
