@@ -76,7 +76,7 @@ function MagneticSelection({
             onMouseLeave={handleMouseLeave}
             className={`relative group overflow-hidden py-6 rounded-[1.5rem] border transition-all duration-500 cursor-pointer ${isSelected
                 ? "bg-[var(--color-clay)] border-[var(--color-clay)] shadow-2xl shadow-[var(--color-clay)]/20 text-white"
-                : "bg-[var(--color-cream-dark)]/10 border-[var(--color-moss)]/10 text-[var(--color-charcoal)] hover:border-[var(--color-clay)]/40"
+                : "bg-black/40 border-white/5 text-white hover:border-[var(--color-clay)]/40 hover:bg-white/[0.02]"
                 }`}
         >
             <span
@@ -194,7 +194,7 @@ export default function DonatePage() {
     };
 
     return (
-        <div ref={pageRef} className="bg-[var(--color-cream)] min-h-screen">
+        <div ref={pageRef} className="bg-transparent min-h-screen">
             {/* ─── Hero Section ─── */}
             <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
                 <div
@@ -240,11 +240,11 @@ export default function DonatePage() {
                         {/* Left — Visual Manifesto */}
                         <div className="lg:col-span-5 flex flex-col gap-12">
                             <div data-animate-up>
-                                <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-charcoal)] mb-6" style={{ fontFamily: "var(--font-heading)" }}>
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6" style={{ fontFamily: "var(--font-heading)" }}>
                                     Your donation is <br />
                                     <span className="font-drama text-[var(--color-clay)] text-4xl md:text-5xl">transformational.</span>
                                 </h2>
-                                <p className="text-[var(--color-muted)] text-lg leading-relaxed">
+                                <p className="text-white/60 text-lg leading-relaxed font-light">
                                     CMRF is a 501(c)(3) boutique medical NGO. We focus on clinical precision and sustainable community health infrastructures, not just relief.
                                 </p>
                             </div>
@@ -255,13 +255,13 @@ export default function DonatePage() {
                                     { icon: Droplets, label: "Clean Water", val: "600+ Communities" },
                                     { icon: Heart, label: "Success Rate", val: "99.8% Recovery" },
                                 ].map((stat, i) => (
-                                    <div key={i} data-animate-up className="flex items-center gap-4 p-6 bg-white rounded-[2rem] border border-[var(--color-moss)]/5 shadow-sm">
+                                    <div key={i} data-animate-up className="flex items-center gap-4 p-6 bg-black/40 rounded-[2rem] border border-white/5 backdrop-blur-md hover:-translate-y-1 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500">
                                         <div className="w-12 h-12 rounded-2xl bg-[var(--color-clay)]/10 flex items-center justify-center text-[var(--color-clay)]">
                                             <stat.icon size={24} />
                                         </div>
                                         <div>
-                                            <p className="text-[var(--color-muted)] text-xs font-mono uppercase tracking-widest">{stat.label}</p>
-                                            <p className="text-xl font-bold text-[var(--color-charcoal)]" style={{ fontFamily: "var(--font-heading)" }}>{stat.val}</p>
+                                            <p className="text-white/40 text-xs font-mono uppercase tracking-widest">{stat.label}</p>
+                                            <p className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>{stat.val}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -270,10 +270,10 @@ export default function DonatePage() {
 
                         {/* Right — The Instrument (Form) */}
                         <div className="lg:col-span-7" data-animate-scale>
-                            <div className="bg-white rounded-[3rem] p-8 md:p-14 border border-[var(--color-moss)]/10 shadow-2xl shadow-[var(--color-moss)]/5">
+                            <div className="bg-black/40 rounded-[3rem] p-8 md:p-14 border border-white/5 backdrop-blur-xl shadow-2xl">
 
                                 <div className="mb-10">
-                                    <h3 className="text-lg font-bold text-[var(--color-charcoal)] mb-6 uppercase tracking-widest font-mono text-center">
+                                    <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-widest font-mono text-center">
                                         Select Strategy
                                     </h3>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -294,7 +294,7 @@ export default function DonatePage() {
 
                                 {/* Custom Input */}
                                 <div className="mb-10 relative group">
-                                    <label className="block text-[10px] font-bold text-[var(--color-muted)] uppercase tracking-widest mb-3 font-mono">
+                                    <label className="block text-[10px] font-bold text-white/40 uppercase tracking-widest mb-3 font-mono">
                                         Custom Allocation (USD)
                                     </label>
                                     <div className="relative">
@@ -307,7 +307,7 @@ export default function DonatePage() {
                                                 setSelectedCents(0);
                                             }}
                                             placeholder="Amount..."
-                                            className="w-full bg-[var(--color-cream-dark)]/10 border-2 border-transparent focus:border-[var(--color-clay)]/20 rounded-[2rem] py-5 md:py-6 pl-14 pr-6 md:px-12 text-2xl md:text-3xl font-bold text-[var(--color-charcoal)] transition-all outline-none placeholder:text-charcoal/20"
+                                            className="w-full bg-white/[0.02] border-2 border-white/5 focus:border-[var(--color-clay)]/40 rounded-[2rem] py-5 md:py-6 pl-14 pr-6 md:px-12 text-2xl md:text-3xl font-bold text-white transition-all outline-none placeholder:text-white/20"
                                             style={{ fontFamily: "var(--font-heading)" }}
                                         />
                                     </div>
@@ -320,7 +320,7 @@ export default function DonatePage() {
                                         { id: "email", label: "Communication Channel", val: donorEmail, set: setDonorEmail, type: "email", ph: "your@email.com" },
                                     ].map((field) => (
                                         <div key={field.id}>
-                                            <label className="block text-[10px] font-bold text-[var(--color-muted)] uppercase tracking-widest mb-3 font-mono">
+                                            <label className="block text-[10px] font-bold text-white/40 uppercase tracking-widest mb-3 font-mono">
                                                 {field.label}
                                             </label>
                                             <input
@@ -328,7 +328,7 @@ export default function DonatePage() {
                                                 value={field.val}
                                                 onChange={(e) => field.set(e.target.value)}
                                                 placeholder={field.ph}
-                                                className="w-full bg-[var(--color-cream-dark)]/10 border border-transparent focus:border-[var(--color-moss)]/20 rounded-[1.5rem] py-4 px-6 text-[var(--color-charcoal)] transition-all outline-none font-medium"
+                                                className="w-full bg-white/[0.02] border border-white/5 focus:border-[var(--color-clay)]/40 rounded-[1.5rem] py-4 px-6 text-white transition-all outline-none font-medium placeholder:text-white/20"
                                             />
                                         </div>
                                     ))}
@@ -358,14 +358,14 @@ export default function DonatePage() {
                                     </span>
                                 </button>
 
-                                <div className="mt-8 flex items-center justify-center gap-8 border-t border-[var(--color-moss)]/5 pt-8">
+                                <div className="mt-8 flex items-center justify-center gap-8 border-t border-white/5 pt-8">
                                     <div className="flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                        <span className="text-[10px] font-mono text-[var(--color-muted)] uppercase tracking-tighter">Encrypted-SSL</span>
+                                        <span className="text-[10px] font-mono text-white/40 uppercase tracking-tighter">Encrypted-SSL</span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Heart size={12} className="text-[var(--color-clay)]" />
-                                        <span className="text-[10px] font-mono text-[var(--color-muted)] uppercase tracking-tighter">501(c)(3) Verified</span>
+                                        <span className="text-[10px] font-mono text-white/40 uppercase tracking-tighter">501(c)(3) Verified</span>
                                     </div>
                                 </div>
                             </div>
