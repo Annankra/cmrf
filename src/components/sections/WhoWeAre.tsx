@@ -65,7 +65,7 @@ export function WhoWeAre() {
 
                             <div className="relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96">
                                 <Image
-                                    src="/cmrflog.webp"
+                                    src="/cmrflogo.png"
                                     alt="CMMRF Logo - Christian Medical Missions Resource Foundation"
                                     fill
                                     className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"

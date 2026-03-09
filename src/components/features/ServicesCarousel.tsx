@@ -26,7 +26,7 @@ const services: ServiceSlide[] = [
         description:
             "Installing community boreholes and advanced filtration systems to eradicate waterborne diseases.",
         image:
-            "https://images.unsplash.com/photo-1541888086438-ad23b0196881?w=1920&q=80&auto=format",
+            "/potablewater.png",
     },
     {
         id: "health-infra",
