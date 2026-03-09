@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getEvents, getMediaUrl } from "@/lib/payload";
 import { EventsClientPage } from "./EventsClientPage";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "Events",
     description:

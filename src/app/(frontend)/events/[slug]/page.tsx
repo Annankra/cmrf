@@ -4,6 +4,8 @@ import { getEventBySlug, getMediaUrl } from "@/lib/payload";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { MapPin, Calendar } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 type PageProps = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
