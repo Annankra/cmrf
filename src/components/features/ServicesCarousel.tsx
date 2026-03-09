@@ -50,7 +50,7 @@ const services: ServiceSlide[] = [
         description:
             "Removing financial barriers by providing full scholarships for deserving and brilliant students.",
         image:
-            "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&q=80&auto=format",
+            "/scholarships.jpg",
     },
     {
         id: "economic",
