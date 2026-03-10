@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
     title: "Mission",
     description:
         "CMRF Mission: Mobilizing Christians and resources worldwide to send forth God's love through word and positive acts of deed.",
+    openGraph: {
+        title: "Our Mission — CMRF",
+        description: "Mobilizing Christians and resources worldwide to send forth God's love through medical missions, relief, and development services.",
+        url: "https://www.cmrfgh.com/mission",
+        type: "website",
+    },
+    twitter: {
+        title: "CMRF Mission — Word and Deed",
+        description: "Mobilizing Christians and resources worldwide for medical missions and humanitarian services.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/mission" },
 };
 
 const objectives = [
@@ -30,6 +42,10 @@ const objectives = [
 export default function MissionPage() {
     return (
         <>
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", url: "https://www.cmrfgh.com" },
+                { name: "Mission", url: "https://www.cmrfgh.com/mission" },
+            ])} />
             {/* Hero */}
             <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
                 <div

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPostBySlug, getMediaUrl, getMediaAlt } from "@/lib/payload";
 import { RichText } from "@payloadcms/richtext-lexical/react";
+import { JsonLd, articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -13,9 +14,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         return { title: "Post Not Found" };
     }
 
+    const imageUrl = getMediaUrl(post.image);
+
     return {
         title: post.title,
         description: post.excerpt,
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            type: "article",
+            url: `https://www.cmrfgh.com/blog/${p.slug}`,
+            ...(imageUrl && {
+                images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
+            }),
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: post.title,
+            description: post.excerpt,
+            ...(imageUrl && { images: [imageUrl] }),
+        },
+        alternates: { canonical: `https://www.cmrfgh.com/blog/${p.slug}` },
     };
 }
 
@@ -46,6 +65,19 @@ export default async function BlogPostPage({ params }: PageProps) {
 
     return (
         <article>
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", url: "https://www.cmrfgh.com" },
+                { name: "Blog", url: "https://www.cmrfgh.com/blog" },
+                { name: post.title, url: `https://www.cmrfgh.com/blog/${p.slug}` },
+            ])} />
+            <JsonLd data={articleJsonLd({
+                title: post.title,
+                description: post.excerpt,
+                url: `https://www.cmrfgh.com/blog/${p.slug}`,
+                imageUrl: getMediaUrl(post.image),
+                datePublished: post.date,
+                dateModified: post.updatedAt,
+            })} />
             {/* Hero */}
             <section className="relative min-h-[60vh] flex flex-col justify-end overflow-hidden pt-40 pb-16">
                 <div

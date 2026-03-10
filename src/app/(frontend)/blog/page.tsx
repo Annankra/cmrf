@@ -6,6 +6,17 @@ export const metadata: Metadata = {
     title: "Blog",
     description:
         "CMRF Blog — stories, updates, and reports from our medical missions and community outreach across Ghana and Africa.",
+    openGraph: {
+        title: "CMRF Blog — Mission Stories & Updates",
+        description: "Stories, impact reports, and updates from CMRF medical missions and community outreach across Ghana and Africa.",
+        url: "https://www.cmrfgh.com/blog",
+        type: "website",
+    },
+    twitter: {
+        title: "CMRF Blog — Stories from the Field",
+        description: "Read mission stories, updates, and impact reports from CMRF.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/blog" },
 };
 
 const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format";

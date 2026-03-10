@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, Clock, Phone, Stethoscope, Eye, Heart } from "lucide-react";
+import { JsonLd, breadcrumbJsonLd, medicalClinicJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
     title: "Clinic",
     description:
         "CMRF Clinic — providing free medical consultation, eye care, and dental services to underserved communities since 1991.",
+    openGraph: {
+        title: "CMRF Medical Clinic",
+        description: "Free medical consultation, eye care, and dental services for underserved communities since 1991.",
+        url: "https://www.cmrfgh.com/clinic",
+        type: "website",
+    },
+    twitter: {
+        title: "CMRF Medical Clinic — Free Healthcare Since 1991",
+        description: "Providing free medical, optical, and dental services to communities across Ghana.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/clinic" },
 };
 
 const clinicServices = [
@@ -29,6 +41,11 @@ const clinicServices = [
 export default function ClinicPage() {
     return (
         <>
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", url: "https://www.cmrfgh.com" },
+                { name: "Clinic", url: "https://www.cmrfgh.com/clinic" },
+            ])} />
+            <JsonLd data={medicalClinicJsonLd()} />
             {/* Hero */}
             <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
                 <div

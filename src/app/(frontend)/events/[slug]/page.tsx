@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getEventBySlug, getMediaUrl } from "@/lib/payload";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { MapPin, Calendar } from "lucide-react";
+import { JsonLd, eventJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const dynamic = 'force-dynamic';
 
@@ -14,9 +15,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!event) return { title: "Event Not Found" };
 
+    const imageUrl = getMediaUrl(event.image);
+
     return {
         title: event.title,
         description: event.description,
+        openGraph: {
+            title: event.title,
+            description: event.description,
+            type: "article",
+            url: `https://www.cmrfgh.com/events/${p.slug}`,
+            ...(imageUrl && {
+                images: [{ url: imageUrl, width: 1200, height: 630, alt: event.title }],
+            }),
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: event.title,
+            description: event.description,
+            ...(imageUrl && { images: [imageUrl] }),
+        },
+        alternates: { canonical: `https://www.cmrfgh.com/events/${p.slug}` },
     };
 }
 
@@ -48,6 +67,20 @@ export default async function EventPage({ params }: PageProps) {
 
     return (
         <article>
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", url: "https://www.cmrfgh.com" },
+                { name: "Events", url: "https://www.cmrfgh.com/events" },
+                { name: event.title, url: `https://www.cmrfgh.com/events/${p.slug}` },
+            ])} />
+            <JsonLd data={eventJsonLd({
+                name: event.title,
+                description: event.description,
+                url: `https://www.cmrfgh.com/events/${p.slug}`,
+                startDate: event.startDate || "",
+                endDate: event.endDate || undefined,
+                location: event.location,
+                imageUrl: getMediaUrl(event.image),
+            })} />
             {/* Hero */}
             <section className="relative min-h-[60vh] flex flex-col justify-end overflow-hidden pt-40 pb-16">
                 <div

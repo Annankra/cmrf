@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Heart, Stethoscope, Eye, BookOpen, Droplets, GraduationCap, Users } from "lucide-react";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
     title: "About",
     description:
         "Learn about CMRF — a Christian NGO founded in 1991, mobilizing medical professionals and resources to serve underserved communities across Ghana and Africa.",
+    openGraph: {
+        title: "About CMRF — Our Story",
+        description: "Founded in 1991 as a hospital prayer group, CMRF has grown into a global Christian medical missions organization serving 600+ communities across Ghana and Africa.",
+        url: "https://www.cmrfgh.com/about",
+        type: "website",
+    },
+    twitter: {
+        title: "About CMRF — 30+ Years of Impact",
+        description: "From a hospital prayer group to a global mission — learn how CMRF serves underserved communities across Ghana and Africa.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/about" },
 };
 
 const services = [
@@ -49,6 +61,10 @@ const services = [
 export default function AboutPage() {
     return (
         <>
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", url: "https://www.cmrfgh.com" },
+                { name: "About", url: "https://www.cmrfgh.com/about" },
+            ])} />
             {/* Hero Banner */}
             <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
                 <div

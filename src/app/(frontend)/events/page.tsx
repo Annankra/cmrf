@@ -8,6 +8,17 @@ export const metadata: Metadata = {
     title: "Events",
     description:
         "Upcoming CMRF medical outreaches, mission trips, and community events across Ghana and Africa.",
+    openGraph: {
+        title: "CMRF Events — Upcoming Medical Outreaches",
+        description: "Upcoming medical missions, community outreaches, and events across Ghana and Africa.",
+        url: "https://www.cmrfgh.com/events",
+        type: "website",
+    },
+    twitter: {
+        title: "CMRF Events — Medical Missions & Outreaches",
+        description: "Upcoming CMRF medical outreaches, mission trips, and community events.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/events" },
 };
 
 // Fallback data when CMS has no entries yet

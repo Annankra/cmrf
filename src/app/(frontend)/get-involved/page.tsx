@@ -3,16 +3,32 @@ import Link from "next/link";
 import { Heart, Globe, HandHeart } from "lucide-react";
 import VolunteerForm from "@/components/forms/VolunteerForm";
 import NewsletterForm from "@/components/forms/NewsletterForm";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
     title: "Get Involved",
     description:
         "Support CMRF through prayer, donations, or volunteering. Join us in bringing free medical care and God's love to underserved communities.",
+    openGraph: {
+        title: "Get Involved with CMRF",
+        description: "Support CMRF through prayer, donations, or volunteering. Make a difference in communities across Ghana and Africa.",
+        url: "https://www.cmrfgh.com/get-involved",
+        type: "website",
+    },
+    twitter: {
+        title: "Get Involved with CMRF — Make a Difference",
+        description: "Support CMRF through prayer, donations, or volunteering for underserved communities.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/get-involved" },
 };
 
 export default function GetInvolvedPage() {
     return (
         <>
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", url: "https://www.cmrfgh.com" },
+                { name: "Get Involved", url: "https://www.cmrfgh.com/get-involved" },
+            ])} />
             {/* Hero */}
             <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
                 <div

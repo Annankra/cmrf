@@ -9,6 +9,17 @@ export const metadata: Metadata = {
     title: "Gallery",
     description:
         "Photo gallery from CMRF medical missions, community outreach, and outreaches across Ghana and Africa.",
+    openGraph: {
+        title: "CMRF Gallery — Mission Photos",
+        description: "Photos from CMRF medical missions, community outreach, and events across Ghana and Africa.",
+        url: "https://www.cmrfgh.com/gallery",
+        type: "website",
+    },
+    twitter: {
+        title: "CMRF Gallery — Photos from the Field",
+        description: "Photo gallery from CMRF medical missions and community outreach.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/gallery" },
 };
 
 // Fallback data when CMS has no entries

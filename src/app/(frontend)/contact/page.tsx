@@ -1,16 +1,32 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
     title: "Contact",
     description:
         "Get in touch with CMRF — Christian Medical Missions Resource Foundation. Reach out for inquiries, partnerships, or support.",
+    openGraph: {
+        title: "Contact CMRF",
+        description: "Reach out to CMRF for inquiries, partnerships, volunteer opportunities, or to support our medical missions.",
+        url: "https://www.cmrfgh.com/contact",
+        type: "website",
+    },
+    twitter: {
+        title: "Contact CMRF — Get in Touch",
+        description: "Reach out to the Christian Medical Missions Resource Foundation for inquiries and partnerships.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com/contact" },
 };
 
 export default function ContactPage() {
     return (
         <>
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", url: "https://www.cmrfgh.com" },
+                { name: "Contact", url: "https://www.cmrfgh.com/contact" },
+            ])} />
             {/* Hero */}
             <section className="relative h-[50vh] min-h-[350px] flex items-end overflow-hidden">
                 <div
