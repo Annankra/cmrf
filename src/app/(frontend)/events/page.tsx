@@ -63,21 +63,22 @@ const fallbackUpcoming = [
 
 // Helper to safely format dates from either ISO strings or legacy text formats
 function formatDate(dateString: string): string {
-    // Legacy fallback string support
     if (!dateString) return "";
-    if (dateString.includes(" – ") || dateString.includes("202")) {
-        // Simple heuristic: if it contains an en-dash or year string, and isn't a pure ISO, leave it as is.
-        // But let's just try to parse it. If it's valid ISO, format it.
-        const d = new Date(dateString);
-        if (!isNaN(d.getTime()) && dateString.includes("-")) {
+
+    // 1. Try to parse as valid date
+    const d = new Date(dateString);
+    if (!isNaN(d.getTime())) {
+        // If it looks like a raw ISO date (contains T and -), format it.
+        // Otherwise it might be a payload string which we should leave as is.
+        if (dateString.includes("-") && dateString.includes("T")) {
             return new Intl.DateTimeFormat("en-US", {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
             }).format(d);
         }
-        return dateString;
     }
+
     return dateString;
 }
 

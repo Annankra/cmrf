@@ -43,12 +43,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 function formatDate(dateString: string): string {
     if (!dateString) return "";
     const d = new Date(dateString);
-    if (!isNaN(d.getTime()) && dateString.includes("-")) {
-        return new Intl.DateTimeFormat("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-        }).format(d);
+    if (!isNaN(d.getTime())) {
+        if (dateString.includes("-") && (dateString.includes("T") || dateString.length <= 10)) {
+            return new Intl.DateTimeFormat("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+            }).format(d);
+        }
     }
     return dateString;
 }

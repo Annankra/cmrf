@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { slugFieldValidation } from '../utils/slug'
 
 export const Events: CollectionConfig = {
     slug: 'events',
@@ -19,6 +20,7 @@ export const Events: CollectionConfig = {
             type: 'text',
             required: true,
             unique: true,
+            validate: slugFieldValidation,
             admin: {
                 position: 'sidebar',
             },

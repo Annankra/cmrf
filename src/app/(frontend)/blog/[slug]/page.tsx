@@ -43,6 +43,7 @@ function formatDate(dateString: string): string {
     if (!dateString) return "";
     const d = new Date(dateString);
     if (!isNaN(d.getTime()) && dateString.includes("-")) {
+        // If it's a blog post date from Payload, it's typically just "YYYY-MM-DD" or similar ISO.
         return new Intl.DateTimeFormat("en-US", {
             month: "long",
             day: "numeric",

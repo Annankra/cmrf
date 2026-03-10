@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { slugFieldValidation } from '../utils/slug'
 
 export const Albums: CollectionConfig = {
     slug: 'albums',
@@ -19,6 +20,7 @@ export const Albums: CollectionConfig = {
             type: 'text',
             required: true,
             unique: true,
+            validate: slugFieldValidation,
             admin: {
                 position: 'sidebar',
             },
