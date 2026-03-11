@@ -107,10 +107,10 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
                         <Link
                             key={post.slug}
                             href={`/blog/${post.slug}`}
-                            className="featured-card group block relative rounded-[2rem] overflow-hidden no-underline"
+                            className="featured-card group flex flex-col md:block relative rounded-[2rem] overflow-hidden no-underline bg-[var(--color-charcoal-light)]/20 md:bg-transparent"
                         >
                             {/* Massive Image Area */}
-                            <div className="aspect-[16/9] md:aspect-[21/9] w-full relative overflow-hidden bg-black">
+                            <div className="h-64 sm:h-80 md:aspect-[21/9] md:h-auto w-full relative overflow-hidden bg-black shrink-0">
                                 <div
                                     className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.2s] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-105"
                                     style={{ backgroundImage: `url('${post.image}')` }}
@@ -118,9 +118,9 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
                                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)]/90 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-75" />
                             </div>
 
-                            {/* Floating Content Glassmorphism Box */}
-                            <div className="absolute bottom-0 left-0 w-full p-6 md:p-12">
-                                <div className="bg-[var(--color-charcoal-light)]/40 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 max-w-3xl transform transition-transform duration-500 group-hover:translate-y-[-8px]">
+                            {/* Floating Content Box */}
+                            <div className="relative md:absolute md:bottom-0 md:left-0 w-full p-6 md:p-12">
+                                <div className="bg-transparent md:bg-[var(--color-charcoal-light)]/40 md:backdrop-blur-xl md:border md:border-white/10 rounded-3xl md:p-10 max-w-3xl transform transition-transform duration-500 md:group-hover:translate-y-[-8px]">
                                     <div className="flex items-center gap-4 mb-4" style={{ fontFamily: "var(--font-mono)" }}>
                                         <span className="px-3 py-1 rounded-full bg-[var(--color-clay)]/20 text-[var(--color-clay)] text-[10px] md:text-xs uppercase tracking-widest font-semibold">
                                             Priority Signal
