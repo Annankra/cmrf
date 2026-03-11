@@ -51,7 +51,7 @@ export default function ClinicPage() {
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-overlay"
                     style={{
-                        backgroundImage: `url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1920&q=80&auto=format')`,
+                        backgroundImage: `url('https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1920&q=100&auto=format')`,
                     }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
