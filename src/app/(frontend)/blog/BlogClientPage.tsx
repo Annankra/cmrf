@@ -25,9 +25,8 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
             // Hero Animation: Staggered text reveal
             gsap.from(".hero-text-line", {
                 y: 80,
-                opacity: 0,
-                duration: 1.2,
                 autoAlpha: 0,
+                duration: 1.2,
                 stagger: 0.1,
                 ease: "power4.out",
                 delay: 0.1,
@@ -36,7 +35,7 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
             // Featured Card Entrance (Float up)
             gsap.from(".featured-card", {
                 y: 60,
-                opacity: 0,
+                autoAlpha: 0,
                 duration: 1,
                 ease: "power3.out",
                 scrollTrigger: {
@@ -48,7 +47,7 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
             // Grid Cards Staggered Entrance
             gsap.from(".grid-card", {
                 y: 40,
-                opacity: 0,
+                autoAlpha: 0,
                 duration: 0.8,
                 stagger: 0.1,
                 ease: "power2.out",
@@ -63,7 +62,8 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
     }, []);
 
     const featuredPosts = initialPosts.filter((p) => p.featured);
-    const otherPosts = initialPosts.filter((p) => !p.featured);
+    const mainFeatured = featuredPosts[0];
+    const otherPosts = initialPosts.filter((p) => p.slug !== mainFeatured?.slug);
 
     return (
         <div ref={containerRef} className="bg-[var(--color-charcoal)] min-h-screen text-[var(--color-cream)]">
@@ -103,17 +103,17 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
             {/* Featured Post Section */}
             {featuredPosts.length > 0 && (
                 <section className="featured-section px-4 md:px-8 mt-[-8vh] relative z-20 max-w-[1600px] mx-auto">
-                    {featuredPosts.slice(0, 1).map((post) => (
+                    {mainFeatured && (
                         <Link
-                            key={post.slug}
-                            href={`/blog/${post.slug}`}
-                            className="featured-card group flex flex-col md:block relative rounded-[2rem] overflow-hidden no-underline bg-[var(--color-charcoal-light)]/20 md:bg-transparent"
+                            key={mainFeatured.slug}
+                            href={`/blog/${mainFeatured.slug}`}
+                            className="featured-card group flex flex-col md:block relative rounded-[2rem] overflow-hidden no-underline bg-[var(--color-charcoal-light)]/40 backdrop-blur-md md:bg-transparent border border-white/5 md:border-none"
                         >
                             {/* Massive Image Area */}
-                            <div className="h-64 sm:h-80 md:aspect-[21/9] md:h-auto w-full relative overflow-hidden bg-black shrink-0">
+                            <div className="h-64 sm:h-80 md:aspect-[21/9] md:h-auto w-full relative overflow-hidden bg-[var(--color-charcoal-light)] shrink-0">
                                 <div
                                     className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.2s] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-105"
-                                    style={{ backgroundImage: `url('${post.image}')` }}
+                                    style={{ backgroundImage: `url('${mainFeatured.image}')` }}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)]/90 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-75" />
                             </div>
@@ -122,22 +122,23 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
                             <div className="relative md:absolute md:bottom-0 md:left-0 w-full p-6 md:p-12">
                                 <div className="bg-transparent md:bg-[var(--color-charcoal-light)]/40 md:backdrop-blur-xl md:border md:border-white/10 rounded-3xl md:p-10 max-w-3xl transform transition-transform duration-500 md:group-hover:translate-y-[-8px]">
                                     <div className="flex items-center gap-4 mb-4" style={{ fontFamily: "var(--font-mono)" }}>
-                                        <span className="px-3 py-1 rounded-full bg-[var(--color-clay)]/20 text-[var(--color-clay)] text-[10px] md:text-xs uppercase tracking-widest font-semibold">
+                                        <span className="px-3 py-1 rounded-full bg-[var(--color-clay)]/20 text-[var(--color-clay)] text-xs md:text-sm uppercase tracking-widest font-semibold flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clay)] animate-pulse" />
                                             Priority Signal
                                         </span>
-                                        <span className="text-[var(--color-muted)] text-[10px] md:text-xs tracking-wider flex items-center gap-1.5">
+                                        <span className="text-white/60 text-xs md:text-sm tracking-wider flex items-center gap-1.5">
                                             <Calendar size={12} className="text-[var(--color-clay)]" />
-                                            {post.date}
+                                            {mainFeatured.date}
                                         </span>
                                     </div>
                                     <h2
-                                        className="text-3xl md:text-5xl font-bold text-white mb-4 leading-[1.1]"
+                                        className="text-3xl md:text-5xl font-bold text-white mb-4 leading-[1.1] transition-colors duration-300 group-hover:text-[var(--color-clay)]"
                                         style={{ fontFamily: "var(--font-heading)" }}
                                     >
-                                        {post.title}
+                                        {mainFeatured.title}
                                     </h2>
-                                    <p className="text-white/70 text-sm md:text-base line-clamp-2 md:line-clamp-3 mb-6 max-w-2xl">
-                                        {post.excerpt}
+                                    <p className="text-white/70 text-sm md:text-lg lg:text-xl line-clamp-2 md:line-clamp-3 mb-6 max-w-2xl font-light leading-relaxed text-balance">
+                                        {mainFeatured.excerpt}
                                     </p>
 
                                     <div className="flex items-center text-[var(--color-clay)] text-sm font-semibold tracking-wide">
@@ -149,7 +150,7 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
                                 </div>
                             </div>
                         </Link>
-                    ))}
+                    )}
                 </section>
             )}
 
