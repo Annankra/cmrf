@@ -196,17 +196,18 @@ export default function DonatePage() {
     return (
         <div ref={pageRef} className="bg-transparent min-h-screen">
             {/* ─── Hero Section ─── */}
-            <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
+            <section className="relative h-dvh min-h-[600px] flex flex-col justify-end overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center lg:bg-fixed scale-110"
                     style={{
-                        backgroundImage: `url('https://images.unsplash.com/photo-1444676632488-26a136c45b9b?w=1920&q=80&auto=format')`,
+                        backgroundImage: `url('/childerndoctor.jpg')`,
                     }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)]/60 via-transparent to-transparent" />
                 <div className="absolute inset-0 z-12 bg-[radial-gradient(circle,transparent_20%,var(--color-charcoal)_150%)] pointer-events-none" />
 
-                <div className="relative z-20 container-main px-6 md:px-12 pb-16 md:pb-24">
+                <div className="relative z-20 container-main px-6 md:px-12 pt-32 pb-16 md:pb-24">
                     <div className="max-w-4xl">
                         <p
                             data-animate-up

@@ -47,7 +47,7 @@ export default function ClinicPage() {
             ])} />
             <JsonLd data={medicalClinicJsonLd()} />
             {/* Hero */}
-            <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
+            <section className="relative h-[60vh] min-h-[400px] flex flex-col justify-end overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-overlay"
                     style={{
@@ -55,7 +55,8 @@ export default function ClinicPage() {
                     }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
-                <div className="relative z-10 container-main px-6 md:px-12 pb-12 md:pb-16 w-full">
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal-light)]/60 via-transparent to-transparent pointer-events-none" />
+                <div className="relative z-10 container-main px-6 md:px-12 pt-32 pb-12 md:pb-16 w-full">
                     <p
                         className="hero-anim text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-3"
                         style={{ fontFamily: "var(--font-mono)" }}

@@ -76,6 +76,7 @@ export function BlogClientPage({ initialPosts }: { initialPosts: Post[] }) {
                     }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)] via-transparent to-[var(--color-charcoal)]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)]/60 via-transparent to-transparent pointer-events-none" />
 
                 <div className="relative z-10 container-main px-6 md:px-12 text-center mt-20">
                     <div className="overflow-hidden mb-4">

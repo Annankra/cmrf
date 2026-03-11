@@ -86,6 +86,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     style={{ backgroundImage: `url('${coverImageUrl}')` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal-light)]/60 via-transparent to-transparent pointer-events-none" />
                 <div className="relative z-10 container-main px-6 md:px-12 w-full">
                     <div className="flex flex-wrap gap-2 mb-6">
                         {tags.map((tag) => (

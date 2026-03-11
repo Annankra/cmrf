@@ -151,7 +151,7 @@ export function Hero() {
     return (
         <section
             ref={sectionRef}
-            className="relative h-dvh w-full flex items-end overflow-hidden"
+            className="relative h-dvh w-full flex flex-col justify-end overflow-hidden"
         >
             {/* Background Image */}
             <div
@@ -165,8 +165,9 @@ export function Hero() {
             {/* Gradient Overlay */}
             <div
                 data-hero-gradient
-                className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/70 to-[var(--color-moss)]/30"
+                className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30"
             />
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal-light)]/60 via-transparent to-transparent pointer-events-none" />
 
             {/* Floating Particles */}
             <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -183,7 +184,7 @@ export function Hero() {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pb-16 md:pb-24">
+            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-32 pb-16 md:pb-24">
                 <div className="max-w-3xl">
                     <p
                         data-hero-line
