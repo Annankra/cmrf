@@ -53,7 +53,7 @@ export default function DonatePage() {
     return (
         <div ref={pageRef} className="bg-transparent min-h-screen">
             {/* ─── Hero Section ─── */}
-            <section className="relative h-[80dvh] min-h-[500px] md:h-dvh md:min-h-[600px] flex flex-col justify-end overflow-hidden">
+            <section className="relative md:h-dvh md:min-h-[600px] flex flex-col justify-end overflow-hidden pt-12 md:pt-0">
                 <div
                     className="absolute inset-0 bg-cover bg-center lg:bg-fixed scale-110"
                     style={{
@@ -64,7 +64,7 @@ export default function DonatePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)]/80 via-[var(--color-charcoal)]/20 to-transparent" />
                 <div className="absolute inset-0 z-12 bg-[radial-gradient(circle,transparent_10%,var(--color-charcoal)_150%)] md:bg-[radial-gradient(circle,transparent_20%,var(--color-charcoal)_150%)] pointer-events-none" />
 
-                <div className="relative z-20 container-main px-4 sm:px-6 md:px-12 pt-32 pb-12 md:pb-24">
+                <div className="relative z-20 container-main px-6 md:px-12 pt-32 pb-16 md:pb-24">
                     <div className="max-w-4xl">
                         <p
                             data-animate-up
@@ -92,12 +92,12 @@ export default function DonatePage() {
 
             {/* ─── Donation Interaction ─── */}
             <section className="section py-16 md:py-32">
-                <div className="container-main px-4 sm:px-6 md:px-12">
+                <div className="container-main px-6 md:px-12">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
                         {/* Left — Visual Manifesto */}
                         <div className="lg:col-span-5 flex flex-col gap-8 md:gap-12">
-                            <div data-animate-up>
+                            <div>
                                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 md:mb-6" style={{ fontFamily: "var(--font-heading)" }}>
                                     Your donation is <br className="hidden sm:block" />
                                     <span className="font-drama text-[var(--color-clay)] text-4xl sm:text-5xl">transformational.</span>
@@ -113,7 +113,7 @@ export default function DonatePage() {
                                     { icon: Droplets, label: "Clean Water", val: "600+ Communities" },
                                     { icon: Heart, label: "Success Rate", val: "99.8% Recovery" },
                                 ].map((stat, i) => (
-                                    <div key={i} data-animate-up className="flex items-center gap-4 p-5 md:p-6 bg-black/40 rounded-[1.5rem] md:rounded-[2rem] border border-white/5 backdrop-blur-md hover:-translate-y-1 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500">
+                                    <div key={i} className="flex items-center gap-4 p-5 md:p-6 bg-black/40 rounded-[1.5rem] md:rounded-[2rem] border border-white/5 backdrop-blur-md hover:-translate-y-1 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500">
                                         <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-xl md:rounded-2xl bg-[var(--color-clay)]/10 flex items-center justify-center text-[var(--color-clay)]">
                                             <stat.icon size={20} className="md:w-6 md:h-6" />
                                         </div>

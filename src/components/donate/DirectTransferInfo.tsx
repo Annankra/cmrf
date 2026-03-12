@@ -31,7 +31,7 @@ function CopyableField({ label, value }: { label: string; value: string }) {
 
 export function DirectTransferInfo() {
     return (
-        <div className="w-full h-full min-h-[500px] md:min-h-[600px] flex flex-col gap-6 p-4 sm:p-6 md:p-14 rounded-[2rem] sm:rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+        <div className="w-full md:h-full md:min-h-[600px] flex flex-col gap-6 p-4 sm:p-6 md:p-14 rounded-[2rem] sm:rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl relative overflow-hidden">
             <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.03),transparent_50%)] pointer-events-none" />
             
