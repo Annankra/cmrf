@@ -162,7 +162,7 @@ export function Footer() {
                             <span>CMMRF-USA 501(c)3</span>
                             <span className="mx-1">·</span>
                             <span className="flex items-center gap-1">
-                                Built with <Heart size={10} className="text-[var(--color-clay)]" />
+                                dannankra <Heart size={10} className="text-[var(--color-clay)]" />
                             </span>
                         </div>
                     </div>
