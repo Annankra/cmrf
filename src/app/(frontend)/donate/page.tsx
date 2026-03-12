@@ -53,28 +53,28 @@ export default function DonatePage() {
     return (
         <div ref={pageRef} className="bg-transparent min-h-screen">
             {/* ─── Hero Section ─── */}
-            <section className="relative h-dvh min-h-[600px] flex flex-col justify-end overflow-hidden">
+            <section className="relative h-[80dvh] min-h-[500px] md:h-dvh md:min-h-[600px] flex flex-col justify-end overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center lg:bg-fixed scale-110"
                     style={{
                         backgroundImage: `url('/childerndoctor.jpg')`,
                     }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)]/60 via-transparent to-transparent" />
-                <div className="absolute inset-0 z-12 bg-[radial-gradient(circle,transparent_20%,var(--color-charcoal)_150%)] pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)]/80 via-[var(--color-charcoal)]/20 to-transparent" />
+                <div className="absolute inset-0 z-12 bg-[radial-gradient(circle,transparent_10%,var(--color-charcoal)_150%)] md:bg-[radial-gradient(circle,transparent_20%,var(--color-charcoal)_150%)] pointer-events-none" />
 
-                <div className="relative z-20 container-main px-6 md:px-12 pt-32 pb-16 md:pb-24">
+                <div className="relative z-20 container-main px-4 sm:px-6 md:px-12 pt-32 pb-12 md:pb-24">
                     <div className="max-w-4xl">
                         <p
                             data-animate-up
-                            className="text-[var(--color-clay)] text-[10px] md:text-sm uppercase tracking-[0.4em] mb-6 font-bold font-mono"
+                            className="text-[var(--color-clay)] text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.3em] md:tracking-[0.4em] mb-4 md:mb-6 font-bold font-mono"
                         >
                             Impact Protocol — 002
                         </p>
                         <h1
                             data-animate-up
-                            className="text-5xl md:text-7xl lg:text-9xl font-bold text-white leading-[0.85] tracking-tight mb-8"
+                            className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold text-white leading-[0.9] md:leading-[0.85] tracking-tight mb-6 md:mb-8"
                             style={{ fontFamily: "var(--font-heading)" }}
                         >
                             Heal the <br />
@@ -82,7 +82,7 @@ export default function DonatePage() {
                         </h1>
                         <p
                             data-animate-up
-                            className="text-[var(--color-cream)]/70 max-w-xl text-lg md:text-xl leading-relaxed font-medium"
+                            className="text-[var(--color-cream)]/70 max-w-xl text-base sm:text-lg md:text-xl leading-relaxed font-medium"
                         >
                             Mobilizing medical professionals and resources to deliver high-fidelity care to 600+ communities across Africa for 30 years.
                         </p>
@@ -91,35 +91,35 @@ export default function DonatePage() {
             </section>
 
             {/* ─── Donation Interaction ─── */}
-            <section className="section py-20 md:py-32">
-                <div className="container-main px-6 md:px-12">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <section className="section py-16 md:py-32">
+                <div className="container-main px-4 sm:px-6 md:px-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
                         {/* Left — Visual Manifesto */}
-                        <div className="lg:col-span-5 flex flex-col gap-12">
+                        <div className="lg:col-span-5 flex flex-col gap-8 md:gap-12">
                             <div data-animate-up>
-                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6" style={{ fontFamily: "var(--font-heading)" }}>
-                                    Your donation is <br />
-                                    <span className="font-drama text-[var(--color-clay)] text-4xl md:text-5xl">transformational.</span>
+                                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 md:mb-6" style={{ fontFamily: "var(--font-heading)" }}>
+                                    Your donation is <br className="hidden sm:block" />
+                                    <span className="font-drama text-[var(--color-clay)] text-4xl sm:text-5xl">transformational.</span>
                                 </h2>
-                                <p className="text-white/60 text-lg leading-relaxed font-light">
+                                <p className="text-white/60 text-base sm:text-lg leading-relaxed font-light">
                                     CMRF is a 501(c)(3) boutique medical NGO. We focus on clinical precision and sustainable community health infrastructures, not just relief.
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
                                 {[
                                     { icon: Stethoscope, label: "Clinical Excellence", val: "30+ Years" },
                                     { icon: Droplets, label: "Clean Water", val: "600+ Communities" },
                                     { icon: Heart, label: "Success Rate", val: "99.8% Recovery" },
                                 ].map((stat, i) => (
-                                    <div key={i} data-animate-up className="flex items-center gap-4 p-6 bg-black/40 rounded-[2rem] border border-white/5 backdrop-blur-md hover:-translate-y-1 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500">
-                                        <div className="w-12 h-12 rounded-2xl bg-[var(--color-clay)]/10 flex items-center justify-center text-[var(--color-clay)]">
-                                            <stat.icon size={24} />
+                                    <div key={i} data-animate-up className="flex items-center gap-4 p-5 md:p-6 bg-black/40 rounded-[1.5rem] md:rounded-[2rem] border border-white/5 backdrop-blur-md hover:-translate-y-1 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500">
+                                        <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-xl md:rounded-2xl bg-[var(--color-clay)]/10 flex items-center justify-center text-[var(--color-clay)]">
+                                            <stat.icon size={20} className="md:w-6 md:h-6" />
                                         </div>
                                         <div>
-                                            <p className="text-white/40 text-xs font-mono uppercase tracking-widest">{stat.label}</p>
-                                            <p className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>{stat.val}</p>
+                                            <p className="text-white/40 text-[10px] md:text-xs font-mono uppercase tracking-widest">{stat.label}</p>
+                                            <p className="text-lg md:text-xl font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>{stat.val}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -127,10 +127,14 @@ export default function DonatePage() {
                         </div>
 
                         {/* Right — The Instrument (Tabs & Forms) */}
-                        <div className="lg:col-span-7 flex flex-col gap-8" data-animate-scale>
+                        <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8" data-animate-scale>
                             
                             {/* Tab Selectors */}
-                            <div className="flex bg-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-full p-2 gap-2 overflow-x-auto custom-scrollbar shadow-2xl">
+                            <div 
+                                role="tablist" 
+                                aria-label="Donation Methods"
+                                className="flex flex-col sm:flex-row bg-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl sm:rounded-full p-2 gap-2 shadow-2xl"
+                            >
                                 {[
                                     { id: 'international', label: 'International (USD)', icon: Globe },
                                     { id: 'local', label: 'Ghana (GHS)', icon: Smartphone },
@@ -141,10 +145,13 @@ export default function DonatePage() {
                                     return (
                                         <button
                                             key={tab.id}
+                                            role="tab"
+                                            aria-selected={isActive}
                                             onClick={() => setActiveTab(tab.id as any)}
-                                            className={`flex-1 flex outline-none focus:outline-none items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 font-mono whitespace-nowrap ${isActive
-                                                ? 'bg-[var(--color-clay)] text-white shadow-[0_0_20px_rgba(204,88,51,0.3)]'
-                                                : 'text-white/40 hover:text-white/90 hover:bg-white/[0.05]'
+                                            className={`flex-1 flex outline-none focus:outline-none items-center justify-center gap-2 py-4 px-6 rounded-xl sm:rounded-full font-bold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 font-mono whitespace-nowrap min-h-[48px] ${
+                                                isActive
+                                                    ? 'bg-[var(--color-clay)] text-white shadow-[0_0_20px_rgba(204,88,51,0.3)] scale-[1.02]'
+                                                    : 'text-white/40 hover:text-white/90 hover:bg-white/[0.05] hover:scale-[1.02]'
                                             }`}
                                         >
                                             <Icon size={16} />

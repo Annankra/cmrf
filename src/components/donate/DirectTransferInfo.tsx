@@ -13,15 +13,15 @@ function CopyableField({ label, value }: { label: string; value: string }) {
     };
 
     return (
-        <div className="flex flex-col md:flex-row md:items-center justify-between py-3 border-b border-white/5 last:border-0 group cursor-pointer" onClick={handleCopy}>
-            <span className="text-white/50 text-xs md:text-sm font-mono tracking-widest uppercase mb-1 md:mb-0">
+        <div className="flex flex-col justify-center py-3 border-b border-white/5 last:border-0 group cursor-pointer" onClick={handleCopy}>
+            <span className="text-white/50 text-[10px] md:text-xs font-mono tracking-widest uppercase mb-2">
                 {label}
             </span>
-            <div className="flex items-center gap-3">
-                <span className="text-white font-medium md:text-lg" style={{ fontFamily: "var(--font-body)" }}>
+            <div className="flex items-center justify-between w-full gap-4">
+                <span className="text-white font-medium text-base md:text-lg truncate" style={{ fontFamily: "var(--font-body)" }}>
                     {value}
                 </span>
-                <span className={`text-[10px] font-mono tracking-widest uppercase px-2 py-0.5 rounded transition-colors ${copied ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-white/5 text-white/30 border border-white/10 group-hover:bg-white/10 group-hover:text-white/70'}`}>
+                <span className={`shrink-0 text-[10px] font-mono tracking-widest uppercase px-2 py-0.5 rounded transition-colors ${copied ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-white/5 text-white/30 border border-white/10 group-hover:bg-white/10 group-hover:text-white/70'}`}>
                     {copied ? 'Copied' : 'Copy'}
                 </span>
             </div>
@@ -31,18 +31,18 @@ function CopyableField({ label, value }: { label: string; value: string }) {
 
 export function DirectTransferInfo() {
     return (
-        <div className="w-full h-full min-h-[600px] flex flex-col gap-6 p-4 md:p-14 rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+        <div className="w-full h-full min-h-[500px] md:min-h-[600px] flex flex-col gap-6 p-4 sm:p-6 md:p-14 rounded-[2rem] sm:rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl relative overflow-hidden">
             <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.03),transparent_50%)] pointer-events-none" />
             
-            <div className="text-center mb-6">
-                <p className="text-[var(--color-clay)] font-mono text-xs tracking-widest uppercase font-bold mb-2">
+            <div className="text-center mb-4 md:mb-6">
+                <p className="text-[var(--color-clay)] font-mono text-[10px] sm:text-xs tracking-widest uppercase font-bold mb-2">
                     Direct Contribution
                 </p>
-                <h3 className="text-xl md:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
                     Bank & Mobile Money
                 </h3>
-                <p className="text-white/60 text-sm mt-3 max-w-md mx-auto leading-relaxed">
+                <p className="text-white/60 text-xs sm:text-sm mt-2 md:mt-3 max-w-md mx-auto leading-relaxed">
                     For large contributions or if you prefer manual transfers. Please use your name or "Donation" as the reference.
                 </p>
             </div>

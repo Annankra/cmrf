@@ -143,24 +143,24 @@ export function PaystackForm() {
     };
 
     return (
-        <div className="bg-white/[0.02] rounded-[3rem] p-6 md:p-14 border border-white/10 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+        <div className="bg-white/[0.02] rounded-[2rem] sm:rounded-[3rem] p-4 sm:p-6 md:p-14 border border-white/10 backdrop-blur-2xl shadow-2xl relative overflow-hidden w-full">
             <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.03),transparent_50%)] pointer-events-none" />
             
-            <div className="mb-10 text-center">
-                <p className="text-[var(--color-clay)] font-mono text-xs tracking-widest uppercase font-bold mb-2">
+            <div className="mb-6 md:mb-10 text-center">
+                <p className="text-[var(--color-clay)] font-mono text-[10px] sm:text-xs tracking-widest uppercase font-bold mb-2">
                     Ghana Local Gateway
                 </p>
-                <h3 className="text-xl md:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
                     Card & Mobile Money
                 </h3>
             </div>
 
-            <div className="mb-10">
-                <h4 className="text-sm font-bold text-white/50 mb-4 uppercase tracking-widest font-mono">
+            <div className="mb-8 md:mb-10">
+                <h4 className="text-xs sm:text-sm font-bold text-white/50 mb-3 md:mb-4 uppercase tracking-widest font-mono">
                     Select Contribution (GHS)
                 </h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
                     {PRESET_AMOUNTS.map((amt) => (
                         <MagneticSelection
                             key={amt.ghscents}
