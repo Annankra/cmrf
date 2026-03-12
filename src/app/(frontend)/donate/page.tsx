@@ -148,14 +148,14 @@ export default function DonatePage() {
                                             role="tab"
                                             aria-selected={isActive}
                                             onClick={() => setActiveTab(tab.id as any)}
-                                            className={`flex-1 flex outline-none focus:outline-none items-center justify-center gap-2 py-4 px-6 rounded-xl sm:rounded-full font-bold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 font-mono whitespace-nowrap min-h-[48px] ${
+                                            className={`flex-1 flex outline-none focus:outline-none items-center justify-start sm:justify-center gap-3 py-4 px-6 sm:px-8 rounded-xl sm:rounded-full font-bold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 font-mono whitespace-nowrap min-h-[48px] ${
                                                 isActive
                                                     ? 'bg-[var(--color-clay)] text-white shadow-[0_0_20px_rgba(204,88,51,0.3)] scale-[1.02]'
                                                     : 'text-white/40 hover:text-white/90 hover:bg-white/[0.05] hover:scale-[1.02]'
                                             }`}
                                         >
-                                            <Icon size={16} />
-                                            {tab.label}
+                                            <Icon size={18} className="shrink-0" />
+                                            <span className="text-left">{tab.label}</span>
                                         </button>
                                     );
                                 })}
