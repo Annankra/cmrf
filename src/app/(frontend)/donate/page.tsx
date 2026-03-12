@@ -1,16 +1,14 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import {
-    Heart,
-    Stethoscope,
-    Droplets,
-    GraduationCap,
-    ArrowRight,
-    Loader2,
-} from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Heart, Stethoscope, Droplets, Globe, Smartphone, Landmark } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { DonorboxEmbed } from "@/components/donate/DonorboxEmbed";
+import { DirectTransferInfo } from "@/components/donate/DirectTransferInfo";
+import dynamic from 'next/dynamic';
+
+const PaystackForm = dynamic(() => import('@/components/donate/PaystackForm').then(mod => mod.PaystackForm), { ssr: false });
 
 // ---------------------------------------------------------------------------
 // Constants & Initialization
@@ -19,116 +17,14 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-const PRESET_AMOUNTS = [
-    { cents: 2500, label: "$25", impact: "provides a full medical screening for one community member." },
-    { cents: 5000, label: "$50", impact: "funds essential medications for 5 patients in remote areas." },
-    { cents: 10000, label: "$100", impact: "secures clean water access for an entire village for one month." },
-    { cents: 25000, label: "$250", impact: "sponsors an undergraduate medical student for a full semester." },
-    { cents: 50000, label: "$500", impact: "supports a complete surgical outreach for a community of 50+ people." },
-];
+// Replaced old utility components.
 
-// ---------------------------------------------------------------------------
-// Components
-// ---------------------------------------------------------------------------
-
-function MagneticSelection({
-    amount,
-    isSelected,
-    onClick,
-}: {
-    amount: { cents: number; label: string };
-    isSelected: boolean;
-    onClick: () => void;
-}) {
-    const ref = useRef<HTMLButtonElement>(null);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-
-        gsap.to(ref.current, {
-            x: x * 0.4,
-            y: y * 0.4,
-            scale: 1.05,
-            duration: 0.6,
-            ease: "power3.out",
-        });
-    };
-
-    const handleMouseLeave = () => {
-        gsap.to(ref.current, {
-            x: 0,
-            y: 0,
-            scale: 1,
-            duration: 0.7,
-            ease: "elastic.out(1, 0.3)",
-        });
-    };
-
-    return (
-        <button
-            ref={ref}
-            type="button"
-            onClick={onClick}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            className={`relative group overflow-hidden py-6 rounded-[1.5rem] border transition-all duration-500 cursor-pointer ${isSelected
-                ? "bg-[var(--color-clay)] border-[var(--color-clay)] shadow-2xl shadow-[var(--color-clay)]/20 text-white"
-                : "bg-black/40 border-white/5 text-white hover:border-[var(--color-clay)]/40 hover:bg-white/[0.02]"
-                }`}
-        >
-            <span
-                className={`absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out`}
-            />
-            <span className="relative z-10 font-bold text-lg md:text-xl" style={{ fontFamily: "var(--font-heading)" }}>
-                {amount.label}
-            </span>
-        </button>
-    );
-}
-
-function ImpactLiveFeed({ text }: { text: string }) {
-    const [displayed, setDisplayed] = useState("");
-    const [index, setIndex] = useState(0);
-
-    useEffect(() => {
-        setDisplayed("");
-        setIndex(0);
-    }, [text]);
-
-    useEffect(() => {
-        if (index < text.length) {
-            const timeout = setTimeout(() => {
-                setDisplayed((prev) => prev + text[index]);
-                setIndex((prev) => prev + 1);
-            }, 30);
-            return () => clearTimeout(timeout);
-        }
-    }, [index, text]);
-
-    return (
-        <div className="flex items-center gap-2 font-mono text-[10px] md:text-xs text-[var(--color-clay)] mt-4 min-h-[1.5rem]">
-            <span className="shrink-0 w-2 h-2 rounded-full bg-[var(--color-clay)] animate-pulse" />
-            <span className="uppercase tracking-widest font-bold shrink-0">Impact Level:</span>
-            <span className="italic opacity-80">{displayed}</span>
-            <span className="w-[2px] h-3 bg-[var(--color-clay)] animate-cursor" />
-        </div>
-    );
-}
 
 // ---------------------------------------------------------------------------
 // Page Main
 // ---------------------------------------------------------------------------
 export default function DonatePage() {
-    const [selectedCents, setSelectedCents] = useState<number>(10000); // Default $100
-    const [customAmount, setCustomAmount] = useState("");
-    const [donorName, setDonorName] = useState("");
-    const [donorEmail, setDonorEmail] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-
+    const [activeTab, setActiveTab] = useState<'international' | 'local' | 'direct'>('international');
     const pageRef = useRef<HTMLDivElement>(null);
 
     // Entrance Animations
@@ -153,45 +49,6 @@ export default function DonatePage() {
         }, pageRef);
         return () => ctx.revert();
     }, []);
-
-    const effectiveCents = customAmount
-        ? Math.round(parseFloat(customAmount) * 100)
-        : selectedCents;
-
-    const currentImpact = customAmount
-        ? `helps fund general medical missions and essential community resources.`
-        : PRESET_AMOUNTS.find(a => a.cents === selectedCents)?.impact || "";
-
-    const handleSubmit = async () => {
-        setError("");
-        if (!effectiveCents || effectiveCents < 100) {
-            setError("Min donation is $1.00");
-            return;
-        }
-        setLoading(true);
-
-        try {
-            const res = await fetch("/api/donate/create-checkout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    amount: effectiveCents,
-                    donorName: donorName.trim() || undefined,
-                    donorEmail: donorEmail.trim() || undefined,
-                }),
-            });
-            const data = await res.json();
-            if (!res.ok || !data.success) {
-                setError(data.error || "Transaction failed. Please try again.");
-                setLoading(false);
-                return;
-            }
-            window.location.href = data.url;
-        } catch {
-            setError("Network error. Please try again.");
-            setLoading(false);
-        }
-    };
 
     return (
         <div ref={pageRef} className="bg-transparent min-h-screen">
@@ -269,106 +126,53 @@ export default function DonatePage() {
                             </div>
                         </div>
 
-                        {/* Right — The Instrument (Form) */}
-                        <div className="lg:col-span-7" data-animate-scale>
-                            <div className="bg-black/40 rounded-[3rem] p-8 md:p-14 border border-white/5 backdrop-blur-xl shadow-2xl">
+                        {/* Right — The Instrument (Tabs & Forms) */}
+                        <div className="lg:col-span-7 flex flex-col gap-8" data-animate-scale>
+                            
+                            {/* Tab Selectors */}
+                            <div className="flex bg-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-full p-2 gap-2 overflow-x-auto custom-scrollbar shadow-2xl">
+                                {[
+                                    { id: 'international', label: 'International (USD)', icon: Globe },
+                                    { id: 'local', label: 'Ghana (GHS)', icon: Smartphone },
+                                    { id: 'direct', label: 'Direct Transfer', icon: Landmark }
+                                ].map((tab) => {
+                                    const Icon = tab.icon;
+                                    const isActive = activeTab === tab.id;
+                                    return (
+                                        <button
+                                            key={tab.id}
+                                            onClick={() => setActiveTab(tab.id as any)}
+                                            className={`flex-1 flex outline-none focus:outline-none items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 font-mono whitespace-nowrap ${isActive
+                                                ? 'bg-[var(--color-clay)] text-white shadow-[0_0_20px_rgba(204,88,51,0.3)]'
+                                                : 'text-white/40 hover:text-white/90 hover:bg-white/[0.05]'
+                                            }`}
+                                        >
+                                            <Icon size={16} />
+                                            {tab.label}
+                                        </button>
+                                    );
+                                })}
+                            </div>
 
-                                <div className="mb-10">
-                                    <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-widest font-mono text-center">
-                                        Select Strategy
-                                    </h3>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                                        {PRESET_AMOUNTS.map((amt) => (
-                                            <MagneticSelection
-                                                key={amt.cents}
-                                                amount={amt}
-                                                isSelected={selectedCents === amt.cents && !customAmount}
-                                                onClick={() => {
-                                                    setSelectedCents(amt.cents);
-                                                    setCustomAmount("");
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
-                                    <ImpactLiveFeed text={currentImpact} />
-                                </div>
-
-                                {/* Custom Input */}
-                                <div className="mb-10 relative group">
-                                    <label className="block text-[10px] font-bold text-white/40 uppercase tracking-widest mb-3 font-mono">
-                                        Custom Allocation (USD)
-                                    </label>
-                                    <div className="relative">
-                                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-2xl font-bold text-[var(--color-clay)]">$</span>
-                                        <input
-                                            type="number"
-                                            value={customAmount}
-                                            onChange={(e) => {
-                                                setCustomAmount(e.target.value);
-                                                setSelectedCents(0);
-                                            }}
-                                            placeholder="Amount..."
-                                            className="w-full bg-white/[0.02] border-2 border-white/5 focus:border-[var(--color-clay)]/40 rounded-[2rem] py-5 md:py-6 pl-14 pr-6 md:px-12 text-2xl md:text-3xl font-bold text-white transition-all outline-none placeholder:text-white/20"
-                                            style={{ fontFamily: "var(--font-heading)" }}
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Data Input */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                                    {[
-                                        { id: "name", label: "Donor Identity", val: donorName, set: setDonorName, type: "text", ph: "Full Name" },
-                                        { id: "email", label: "Communication Channel", val: donorEmail, set: setDonorEmail, type: "email", ph: "your@email.com" },
-                                    ].map((field) => (
-                                        <div key={field.id}>
-                                            <label className="block text-[10px] font-bold text-white/40 uppercase tracking-widest mb-3 font-mono">
-                                                {field.label}
-                                            </label>
-                                            <input
-                                                type={field.type}
-                                                value={field.val}
-                                                onChange={(e) => field.set(e.target.value)}
-                                                placeholder={field.ph}
-                                                className="w-full bg-white/[0.02] border border-white/5 focus:border-[var(--color-clay)]/40 rounded-[1.5rem] py-4 px-6 text-white transition-all outline-none font-medium placeholder:text-white/20"
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {error && (
-                                    <div className="mb-6 p-4 rounded-2xl bg-red-50 text-red-600 text-sm font-medium border border-red-100 flex items-center gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-                                        {error}
+                            {/* Active Content */}
+                            <div className="relative">
+                                {activeTab === 'international' && (
+                                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                        <DonorboxEmbed />
                                     </div>
                                 )}
-
-                                <button
-                                    onClick={handleSubmit}
-                                    disabled={loading}
-                                    className="btn btn-primary w-full py-8 text-xl font-bold shadow-xl shadow-[var(--color-clay)]/20 disabled:opacity-50"
-                                >
-                                    <span className="btn-text flex items-center justify-center gap-4">
-                                        {loading ? (
-                                            <Loader2 size={24} className="animate-spin" />
-                                        ) : (
-                                            <>
-                                                Initialize Support Protocol
-                                                <ArrowRight size={24} />
-                                            </>
-                                        )}
-                                    </span>
-                                </button>
-
-                                <div className="mt-8 flex items-center justify-center gap-8 border-t border-white/5 pt-8">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                        <span className="text-[10px] font-mono text-white/40 uppercase tracking-tighter">Encrypted-SSL</span>
+                                
+                                {activeTab === 'local' && (
+                                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                        <PaystackForm />
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <Heart size={12} className="text-[var(--color-clay)]" />
-                                        <span className="text-[10px] font-mono text-white/40 uppercase tracking-tighter">501(c)(3) Verified</span>
+                                )}
+                                
+                                {activeTab === 'direct' && (
+                                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                        <DirectTransferInfo />
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
 
