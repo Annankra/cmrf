@@ -79,60 +79,71 @@ export default function ContactPage() {
                                 className="text-3xl md:text-4xl font-bold text-white mb-6"
                                 style={{ fontFamily: "var(--font-heading)" }}
                             >
-                                Direct{" "}
+                                Our{" "}
                                 <span className="font-drama text-[var(--color-clay)] italic pr-2">
-                                    contact.
+                                    Offices.
                                 </span>
                             </h2>
-                            <div className="space-y-6 mb-10 pb-10 border-b border-white/5">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 transition-transform duration-300 hover:scale-110">
-                                        <Mail size={20} className="text-white/70" />
-                                    </div>
-                                    <div className="pt-1.5">
-                                        <p
-                                            className="font-bold text-white/90 text-sm mb-1 uppercase tracking-widest text-[10px]"
-                                            style={{ fontFamily: "var(--font-mono)" }}
-                                        >
-                                            Email
+                            <div className="space-y-8 mb-10 pb-10 border-b border-white/5">
+                                {/* Ghana Office */}
+                                <div className="p-6 rounded-[2rem] bg-black/20 border border-white/5 hover:border-[var(--color-clay)]/30 transition-all duration-300">
+                                    <h3 className="text-white font-mono text-xs uppercase tracking-widest text-[var(--color-clay)] mb-3">Ghana (HQ)</h3>
+                                    <div className="space-y-2">
+                                        <p className="text-white/80 font-medium text-sm">
+                                            Christian Medical Missions Resource Foundation
                                         </p>
-                                        <a
-                                            href="mailto:cmmrf@usa.com"
-                                            className="text-[var(--color-clay)] text-[15px] no-underline hover:underline transition-all"
-                                        >
-                                            cmmrf@usa.com
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-[var(--color-moss)]/10 border border-[var(--color-moss)]/20 flex items-center justify-center flex-shrink-0 transition-transform duration-300 hover:scale-110">
-                                        <MapPin size={20} className="text-[var(--color-moss)]" />
-                                    </div>
-                                    <div className="pt-1.5">
-                                        <p
-                                            className="font-bold text-white/90 text-sm mb-1 uppercase tracking-widest text-[10px]"
-                                            style={{ fontFamily: "var(--font-mono)" }}
-                                        >
-                                            Location
+                                        <p className="text-white/60 text-sm font-light">
+                                            P. O. Box CT 4583, Cantonments, Accra, Ghana
                                         </p>
-                                        <p className="text-white/60 text-[15px] font-light">
-                                            Accra, Ghana
+                                        <p className="text-sm">
+                                            <span className="text-white/40 font-mono uppercase tracking-wider text-[10px] mr-2">Phone:</span>
+                                            <a href="tel:+233540316355" className="text-white/70 hover:text-white transition-colors">+233 54 031 6355</a>
+                                            <span className="text-white/40 mx-2">|</span>
+                                            <a href="tel:+233208129634" className="text-white/70 hover:text-white transition-colors">+233 20 812 9634</a>
+                                        </p>
+                                        <p className="text-sm">
+                                            <span className="text-white/40 font-mono uppercase tracking-wider text-[10px] mr-2">Email:</span>
+                                            <a href="mailto:cmrfinternational@gmail.com" className="text-[var(--color-clay)] hover:underline">cmrfinternational@gmail.com</a>
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-[var(--color-clay)]/10 border border-[var(--color-clay)]/20 flex items-center justify-center flex-shrink-0 transition-transform duration-300 hover:scale-110">
-                                        <Phone size={20} className="text-[var(--color-clay)]" />
-                                    </div>
-                                    <div className="pt-1.5">
-                                        <p
-                                            className="font-bold text-white/90 text-sm mb-1 uppercase tracking-widest text-[10px]"
-                                            style={{ fontFamily: "var(--font-mono)" }}
-                                        >
-                                            Organization Type
+
+                                {/* USA Office */}
+                                <div className="p-6 rounded-[2rem] bg-black/20 border border-white/5 hover:border-[var(--color-clay)]/30 transition-all duration-300">
+                                    <h3 className="text-white font-mono text-xs uppercase tracking-widest text-[var(--color-clay)] mb-3">USA (501c3)</h3>
+                                    <div className="space-y-2">
+                                        <p className="text-white/80 font-medium text-sm">
+                                            Christian Missions Resources Foundation
                                         </p>
-                                        <p className="text-white/60 text-[15px] font-light">
-                                            CMRF Ghana (NGO) · CMMRF-USA 501(c)3
+                                        <p className="text-white/60 text-sm font-light">
+                                            7531 Trail Hollow, Missouri City, TX 77459
+                                        </p>
+                                        <p className="text-sm">
+                                            <span className="text-white/40 font-mono uppercase tracking-wider text-[10px] mr-2">Phone:</span>
+                                            <a href="tel:+18322896812" className="text-white/70 hover:text-white transition-colors">+1 (832) 289-6812</a>
+                                            <span className="text-white/40 mx-2">|</span>
+                                            <a href="tel:+19797392682" className="text-white/70 hover:text-white transition-colors">+1 (979) 739-2682</a>
+                                        </p>
+                                        <p className="text-sm">
+                                            <span className="text-white/40 font-mono uppercase tracking-wider text-[10px] mr-2">Email:</span>
+                                            <a href="mailto:mkminta@gmail.com" className="text-[var(--color-clay)] hover:underline">mkminta@gmail.com</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Europe Office */}
+                                <div className="p-6 rounded-[2rem] bg-black/20 border border-white/5 hover:border-[var(--color-clay)]/30 transition-all duration-300">
+                                    <h3 className="text-white font-mono text-xs uppercase tracking-widest text-[var(--color-clay)] mb-3">Europe</h3>
+                                    <div className="space-y-2">
+                                        <p className="text-sm">
+                                            <span className="text-white/40 font-mono uppercase tracking-wider text-[10px] mr-2">Phone:</span>
+                                            <a href="tel:+447946757846" className="text-white/70 hover:text-white transition-colors">+44 7946 757846</a>
+                                            <span className="text-white/40 mx-2">|</span>
+                                            <a href="tel:+447866439985" className="text-white/70 hover:text-white transition-colors">+44 7866 439985</a>
+                                        </p>
+                                        <p className="text-sm">
+                                            <span className="text-white/40 font-mono uppercase tracking-wider text-[10px] mr-2">Email:</span>
+                                            <a href="mailto:papadelca@hotmail.com" className="text-[var(--color-clay)] hover:underline">papadelca@hotmail.com</a>
                                         </p>
                                     </div>
                                 </div>

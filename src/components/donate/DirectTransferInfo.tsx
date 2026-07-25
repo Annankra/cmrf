@@ -50,7 +50,7 @@ export function DirectTransferInfo() {
             <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-8">
                 
                 {/* Local Bank Transfer */}
-                <div className="group bg-black/20 border border-white/10 rounded-[2rem] p-6 hover:border-[var(--color-clay)]/50 transition-all hover:bg-white/[0.05] hover:shadow-[0_0_20px_rgba(204,88,51,0.05)]">
+                <div className="group bg-black/20 border border border-white/10 rounded-[2rem] p-6 hover:border-[var(--color-clay)]/50 transition-all hover:bg-white/[0.05] hover:shadow-[0_0_20px_rgba(204,88,51,0.05)]">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-10 h-10 rounded-xl bg-[var(--color-clay)]/10 flex items-center justify-center text-[var(--color-clay)]">
                             <Building2 size={20} />
@@ -61,14 +61,14 @@ export function DirectTransferInfo() {
                     </div>
                     <div className="flex flex-col">
                         <CopyableField label="Bank Name" value="Ecobank Ghana" />
-                        <CopyableField label="Account Name" value="Christian Medical Missions" />
-                        <CopyableField label="Account Number" value="1234567890123" />
-                        <CopyableField label="Branch" value="Spintex Road" />
+                        <CopyableField label="Account Name" value="Christian Missions Resource Foundation" />
+                        <CopyableField label="Account Number" value="1441000434410" />
+                        <CopyableField label="Branch" value="Haatso Branch" />
                     </div>
                 </div>
 
                 {/* International Bank Transfer */}
-                <div className="group bg-black/20 border border-white/10 rounded-[2rem] p-6 hover:border-[var(--color-clay)]/50 transition-all hover:bg-white/[0.05] hover:shadow-[0_0_20px_rgba(204,88,51,0.05)]">
+                <div className="group bg-black/20 border border border-white/10 rounded-[2rem] p-6 hover:border-[var(--color-clay)]/50 transition-all hover:bg-white/[0.05] hover:shadow-[0_0_20px_rgba(204,88,51,0.05)]">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-10 h-10 rounded-xl bg-[var(--color-clay)]/10 flex items-center justify-center text-[var(--color-clay)]">
                             <Globe2 size={20} />
@@ -79,14 +79,15 @@ export function DirectTransferInfo() {
                     </div>
                     <div className="flex flex-col">
                         <CopyableField label="Bank Name" value="Ecobank Ghana" />
-                        <CopyableField label="Account Name" value="Christian Medical Missions" />
-                        <CopyableField label="Account Number / IBAN" value="GH00ECOB00000000000000" />
+                        <CopyableField label="Account Name" value="Christian Missions Resource Foundation" />
+                        <CopyableField label="Account Number" value="1441000434410" />
                         <CopyableField label="SWIFT / BIC" value="ECOCGHAC" />
+                        <CopyableField label="Branch" value="Haatso Branch" />
                     </div>
                 </div>
 
                 {/* Mobile Money Direct */}
-                <div className="group bg-black/20 border border-white/10 rounded-[2rem] p-6 hover:border-[var(--color-clay)]/50 transition-all hover:bg-white/[0.05] hover:shadow-[0_0_20px_rgba(204,88,51,0.05)]">
+                <div className="group bg-black/20 border border border-white/10 rounded-[2rem] p-6 hover:border-[var(--color-clay)]/50 transition-all hover:bg-white/[0.05] hover:shadow-[0_0_20px_rgba(204,88,51,0.05)]">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-10 h-10 rounded-xl bg-[var(--color-clay)]/10 flex items-center justify-center text-[var(--color-clay)]">
                             <Smartphone size={20} />
@@ -96,9 +97,8 @@ export function DirectTransferInfo() {
                         </h4>
                     </div>
                     <div className="flex flex-col">
-                        <CopyableField label="MTN MoMo" value="024 123 4567" />
-                        <CopyableField label="Vodafone Cash" value="020 123 4567" />
-                        <CopyableField label="Registered Name" value="CMRF NGO" />
+                        <CopyableField label="Telecel Cash" value="0506851043" />
+                        <CopyableField label="Registered Name" value="Christian Missions Resource Foundation" />
                     </div>
                 </div>
 

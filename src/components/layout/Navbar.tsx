@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, Heart } from "lucide-react";
 import gsap from "gsap";
 
 const navLinks = [
@@ -15,6 +16,7 @@ const navLinks = [
 ];
 
 export function Navbar() {
+    const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const navRef = useRef<HTMLElement>(null);
@@ -22,7 +24,7 @@ export function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 80);
+            setScrolled(window.scrollY > 60);
         };
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
@@ -36,23 +38,23 @@ export function Navbar() {
 
         if (scrolled) {
             gsap.to(navRef.current, {
-                backgroundColor: "rgba(242, 240, 233, 0.6)",
-                backdropFilter: "blur(20px)",
-                borderColor: "rgba(46, 64, 54, 0.1)",
-                boxShadow: "0 8px 32px rgba(26, 26, 26, 0.08)",
-                width: "min(85vw, 1000px)",
+                backgroundColor: "rgba(17, 17, 21, 0.85)",
+                backdropFilter: "blur(24px)",
+                borderColor: "rgba(255, 255, 255, 0.12)",
+                boxShadow: "0 16px 40px rgba(0, 0, 0, 0.35)",
+                width: "min(88vw, 1040px)",
                 duration: 0.5,
-                ease: "power2.out",
+                ease: "power3.out",
             });
         } else {
             gsap.to(navRef.current, {
-                backgroundColor: "rgba(0, 0, 0, 0)",
-                backdropFilter: "blur(0px)",
-                borderColor: "rgba(0, 0, 0, 0)",
+                backgroundColor: "rgba(0, 0, 0, 0.25)",
+                backdropFilter: "blur(12px)",
+                borderColor: "rgba(255, 255, 255, 0.08)",
                 boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
-                width: "min(90vw, 1100px)",
+                width: "min(92vw, 1140px)",
                 duration: 0.5,
-                ease: "power2.out",
+                ease: "power3.out",
             });
         }
     }, [scrolled]);
@@ -61,10 +63,10 @@ export function Navbar() {
     useEffect(() => {
         if (!navRef.current) return;
         gsap.from(navRef.current, {
-            y: -30,
+            y: -40,
             opacity: 0,
-            duration: 0.8,
-            delay: 0.6,
+            duration: 0.9,
+            delay: 0.2,
             ease: "power3.out",
         });
     }, []);
@@ -82,53 +84,58 @@ export function Navbar() {
         <>
             <nav
                 ref={navRef}
-                className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 px-6 py-3 rounded-full border border-transparent"
+                className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-4 px-5 py-2.5 rounded-full border border-white/10"
                 style={{
-                    width: "min(90vw, 1100px)",
+                    width: "min(92vw, 1140px)",
                     willChange: "background-color, width, box-shadow",
                 }}
             >
                 {/* Logo */}
                 <Link
                     href="/"
-                    className={`font-extrabold text-xl tracking-tight transition-colors duration-500 no-underline ${scrolled ? "text-[var(--color-moss)]" : "text-[var(--color-cream)]"
-                        }`}
-                    style={{ fontFamily: "var(--font-heading)" }}
+                    className="flex items-center gap-2 group no-underline"
                 >
-                    CMRF
+                    <span
+                        className="font-extrabold text-xl md:text-2xl tracking-tight text-[var(--color-cream)] transition-colors group-hover:text-[var(--color-clay)]"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                        CMRF
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clay)] animate-pulse-dot" />
                 </Link>
 
                 {/* Desktop Nav Links */}
                 <div className="hidden md:flex items-center gap-1">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className={`px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 no-underline hover:translate-y-[-1px] ${scrolled
-                                ? "text-[var(--color-charcoal)] hover:bg-[var(--color-moss)]/5"
-                                : "text-[var(--color-cream)]/80 hover:text-[var(--color-cream)]"
-                                }`}
-                            style={{ fontFamily: "var(--font-heading)" }}
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
+                    {navLinks.map((link) => {
+                        const isActive = pathname === link.href;
+                        return (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={`px-3.5 py-1.5 text-sm font-medium rounded-full transition-all duration-300 no-underline hover:translate-y-[-1px] ${isActive
+                                        ? "text-[var(--color-clay)] bg-white/10 font-semibold"
+                                        : "text-[var(--color-cream)]/80 hover:text-[var(--color-cream)] hover:bg-white/5"
+                                    }`}
+                                style={{ fontFamily: "var(--font-heading)" }}
+                            >
+                                {link.label}
+                            </Link>
+                        );
+                    })}
                 </div>
 
                 {/* CTA + Mobile Trigger */}
                 <div className="flex items-center gap-3">
                     <Link
                         href="/donate"
-                        className={`hidden md:inline-flex btn text-sm py-2 px-5 ${scrolled ? "btn-primary" : "btn-ghost"
-                            }`}
+                        className="hidden md:inline-flex btn btn-primary text-xs py-2 px-5"
                     >
+                        <Heart size={14} fill="currentColor" />
                         <span className="btn-text">Donate</span>
                     </Link>
+
                     <button
-                        className={`md:hidden p-2 rounded-full transition-colors cursor-pointer ${scrolled
-                            ? "text-[var(--color-moss)]"
-                            : "text-[var(--color-cream)]"
-                            }`}
+                        className="md:hidden p-2 rounded-full text-[var(--color-cream)] hover:bg-white/10 transition-colors cursor-pointer"
                         onClick={() => setMobileOpen(!mobileOpen)}
                         aria-label={mobileOpen ? "Close menu" : "Open menu"}
                     >
@@ -140,8 +147,8 @@ export function Navbar() {
             {/* Mobile Menu Overlay */}
             <div
                 className={`fixed inset-0 z-40 bg-[var(--color-charcoal)]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 transition-all duration-500 ${mobileOpen
-                    ? "opacity-100 pointer-events-auto"
-                    : "opacity-0 pointer-events-none"
+                        ? "opacity-100 pointer-events-auto"
+                        : "opacity-0 pointer-events-none"
                     }`}
             >
                 {navLinks.map((link, i) => (
@@ -163,6 +170,7 @@ export function Navbar() {
                     onClick={() => setMobileOpen(false)}
                     className="btn btn-primary mt-6 text-lg"
                 >
+                    <Heart size={18} fill="currentColor" />
                     <span className="btn-text">Donate Now</span>
                 </Link>
             </div>

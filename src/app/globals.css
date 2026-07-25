@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ================================================================
-   CMRF — Organic Tech (Preset A) Design Tokens
+   CMRF — Cinematic Organic Tech (Preset A) Design Tokens
    ================================================================ */
 
 @theme inline {
@@ -14,8 +14,8 @@
   --color-clay-dark: #A84528;
   --color-cream: #F2F0E9;
   --color-cream-dark: #E5E2D8;
-  --color-charcoal: #1A1A1A;
-  --color-charcoal-light: #2A2A2A;
+  --color-charcoal: #111115;
+  --color-charcoal-light: #1A1A22;
   --color-ivory: #FAF9F6;
 
   /* Semantic Aliases */
@@ -33,9 +33,9 @@
   --font-mono: "IBM Plex Mono", monospace;
 
   /* Spacing & Radius */
-  --radius-card: 2rem;
+  --radius-card: 2.5rem;
   --radius-pill: 9999px;
-  --radius-section: 3rem;
+  --radius-section: 3.5rem;
 }
 
 /* ================================================================
@@ -79,7 +79,7 @@ h5,
 h6 {
   font-family: var(--font-heading);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   line-height: 1.1;
 }
 
@@ -101,15 +101,15 @@ h6 {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 9999;
   opacity: 0.05;
 }
 
 /* ================================================================
-   Button System — Magnetic hover with sliding background
+   Button System — Magnetic hover with sliding background layer
    ================================================================ */
 
 .btn {
@@ -118,22 +118,23 @@ h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
+  padding: 0.9rem 2.25rem;
   border-radius: var(--radius-pill);
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.925rem;
   letter-spacing: -0.01em;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  border: none;
+    box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.4s ease, background-color 0.4s ease;
+  border: 1px solid transparent;
   text-decoration: none;
 }
 
 .btn:hover {
-  transform: scale(1.03);
+  transform: scale(1.03) translateY(-1px);
 }
 
 .btn:active {
@@ -143,35 +144,38 @@ h6 {
 .btn-primary {
   background-color: var(--color-clay);
   color: white;
+  box-shadow: 0 4px 20px rgba(204, 88, 51, 0.25);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 8px 30px rgba(204, 88, 51, 0.3);
+  box-shadow: 0 12px 36px rgba(204, 88, 51, 0.4);
 }
 
 .btn-secondary {
-  background-color: transparent;
-  color: var(--color-moss);
-  border: 1.5px solid var(--color-moss);
+  background-color: var(--color-moss);
+  color: white;
+  box-shadow: 0 4px 20px rgba(46, 64, 54, 0.25);
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-moss);
-  color: white;
+  background-color: var(--color-moss-light);
+  box-shadow: 0 12px 36px rgba(46, 64, 54, 0.4);
 }
 
 .btn-ghost {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.05);
   color: var(--color-cream);
-  border: 1.5px solid rgba(242, 240, 233, 0.3);
+  border: 1.5px solid rgba(242, 240, 233, 0.25);
+  backdrop-filter: blur(12px);
 }
 
 .btn-ghost:hover {
-  background-color: rgba(242, 240, 233, 0.1);
+  background-color: rgba(242, 240, 233, 0.15);
   border-color: rgba(242, 240, 233, 0.6);
+  color: white;
 }
 
-/* Sliding background span */
+/* Sliding background span layer for magnetic effect */
 .btn .btn-bg {
   position: absolute;
   inset: 0;
@@ -191,8 +195,16 @@ h6 {
 }
 
 /* ================================================================
-   Card System — rounded-[2rem] with subtle shadows
+   Glassmorphism & Card Utilities
    ================================================================ */
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-card);
+}
 
 .card {
   background-color: var(--color-ivory);
@@ -211,40 +223,42 @@ h6 {
 
 .card-dark {
   background-color: var(--color-charcoal-light);
-  border-color: rgba(242, 240, 233, 0.06);
+  border: 1px solid rgba(242, 240, 233, 0.08);
   color: var(--color-cream);
+  border-radius: var(--radius-card);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .card-dark:hover {
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3),
-    0 8px 24px rgba(204, 88, 51, 0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4),
+    0 8px 24px rgba(204, 88, 51, 0.12);
 }
 
-/* ================================================================
-   Button Ripple — expanding circle on click
-   ================================================================ */
-
-.btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-  transform: scale(0);
-  opacity: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+/* Glow Utilities */
+.glow-clay {
+  box-shadow: 0 0 40px rgba(204, 88, 51, 0.25);
 }
 
-.btn:active::after {
-  transform: scale(2.5);
-  opacity: 1;
-  transition: transform 0s, opacity 0s;
+.glow-moss {
+  box-shadow: 0 0 40px rgba(46, 64, 54, 0.3);
 }
 
-/* ================================================================
-   Section Divider — animated horizontal line
-   ================================================================ */
+/* Text Gradients */
+.text-gradient-clay {
+  background: linear-gradient(135deg, var(--color-clay) 0%, var(--color-clay-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
+.text-gradient-cream {
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--color-cream) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Section Divider */
 .section-divider {
   width: 80px;
   height: 2px;
@@ -297,7 +311,7 @@ a:hover {
 }
 
 /* ================================================================
-   Scrollbar Styling
+   Scrollbar & Animations
    ================================================================ */
 
 ::-webkit-scrollbar {
@@ -305,7 +319,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-cream);
+  background: var(--color-charcoal);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -314,37 +328,14 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-moss-light);
+  background: var(--color-clay);
 }
-
-/* ================================================================
-   Reduced Motion Support
-   ================================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* ================================================================
-   Utility Animations
-   ================================================================ */
 
 @keyframes pulse-dot {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
     transform: scale(1);
   }
-
   50% {
     opacity: 0.5;
     transform: scale(0.8);
@@ -356,12 +347,9 @@ a:hover {
 }
 
 @keyframes float {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-10px);
   }
@@ -372,12 +360,9 @@ a:hover {
 }
 
 @keyframes typing-cursor {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
-
   50% {
     opacity: 0;
   }
@@ -386,10 +371,6 @@ a:hover {
 .animate-cursor {
   animation: typing-cursor 0.8s step-end infinite;
 }
-
-/* ================================================================
-   Scrollbar Hide Utility
-   ================================================================ */
 
 .scrollbar-hide {
   -ms-overflow-style: none;

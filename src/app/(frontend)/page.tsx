@@ -1,6 +1,10 @@
 import { Hero } from "@/components/hero/Hero";
+import { OutreachReports } from "@/components/sections/OutreachReports";
 import { WhoWeAre } from "@/components/sections/WhoWeAre";
 import { ServicesCarousel } from "@/components/features/ServicesCarousel";
+import { DiagnosticShuffler } from "@/components/features/DiagnosticShuffler";
+import { TelemetryTypewriter } from "@/components/features/TelemetryTypewriter";
+import { CursorScheduler } from "@/components/features/CursorScheduler";
 import { Philosophy } from "@/components/philosophy/Philosophy";
 import { StickyStacker } from "@/components/protocol/StickyStacker";
 import { ImpactMetrics } from "@/components/ui/ImpactMetrics";
@@ -14,17 +18,20 @@ export default function Home() {
             {/* A. Hero — "The Opening Shot" */}
             <Hero />
 
+            {/* Outreach Reports & Calendar Grid */}
+            <OutreachReports />
+
             {/* B. Who We Are */}
             <WhoWeAre />
 
-            {/* C. Features — "Interactive Functional Artifacts" / Services Carousel */}
-            <section className="section">
+            {/* C. Services Carousel */}
+            <section className="section border-t border-white/5">
                 <div className="container-main px-6 md:px-12">
                     <ScrollReveal animation="fade-up">
                         <div className="text-center mb-16">
-                            <div className="section-divider bg-white/10" />
+                            <div className="section-divider" />
                             <p
-                                className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
+                                className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4 font-semibold"
                                 style={{ fontFamily: "var(--font-mono)" }}
                             >
                                 What We Do
@@ -47,6 +54,47 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* C2. Interactive Functional Micro-UI Artifacts — "Live Operations & Telemetry" */}
+            <section className="section bg-[var(--color-charcoal)] border-t border-b border-white/5">
+                <div className="container-main px-6 md:px-12">
+                    <ScrollReveal animation="fade-up">
+                        <div className="text-center mb-16 max-w-2xl mx-auto">
+                            <div className="section-divider" />
+                            <p
+                                className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4 font-semibold"
+                                style={{ fontFamily: "var(--font-mono)" }}
+                            >
+                                Mission Operations
+                            </p>
+                            <h2
+                                className="text-3xl md:text-5xl font-bold text-white mb-4"
+                                style={{ fontFamily: "var(--font-heading)" }}
+                            >
+                                Interactive telemetry &{" "}
+                                <span className="font-drama text-[var(--color-clay)] italic pr-2">
+                                    protocols.
+                                </span>
+                            </h2>
+                            <p className="text-white/60 text-base">
+                                Micro-systems orchestrating free healthcare, real-time logging, and deployment schedules across 600+ communities.
+                            </p>
+                        </div>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                        <ScrollReveal animation="fade-up" delay={0.1}>
+                            <DiagnosticShuffler />
+                        </ScrollReveal>
+                        <ScrollReveal animation="fade-up" delay={0.25}>
+                            <TelemetryTypewriter />
+                        </ScrollReveal>
+                        <ScrollReveal animation="fade-up" delay={0.4}>
+                            <CursorScheduler />
+                        </ScrollReveal>
+                    </div>
+                </div>
+            </section>
+
             {/* Impact Metrics — Animated Counters */}
             <ImpactMetrics />
 
@@ -57,9 +105,9 @@ export default function Home() {
             <section>
                 <ScrollReveal animation="fade-up">
                     <div className="text-center py-16">
-                        <div className="section-divider bg-white/10" />
+                        <div className="section-divider" />
                         <p
-                            className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
+                            className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4 font-semibold"
                             style={{ fontFamily: "var(--font-mono)" }}
                         >
                             Our Process
@@ -82,19 +130,19 @@ export default function Home() {
             <GetInvolvedTiers />
 
             {/* Newsletter Section */}
-            <section id="newsletter" className="section-dark section">
+            <section id="newsletter" className="section-dark section border-t border-white/5">
                 <div className="container-main px-6 md:px-12 text-center">
                     <ScrollReveal animation="fade-up">
                         <div>
-                            <div className="section-divider bg-white/10" />
+                            <div className="section-divider" />
                             <p
-                                className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4"
+                                className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4 font-semibold"
                                 style={{ fontFamily: "var(--font-mono)" }}
                             >
                                 Stay Connected
                             </p>
                             <h2
-                                className="text-3xl md:text-4xl font-bold text-[var(--color-cream)] mb-4"
+                                className="text-3xl md:text-5xl font-bold text-[var(--color-cream)] mb-4"
                                 style={{ fontFamily: "var(--font-heading)" }}
                             >
                                 Join our{" "}
@@ -102,7 +150,7 @@ export default function Home() {
                                     newsletter.
                                 </span>
                             </h2>
-                            <p className="text-[var(--color-cream)]/50 text-sm mb-8 max-w-md mx-auto">
+                            <p className="text-[var(--color-cream)]/60 text-base mb-8 max-w-md mx-auto">
                                 Be the first to hear about upcoming missions, impact stories, and
                                 ways to get involved.
                             </p>
@@ -116,4 +164,3 @@ export default function Home() {
         </div>
     );
 }
-

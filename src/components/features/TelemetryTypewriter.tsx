@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { Terminal } from "lucide-react";
 
 const messages = [
-    ">> 2,500 patients served in Tamale outreach...",
+    ">> 2,500+ patients served in Tamale outreach...",
     ">> Eye care: 1,800 treatments completed in 2024...",
     ">> Dental services: 360 procedures delivered...",
     ">> 2,180 individuals received counselling...",
-    ">> 5 community boreholes installed...",
-    ">> Medical equipment donated to 12 clinics...",
-    ">> 700+ communities reached across Ghana...",
-    ">> Partnership established with Joy FM Easter Kitchen...",
+    ">> 5 community boreholes installed and certified...",
+    ">> Medical equipment donated to 12 rural clinics...",
+    ">> 600+ communities reached across Ghana...",
+    ">> Partnership active: Free clinic operating since 1991...",
 ];
 
 export function TelemetryTypewriter() {
@@ -36,7 +37,7 @@ export function TelemetryTypewriter() {
     }, [messageIndex, charIndex]);
 
     useEffect(() => {
-        const timer = setTimeout(typeNextChar, charIndex === 0 ? 800 : 35);
+        const timer = setTimeout(typeNextChar, charIndex === 0 ? 900 : 30);
         return () => clearTimeout(timer);
     }, [typeNextChar, charIndex]);
 
@@ -47,44 +48,48 @@ export function TelemetryTypewriter() {
     }, [lines, currentLine]);
 
     return (
-        <div className="card card-dark p-6 md:p-8 h-full">
-            <div className="flex items-center gap-2 mb-2">
-                <h3
-                    className="text-lg font-bold text-[var(--color-cream)]"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                >
-                    Impact Feed
-                </h3>
-                <div className="flex items-center gap-1.5 ml-auto">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
-                    <span
-                        className="text-xs text-emerald-400"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                    >
-                        Live
-                    </span>
+        <div className="card-dark p-6 md:p-8 h-full flex flex-col justify-between">
+            <div>
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                        <Terminal size={18} className="text-[var(--color-clay)]" />
+                        <h3
+                            className="text-lg font-bold text-white"
+                            style={{ fontFamily: "var(--font-heading)" }}
+                        >
+                            Telemetry Typewriter
+                        </h3>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
+                        <span
+                            className="text-[10px] uppercase tracking-widest text-emerald-400 font-bold"
+                            style={{ fontFamily: "var(--font-mono)" }}
+                        >
+                            Live Feed
+                        </span>
+                    </div>
                 </div>
+                <p className="text-white/60 text-sm mb-5">
+                    Real-time operational updates across mission network
+                </p>
             </div>
-            <p className="text-[var(--color-cream)]/40 text-sm mb-5">
-                Real-time impact across our mission network
-            </p>
+
             <div
                 ref={feedRef}
-                className="h-40 md:h-48 overflow-hidden rounded-xl bg-[#111]/60 p-4 border border-[var(--color-cream)]/5"
+                className="h-44 md:h-52 overflow-hidden rounded-2xl bg-black/60 p-4 border border-white/10 flex flex-col justify-end"
             >
                 {lines.map((line, i) => (
                     <p
                         key={`${line}-${i}`}
-                        className="text-[var(--color-cream)]/50 text-xs leading-relaxed"
-                        style={{ fontFamily: "var(--font-mono)" }}
+                        className="text-white/40 text-xs leading-relaxed font-mono"
                     >
                         {line}
                     </p>
                 ))}
                 {currentLine && (
                     <p
-                        className="text-[var(--color-cream)] text-xs leading-relaxed"
-                        style={{ fontFamily: "var(--font-mono)" }}
+                        className="text-[var(--color-cream)] text-xs leading-relaxed font-mono font-medium"
                     >
                         {currentLine}
                         <span className="inline-block w-2 h-3.5 bg-[var(--color-clay)] ml-0.5 align-middle animate-cursor" />

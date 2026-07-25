@@ -43,6 +43,7 @@ function HelixCanvas() {
         let rotation = 0;
 
         const draw = () => {
+            if (!canvas.offsetWidth || !canvas.offsetHeight) return;
             canvas.width = canvas.offsetWidth * 2;
             canvas.height = canvas.offsetHeight * 2;
             ctx.scale(2, 2);
@@ -64,8 +65,8 @@ function HelixCanvas() {
                     else ctx.lineTo(x, y);
                 }
                 ctx.strokeStyle =
-                    i === 0 ? "rgba(204, 88, 51, 0.3)" : "rgba(46, 64, 54, 0.3)";
-                ctx.lineWidth = 2;
+                    i === 0 ? "rgba(204, 88, 51, 0.45)" : "rgba(46, 64, 54, 0.45)";
+                ctx.lineWidth = 2.5;
                 ctx.stroke();
             }
 
@@ -74,12 +75,12 @@ function HelixCanvas() {
                 const x = cx + Math.cos(t + rotation) * (40 + t * 6);
                 const y = cy + Math.sin(t + rotation) * (40 + t * 6);
                 ctx.beginPath();
-                ctx.arc(x, y, 2, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(204, 88, 51, 0.5)";
+                ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(204, 88, 51, 0.8)";
                 ctx.fill();
             }
 
-            rotation += 0.005;
+            rotation += 0.006;
             animationId = requestAnimationFrame(draw);
         };
 
@@ -103,6 +104,7 @@ function ScannerCanvas() {
         let scanY = 0;
 
         const draw = () => {
+            if (!canvas.offsetWidth || !canvas.offsetHeight) return;
             canvas.width = canvas.offsetWidth * 2;
             canvas.height = canvas.offsetHeight * 2;
             ctx.scale(2, 2);
@@ -113,17 +115,17 @@ function ScannerCanvas() {
             ctx.clearRect(0, 0, w, h);
 
             // Grid of dots
-            const spacing = 20;
+            const spacing = 22;
             for (let x = spacing; x < w - spacing; x += spacing) {
                 for (let y = spacing; y < h - spacing; y += spacing) {
                     const dist = Math.abs(y - scanY);
-                    const intensity = Math.max(0, 1 - dist / 40);
+                    const intensity = Math.max(0, 1 - dist / 45);
                     ctx.beginPath();
-                    ctx.arc(x, y, 2 + intensity * 2, 0, Math.PI * 2);
+                    ctx.arc(x, y, 2 + intensity * 2.5, 0, Math.PI * 2);
                     ctx.fillStyle =
-                        intensity > 0.5
-                            ? `rgba(204, 88, 51, ${0.3 + intensity * 0.5})`
-                            : "rgba(46, 64, 54, 0.15)";
+                        intensity > 0.4
+                            ? `rgba(204, 88, 51, ${0.3 + intensity * 0.6})`
+                            : "rgba(255, 255, 255, 0.1)";
                     ctx.fill();
                 }
             }
@@ -132,19 +134,11 @@ function ScannerCanvas() {
             ctx.beginPath();
             ctx.moveTo(0, scanY);
             ctx.lineTo(w, scanY);
-            ctx.strokeStyle = "rgba(204, 88, 51, 0.6)";
-            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "rgba(204, 88, 51, 0.8)";
+            ctx.lineWidth = 2;
             ctx.stroke();
 
-            // Glow around scan line
-            const gradient = ctx.createLinearGradient(0, scanY - 20, 0, scanY + 20);
-            gradient.addColorStop(0, "rgba(204, 88, 51, 0)");
-            gradient.addColorStop(0.5, "rgba(204, 88, 51, 0.1)");
-            gradient.addColorStop(1, "rgba(204, 88, 51, 0)");
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, scanY - 20, w, 40);
-
-            scanY = (scanY + 0.5) % h;
+            scanY = (scanY + 0.6) % h;
             animationId = requestAnimationFrame(draw);
         };
 
@@ -168,6 +162,7 @@ function WaveformCanvas() {
         let offset = 0;
 
         const draw = () => {
+            if (!canvas.offsetWidth || !canvas.offsetHeight) return;
             canvas.width = canvas.offsetWidth * 2;
             canvas.height = canvas.offsetHeight * 2;
             ctx.scale(2, 2);
@@ -178,7 +173,6 @@ function WaveformCanvas() {
 
             ctx.clearRect(0, 0, w, h);
 
-            // EKG-style waveform
             ctx.beginPath();
             ctx.moveTo(0, cy);
 
@@ -186,35 +180,29 @@ function WaveformCanvas() {
                 const t = (x / w) * Math.PI * 6 + offset;
                 let y = cy;
 
-                // Create EKG-like pattern
                 const phase = (t % (Math.PI * 2)) / (Math.PI * 2);
                 if (phase > 0.3 && phase < 0.35) {
-                    y = cy - 30; // P wave
+                    y = cy - 25;
                 } else if (phase > 0.4 && phase < 0.42) {
-                    y = cy + 15; // Q
+                    y = cy + 12;
                 } else if (phase > 0.42 && phase < 0.47) {
-                    y = cy - 60; // R peak
+                    y = cy - 55;
                 } else if (phase > 0.47 && phase < 0.5) {
-                    y = cy + 20; // S
+                    y = cy + 18;
                 } else if (phase > 0.55 && phase < 0.65) {
-                    y = cy - 15; // T wave
+                    y = cy - 12;
                 } else {
-                    y = cy + Math.sin(t * 5) * 2; // baseline noise
+                    y = cy + Math.sin(t * 5) * 2;
                 }
 
                 ctx.lineTo(x, y);
             }
 
-            ctx.strokeStyle = "rgba(204, 88, 51, 0.6)";
-            ctx.lineWidth = 2;
+            ctx.strokeStyle = "rgba(204, 88, 51, 0.85)";
+            ctx.lineWidth = 2.5;
             ctx.stroke();
 
-            // Glow effect
-            ctx.strokeStyle = "rgba(204, 88, 51, 0.15)";
-            ctx.lineWidth = 6;
-            ctx.stroke();
-
-            offset += 0.03;
+            offset += 0.035;
             animationId = requestAnimationFrame(draw);
         };
 
@@ -249,9 +237,9 @@ export function StickyStacker() {
                     onUpdate: (self) => {
                         const progress = self.progress;
                         gsap.set(card, {
-                            scale: 1 - progress * 0.1,
-                            filter: `blur(${progress * 20}px)`,
-                            opacity: 1 - progress * 0.5,
+                            scale: 1 - progress * 0.08,
+                            filter: `blur(${progress * 16}px)`,
+                            opacity: 1 - progress * 0.45,
                         });
                     },
                 });
@@ -270,32 +258,32 @@ export function StickyStacker() {
                     <div
                         key={step.step}
                         ref={(el) => { cardRefs.current[i] = el; }}
-                        className="h-screen w-full flex items-center justify-center px-4 md:px-8 bg-transparent"
+                        className="min-h-screen w-full flex items-center justify-center px-4 md:px-8 py-12 bg-transparent"
                     >
                         <div
-                            className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] bg-black/20 backdrop-blur-md border border-white/10 shadow-2xl"
-                            style={{ minHeight: "450px" }}
+                            className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-[2.5rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl relative"
+                            style={{ minHeight: "480px" }}
                         >
                             {/* Canvas Animation */}
-                            <div className="relative bg-[var(--color-charcoal)] border-b lg:border-b-0 lg:border-r border-white/5 h-64 lg:h-auto">
+                            <div className="relative bg-[#0d0d12] border-b lg:border-b-0 lg:border-r border-white/10 h-64 lg:h-auto">
                                 <AnimComponent />
                             </div>
 
                             {/* Content */}
-                            <div className="p-8 md:p-14 flex flex-col justify-center">
-                                <div className="flex items-center gap-4 mb-6">
+                            <div className="p-8 md:p-14 flex flex-col justify-center relative">
+                                <div className="flex items-center gap-3 mb-6">
                                     <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-clay)] animate-pulse-dot" />
                                     <span
                                         className="text-white/60 text-xs uppercase tracking-[0.2em] font-bold"
                                         style={{ fontFamily: "var(--font-mono)" }}
                                     >
-                                        Protocol Node
+                                        Protocol Step {step.step}
                                     </span>
                                 </div>
 
                                 <span
-                                    className="text-[var(--color-clay)]/40 text-6xl md:text-8xl font-bold leading-none mb-2"
-                                    style={{ fontFamily: "var(--font-mono)", position: 'absolute', right: '40px', top: '40px', userSelect: 'none' }}
+                                    className="text-[var(--color-clay)]/25 text-7xl md:text-9xl font-bold leading-none select-none absolute right-8 top-6 pointer-events-none"
+                                    style={{ fontFamily: "var(--font-mono)" }}
                                 >
                                     {step.step}
                                 </span>
@@ -306,7 +294,7 @@ export function StickyStacker() {
                                 >
                                     {step.title}
                                 </h3>
-                                <p className="text-white/70 text-lg leading-relaxed max-w-md" style={{ fontFamily: "var(--font-body)" }}>
+                                <p className="text-white/80 text-lg leading-relaxed max-w-md" style={{ fontFamily: "var(--font-body)" }}>
                                     {step.description}
                                 </p>
                             </div>

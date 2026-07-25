@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, HeartHandshake, Sparkles } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -25,43 +25,38 @@ export function Hero() {
     const [bgImage, setBgImage] = useState<string>(HERO_IMAGES[0]);
     const [particles, setParticles] = useState<Array<{ width: string, height: string, top: string, left: string, background: string }>>([]);
 
-    // Generate random particles and select random background only on the client
     useEffect(() => {
-        // Randomly select one of the 6 images
         const randomImageIndex = Math.floor(Math.random() * HERO_IMAGES.length);
         setBgImage(HERO_IMAGES[randomImageIndex]);
 
-        const generatedParticles = Array.from({ length: 8 }).map((_, i) => ({
+        const generatedParticles = Array.from({ length: 10 }).map((_, i) => ({
             width: `${6 + Math.random() * 10}px`,
             height: `${6 + Math.random() * 10}px`,
-            top: `${15 + Math.random() * 60}%`,
+            top: `${15 + Math.random() * 65}%`,
             left: `${10 + Math.random() * 80}%`,
             background: i % 2 === 0
-                ? "rgba(204, 88, 51, 0.15)"
-                : "rgba(242, 240, 233, 0.08)",
+                ? "rgba(204, 88, 51, 0.2)"
+                : "rgba(242, 240, 233, 0.12)",
         }));
         setParticles(generatedParticles);
     }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // ─── Ken Burns zoom ───
+            // Ken Burns zoom effect
             if (bgRef.current) {
                 gsap.fromTo(
                     bgRef.current,
                     { scale: 1.0 },
                     {
                         scale: 1.15,
-                        duration: 20,
+                        duration: 22,
                         ease: "none",
                         repeat: -1,
                         yoyo: true,
                     }
                 );
-            }
 
-            // ─── Parallax on scroll ───
-            if (bgRef.current) {
                 gsap.to(bgRef.current, {
                     yPercent: 25,
                     ease: "none",
@@ -74,8 +69,8 @@ export function Hero() {
                 });
             }
 
-            // ─── Staggered text reveal ───
-            const tl = gsap.timeline({ delay: 0.4 });
+            // Staggered text reveal
+            const tl = gsap.timeline({ delay: 0.3 });
 
             tl.from("[data-hero-line]", {
                 y: 50,
@@ -107,7 +102,7 @@ export function Hero() {
                     "-=0.3"
                 );
 
-            // ─── Floating particles ───
+            // Floating particles
             if (particlesRef.current && particlesRef.current.children.length > 0) {
                 const dots = particlesRef.current.children;
                 gsap.fromTo(
@@ -134,15 +129,6 @@ export function Hero() {
                     });
                 });
             }
-
-            // ─── Gradient overlay subtle pulse ───
-            gsap.to("[data-hero-gradient]", {
-                opacity: 0.85,
-                duration: 4,
-                ease: "sine.inOut",
-                repeat: -1,
-                yoyo: true,
-            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -165,9 +151,9 @@ export function Hero() {
             {/* Gradient Overlay */}
             <div
                 data-hero-gradient
-                className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30"
+                className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/80 to-[var(--color-charcoal)]/30"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal-light)]/60 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)]/70 via-transparent to-transparent pointer-events-none" />
 
             {/* Floating Particles */}
             <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -185,19 +171,25 @@ export function Hero() {
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-32 pb-16 md:pb-24">
-                <div className="max-w-3xl">
-                    <p
+                <div className="max-w-4xl">
+                    {/* Badge */}
+                    <div
                         data-hero-line
-                        className="text-[var(--color-cream)]/60 text-sm md:text-base uppercase tracking-[0.2em] mb-4"
-                        style={{ fontFamily: "var(--font-mono)" }}
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 mb-6"
                     >
-                        30+ Years · 600+ Communities · Free Healthcare
-                    </p>
+                        <Sparkles size={14} className="text-[var(--color-clay)]" />
+                        <span
+                            className="text-xs uppercase tracking-[0.2em] text-[var(--color-cream)] font-medium"
+                            style={{ fontFamily: "var(--font-mono)" }}
+                        >
+                            Est. 1991 · 600+ Communities Served · Free Healthcare
+                        </span>
+                    </div>
 
                     <h1 className="mb-6">
                         <span
                             data-hero-line
-                            className="block text-[var(--color-cream)] text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight"
+                            className="block text-[var(--color-cream)] text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight"
                             style={{ fontFamily: "var(--font-heading)" }}
                         >
                             Compassion is the
@@ -212,7 +204,7 @@ export function Hero() {
 
                     <p
                         data-hero-line
-                        className="text-[var(--color-cream)]/70 text-base md:text-lg max-w-xl leading-relaxed mb-8"
+                        className="text-[var(--color-cream)]/80 text-lg md:text-xl max-w-2xl leading-relaxed mb-8"
                         style={{ fontFamily: "var(--font-body)" }}
                     >
                         CMRF mobilizes Christians and resources worldwide to bring free
@@ -222,6 +214,7 @@ export function Hero() {
 
                     <div className="flex flex-wrap items-center gap-4">
                         <Link href="/get-involved" className="btn btn-primary" data-hero-cta>
+                            <HeartHandshake size={18} />
                             <span className="btn-text">Support Our Mission</span>
                         </Link>
                         <Link href="/about" className="btn btn-ghost" data-hero-cta>
@@ -233,11 +226,11 @@ export function Hero() {
                 {/* Scroll Indicator */}
                 <div
                     data-hero-scroll
-                    className="absolute bottom-8 right-8 md:right-12 flex flex-col items-center gap-2 text-[var(--color-cream)]/40"
+                    className="absolute bottom-8 right-8 md:right-12 flex flex-col items-center gap-2 text-[var(--color-cream)]/50"
                 >
                     <span
-                        className="text-xs uppercase tracking-widest"
-                        style={{ fontFamily: "var(--font-mono)", writingMode: "vertical-rl" }}
+                        className="text-xs uppercase tracking-widest font-mono"
+                        style={{ writingMode: "vertical-rl" }}
                     >
                         Scroll
                     </span>

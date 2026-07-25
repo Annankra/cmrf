@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { Heart, Globe, HandHeart } from "lucide-react";
+import { Heart, Globe, HandHeart, CheckCircle2 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -12,43 +12,43 @@ const tiers = [
     {
         name: "Pray",
         icon: Heart,
-        description: "Join our prayer network and stay connected with our mission.",
+        description: "Join our global prayer network and stay connected with our mission field.",
         features: [
-            "Monthly prayer guide",
-            "Mission field updates",
+            "Monthly prayer guide & requests",
+            "Mission outreach status reports",
             "Newsletter subscription",
-            "Community prayer meetings",
+            "Community prayer fellowships",
         ],
-        cta: "Join the Network",
+        cta: "Join Prayer Network",
         href: "/get-involved#pray",
         highlighted: false,
     },
     {
         name: "Give",
         icon: Globe,
-        description: "Fund missions and sponsor communities in need of care.",
+        description: "Fund medical missions and sponsor communities in critical need of care.",
         features: [
-            "Sponsor a medical outreach",
-            "Fund community boreholes",
-            "Supply medical equipment",
-            "Support the CMRF Clinic",
+            "Sponsor a full medical outreach",
+            "Fund community boreholes & water",
+            "Supply medical equipment to clinics",
+            "Support the permanent CMRF Clinic",
             "Tax-deductible via CMMRF-USA 501(c)3",
         ],
         cta: "Donate Now",
-        href: "/get-involved",
+        href: "/donate",
         highlighted: true,
     },
     {
         name: "Go",
         icon: HandHeart,
-        description: "Volunteer your skills and join the next mission deployment.",
+        description: "Volunteer your skills and deploy with us on our next outreach mission.",
         features: [
-            "Medical professionals welcome",
-            "Non-medical roles available",
-            "Short-term mission trips",
-            "Training & development",
+            "Medical & surgical professionals",
+            "Non-medical logistics & support",
+            "Short-term mission deployment",
+            "Mentorship & training",
         ],
-        cta: "Volunteer",
+        cta: "Volunteer With Us",
         href: "/get-involved#volunteer",
         highlighted: false,
     },
@@ -61,7 +61,6 @@ export function GetInvolvedTiers() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Header entrance
             if (headerRef.current) {
                 gsap.from(headerRef.current, {
                     y: 40,
@@ -76,7 +75,6 @@ export function GetInvolvedTiers() {
                 });
             }
 
-            // Staggered card entrance
             cardsRef.current.forEach((card, i) => {
                 if (!card) return;
 
@@ -93,42 +91,6 @@ export function GetInvolvedTiers() {
                         once: true,
                     },
                 });
-
-                // Icon rotation on reveal
-                const icon = card.querySelector("[data-tier-icon]");
-                if (icon) {
-                    gsap.from(icon, {
-                        rotation: -90,
-                        scale: 0,
-                        opacity: 0,
-                        duration: 0.6,
-                        delay: 0.3 + i * 0.15,
-                        ease: "back.out(1.7)",
-                        scrollTrigger: {
-                            trigger: card,
-                            start: "top 90%",
-                            once: true,
-                        },
-                    });
-                }
-
-                // Feature list items stagger
-                const features = card.querySelectorAll("[data-feature]");
-                if (features.length > 0) {
-                    gsap.from(features, {
-                        x: -20,
-                        opacity: 0,
-                        duration: 0.4,
-                        ease: "power2.out",
-                        stagger: 0.08,
-                        delay: 0.5 + i * 0.15,
-                        scrollTrigger: {
-                            trigger: card,
-                            start: "top 90%",
-                            once: true,
-                        },
-                    });
-                }
             });
         }, sectionRef);
 
@@ -136,14 +98,13 @@ export function GetInvolvedTiers() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="section bg-transparent py-24 border-t border-white/5 relative overflow-hidden">
-            {/* Background texture for the section */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--color-charcoal-light)_0%,_transparent_50%)] opacity-30 pointer-events-none" />
+        <section ref={sectionRef} className="section bg-[var(--color-charcoal)] py-28 border-t border-white/5 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--color-clay)_0%,_transparent_75%)] opacity-5 pointer-events-none" />
 
             <div className="container-main px-6 md:px-12 relative z-10">
                 {/* Section Header */}
-                <div ref={headerRef} className="text-center mb-20">
-                    <div className="section-divider bg-white/10" />
+                <div ref={headerRef} className="text-center mb-20 max-w-2xl mx-auto">
+                    <div className="section-divider" />
                     <p
                         className="text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-4 font-bold"
                         style={{ fontFamily: "var(--font-mono)" }}
@@ -162,84 +123,64 @@ export function GetInvolvedTiers() {
                 </div>
 
                 {/* Tiers Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
                     {tiers.map((tier, i) => {
                         const Icon = tier.icon;
                         return (
                             <div
                                 key={tier.name}
                                 ref={(el) => { cardsRef.current[i] = el; }}
-                                className={`rounded-[2rem] p-8 md:p-10 transition-all duration-500 hover:scale-[1.03] group relative overflow-hidden flex flex-col h-full ${tier.highlighted
-                                    ? "bg-gradient-to-br from-[#2A2A2A] to-[#1A1A1A] border border-[var(--color-clay)]/30 shadow-[0_20px_50px_rgba(204,88,51,0.15)]"
-                                    : "bg-black/20 backdrop-blur-xl border border-white/10 shadow-2xl hover:border-white/20 hover:bg-black/30"
+                                className={`rounded-[2.5rem] p-8 md:p-10 transition-all duration-500 hover:scale-[1.03] group relative overflow-hidden flex flex-col justify-between ${tier.highlighted
+                                        ? "bg-gradient-to-b from-white/10 to-white/5 border-2 border-[var(--color-clay)] shadow-2xl shadow-[var(--color-clay)]/20 scale-[1.02]"
+                                        : "bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20"
                                     }`}
                             >
-                                {/* Magnetic glow on hover */}
-                                <div className="absolute -inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--color-clay)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                                {tier.highlighted && (
+                                    <div className="absolute top-0 right-0 bg-[var(--color-clay)] text-white text-[10px] uppercase tracking-widest font-mono font-bold px-4 py-1.5 rounded-bl-2xl">
+                                        Most Popular
+                                    </div>
+                                )}
 
-                                <div
-                                    data-tier-icon
-                                    className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${tier.highlighted
-                                        ? "bg-[var(--color-clay)]"
-                                        : "bg-white/5 border border-white/10"
-                                        }`}
-                                >
-                                    <Icon
-                                        size={26}
-                                        className={
-                                            tier.highlighted
-                                                ? "text-white"
-                                                : "text-[var(--color-clay)]"
-                                        }
-                                    />
+                                <div>
+                                    <div
+                                        className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${tier.highlighted
+                                                ? "bg-[var(--color-clay)] text-white"
+                                                : "bg-white/10 text-[var(--color-clay)] border border-white/10"
+                                            }`}
+                                    >
+                                        <Icon size={26} />
+                                    </div>
+
+                                    <h3
+                                        className="text-3xl font-bold mb-3 text-white"
+                                        style={{ fontFamily: "var(--font-heading)" }}
+                                    >
+                                        {tier.name}
+                                    </h3>
+
+                                    <p className="text-white/70 text-sm mb-8 leading-relaxed">
+                                        {tier.description}
+                                    </p>
+
+                                    <ul className="space-y-3.5 mb-10">
+                                        {tier.features.map((feature) => (
+                                            <li
+                                                key={feature}
+                                                className="flex items-start gap-3 text-sm text-white/85"
+                                            >
+                                                <CheckCircle2 size={16} className="text-[var(--color-clay)] flex-shrink-0 mt-0.5" />
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-
-                                <h3
-                                    className="text-3xl font-bold mb-4 text-white"
-                                    style={{ fontFamily: "var(--font-heading)" }}
-                                >
-                                    {tier.name}
-                                </h3>
-
-                                <p
-                                    className={`text-base mb-8 min-h-[50px] ${tier.highlighted
-                                        ? "text-[var(--color-cream)]/90"
-                                        : "text-white/60"
-                                        }`}
-                                >
-                                    {tier.description}
-                                </p>
-
-                                <ul className="space-y-4 mb-10">
-                                    {tier.features.map((feature) => (
-                                        <li
-                                            key={feature}
-                                            data-feature
-                                            className={`flex items-start gap-3 text-sm ${tier.highlighted
-                                                ? "text-[var(--color-cream)]"
-                                                : "text-white/80"
-                                                }`}
-                                        >
-                                            <span
-                                                className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 shadow-[0_0_8px_currentColor] ${tier.highlighted
-                                                    ? "bg-[var(--color-clay)] text-[var(--color-clay)]"
-                                                    : "bg-[var(--color-moss)] text-[var(--color-moss)]"
-                                                    }`}
-                                            />
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
 
                                 <Link
                                     href={tier.href}
-                                    className={`mt-auto block w-full text-center py-4 px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300 ${tier.highlighted
-                                        ? "bg-[var(--color-clay)] text-[var(--color-charcoal)] hover:bg-white hover:text-[var(--color-charcoal)] shadow-lg"
-                                        : "bg-white/10 text-white hover:bg-white hover:text-[var(--color-charcoal)]"
+                                    className={`w-full btn ${tier.highlighted ? "btn-primary" : "btn-ghost"
                                         }`}
-                                    style={{ fontFamily: 'var(--font-mono)' }}
                                 >
-                                    <span className="relative z-10">{tier.cta}</span>
+                                    <span className="btn-text">{tier.cta}</span>
                                 </Link>
                             </div>
                         );

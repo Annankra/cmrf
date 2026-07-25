@@ -1,9 +1,17 @@
 import type { CollectionConfig } from 'payload'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+
+const hasVercelBlob = !!process.env.BLOB_READ_WRITE_TOKEN
 
 export const Media: CollectionConfig = {
     slug: 'media',
     upload: {
-        disableLocalStorage: true,
+        disableLocalStorage: hasVercelBlob,
+        staticDir: hasVercelBlob ? undefined : path.resolve(dirname, '../../public/media'),
         imageSizes: [
             {
                 name: 'thumbnail',

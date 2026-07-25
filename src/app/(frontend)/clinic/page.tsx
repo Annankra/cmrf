@@ -108,7 +108,7 @@ export default function ClinicPage() {
                                             Location
                                         </p>
                                         <p className="text-[15px] text-white/60 font-light">
-                                            Accra, Ghana
+                                            Haatso, Accra, Ghana
                                         </p>
                                     </div>
                                 </div>
@@ -121,10 +121,10 @@ export default function ClinicPage() {
                                     </div>
                                     <div className="pt-1">
                                         <p className="font-semibold text-white/90 text-sm mb-1 uppercase tracking-widest text-[10px]" style={{ fontFamily: "var(--font-mono)" }}>
-                                            Outreach Schedule
+                                            Clinic Operational Status
                                         </p>
                                         <p className="text-[15px] text-white/60 font-light">
-                                            10+ missions per year across Ghana and Africa
+                                            Permanent Clinic in Haatso, active since 1991 (Ad Hoc Committee appointed Dec 2024 for full operational scaling)
                                         </p>
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@ export default function ClinicPage() {
                                             Contact
                                         </p>
                                         <p className="text-[15px] text-white/60 font-light">
-                                            cmmrf@usa.com
+                                            cmrfinternational@gmail.com · +233 54 031 6355
                                         </p>
                                     </div>
                                 </div>
@@ -153,10 +153,10 @@ export default function ClinicPage() {
                             </Link>
                         </div>
 
-                        {/* Map Placeholder */}
+                        {/* Map Placement */}
                         <div className="relative overflow-hidden h-80 lg:h-full min-h-[400px] rounded-[2rem] bg-black/40 border border-white/10">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254228.90079724!2d-0.30543!3d5.6037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9084b2b7a773%3A0xbed14ed8650e2dd3!2sAccra%2C%20Ghana!5e0!3m2!1sen!2sus!4v1709000000000!5m2!1sen!2sus"
+                                src="https://maps.google.com/maps?q=Haatso,%20Accra,%20Ghana&t=&z=14&ie=UTF8&iwloc=&output=embed"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) opacity(0.8)' }}
