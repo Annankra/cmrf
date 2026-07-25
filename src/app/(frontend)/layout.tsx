@@ -42,6 +42,10 @@ export const metadata = {
     },
     alternates: {
         canonical: "https://www.cmrfgh.com",
+        languages: {
+            "en-GH": "https://www.cmrfgh.com",
+            "en-US": "https://www.cmrfgh.com",
+        },
     },
     openGraph: {
         type: "website",
@@ -49,7 +53,7 @@ export const metadata = {
         url: "https://www.cmrfgh.com",
         siteName: "CMRF — Christian Medical Missions Resource Foundation",
         title: "CMRF — Compassion is the Medicine",
-        description: "30+ years of free medical care, 600+ communities served. Mobilizing resources worldwide to show God's love through word and positive acts of deed.",
+        description: "30+ years of free medical care, 700+ communities served. Mobilizing resources worldwide to show God's love through word and positive acts of deed.",
         images: [
             {
                 url: "/og-image.jpg",
@@ -62,11 +66,15 @@ export const metadata = {
     twitter: {
         card: "summary_large_image",
         title: "CMRF — Compassion is the Medicine",
-        description: "30+ years of free medical care, 600+ communities served across Ghana and Africa.",
+        description: "30+ years of free medical care, 700+ communities served across Ghana and Africa.",
         images: ["/og-image.jpg"],
     },
     other: {
         "theme-color": "#1A1A1A",
+        "geo.region": "GH-AA",
+        "geo.placename": "Accra, Ghana",
+        "geo.position": "5.6037;-0.1870",
+        "ICBM": "5.6037, -0.1870",
     },
 };
 
@@ -81,6 +89,8 @@ export default function FrontendLayout({
                 {/* Preconnect to critical external origins */}
                 <link rel="preconnect" href="https://images.unsplash.com" />
                 <link rel="dns-prefetch" href="https://images.unsplash.com" />
+                <link rel="preconnect" href="https://images.squarespace-cdn.com" />
+                <link rel="dns-prefetch" href="https://images.squarespace-cdn.com" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <link rel="dns-prefetch" href="https://maps.googleapis.com" />
@@ -92,9 +102,15 @@ export default function FrontendLayout({
             <body
                 className={`${plusJakarta.variable} ${cormorant.variable} ${ibmPlexMono.variable} antialiased`}
             >
+                <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[99999] focus:px-4 focus:py-2 focus:bg-[#CC5833] focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold focus:outline-none focus:ring-2 focus:ring-white"
+                >
+                    Skip to main content
+                </a>
                 <NoiseOverlay />
                 <Navbar />
-                <main>
+                <main id="main-content">
                     <SmoothPageTransition>
                         {children}
                     </SmoothPageTransition>

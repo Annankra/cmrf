@@ -6,18 +6,18 @@ import NewsletterForm from "@/components/forms/NewsletterForm";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
-    title: "Get Involved",
+    title: "Volunteer for Medical Missions in Ghana — Join CMRF",
     description:
-        "Support CMRF through prayer, donations, or volunteering. Join us in bringing free medical care and God's love to underserved communities.",
+        "Join CMRF as a medical volunteer, prayer partner, or financial supporter. Short-term mission trips, dental outreaches, and community healthcare programs across Ghana and Africa.",
     openGraph: {
-        title: "Get Involved with CMRF",
-        description: "Support CMRF through prayer, donations, or volunteering. Make a difference in communities across Ghana and Africa.",
+        title: "Volunteer for Medical Missions in Ghana — CMRF",
+        description: "Join CMRF as a medical volunteer, prayer partner, or donor. Serve underserved communities across Ghana and Africa.",
         url: "https://www.cmrfgh.com/get-involved",
         type: "website",
     },
     twitter: {
-        title: "Get Involved with CMRF — Make a Difference",
-        description: "Support CMRF through prayer, donations, or volunteering for underserved communities.",
+        title: "Volunteer for Medical Missions in Ghana — CMRF",
+        description: "Join CMRF as a medical volunteer, prayer partner, or donor for underserved communities.",
     },
     alternates: { canonical: "https://www.cmrfgh.com/get-involved" },
 };

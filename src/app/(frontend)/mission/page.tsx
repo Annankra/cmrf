@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
-    title: "Mission",
+    title: "Our Mission — Christian Medical Evangelism in Ghana & Africa",
     description:
-        "CMRF Mission: Mobilizing Christians and resources worldwide to send forth God's love through word and positive acts of deed.",
+        "CMRF mobilizes Christian medical professionals and resources worldwide to deliver free healthcare, community outreach, and evangelistic services to underserved communities across Ghana.",
     openGraph: {
-        title: "Our Mission — CMRF",
+        title: "Our Mission — Christian Medical Evangelism in Ghana",
         description: "Mobilizing Christians and resources worldwide to send forth God's love through medical missions, relief, and development services.",
         url: "https://www.cmrfgh.com/mission",
         type: "website",
     },
     twitter: {
-        title: "CMRF Mission — Word and Deed",
+        title: "Our Mission — Christian Medical Evangelism in Ghana",
         description: "Mobilizing Christians and resources worldwide for medical missions and humanitarian services.",
     },
     alternates: { canonical: "https://www.cmrfgh.com/mission" },

@@ -10,7 +10,7 @@ const ORG_SHORT = "CMRF";
 export function organizationJsonLd() {
     return {
         "@context": "https://schema.org",
-        "@type": "NonprofitOrganization",
+        "@type": ["NonprofitOrganization", "MedicalOrganization"],
         name: ORG_NAME,
         alternateName: ORG_SHORT,
         url: SITE_URL,
@@ -32,7 +32,14 @@ export function organizationJsonLd() {
             email: "cmmrf@usa.com",
             contactType: "customer service",
         },
-        sameAs: [],
+        areaServed: {
+            "@type": "Country",
+            name: "Ghana",
+        },
+        sameAs: [
+            "https://www.facebook.com/cmrfgh",
+            "https://www.instagram.com/cmrfgh",
+        ],
         nonprofitStatus: "https://schema.org/Nonprofit501c3",
     };
 }
@@ -167,6 +174,41 @@ export function medicalClinicJsonLd() {
             name: ORG_NAME,
             url: SITE_URL,
         },
+    };
+}
+
+// ─── DonateAction (for Donate page) ───
+export function donateActionJsonLd() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "DonateAction",
+        recipient: {
+            "@type": "NonprofitOrganization",
+            name: ORG_NAME,
+            url: SITE_URL,
+        },
+        description:
+            "Support free medical missions across Ghana — your tax-deductible donation funds healthcare, dental care, and eye care for underserved communities.",
+        url: `${SITE_URL}/donate`,
+        actionStatus: "https://schema.org/PotentialActionStatus",
+    };
+}
+
+// ─── FAQPage ───
+export function faqPageJsonLd(
+    faqs: { question: string; answer: string }[]
+) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+            },
+        })),
     };
 }
 

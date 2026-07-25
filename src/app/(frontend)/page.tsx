@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/hero/Hero";
 import { OutreachReports } from "@/components/sections/OutreachReports";
 import { WhoWeAre } from "@/components/sections/WhoWeAre";
@@ -11,6 +12,22 @@ import { ImpactMetrics } from "@/components/ui/ImpactMetrics";
 import { GetInvolvedTiers } from "@/components/sections/GetInvolvedTiers";
 import { ScrollReveal } from "@/components/animation/ScrollReveal";
 import NewsletterForm from "@/components/forms/NewsletterForm";
+
+export const metadata: Metadata = {
+    title: "CMRF — Free Medical Missions Across Ghana & Africa",
+    description: "CMRF mobilizes Christian medical professionals to deliver free healthcare, dental, and eye care to 12,000+ people annually across 700+ underserved communities in Ghana. 501(c)(3) tax-exempt.",
+    openGraph: {
+        title: "CMRF — Compassion is the Medicine",
+        description: "30+ years of free medical care across 700+ communities in Ghana. Join us — donate, volunteer, or pray.",
+        url: "https://www.cmrfgh.com",
+        type: "website",
+    },
+    twitter: {
+        title: "CMRF — Free Medical Missions Across Ghana & Africa",
+        description: "30+ years delivering free healthcare to underserved communities. 700+ communities served, 12,000+ patients annually.",
+    },
+    alternates: { canonical: "https://www.cmrfgh.com" },
+};
 
 export default function Home() {
     return (

@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Heart, Stethoscope, Eye, BookOpen, Droplets, GraduationCap, Users } from "lucide-react";
-import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
+import { JsonLd, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
-    title: "About",
+    title: "About CMRF — 30+ Years of Christian Medical Missions in Ghana",
     description:
-        "Learn about CMRF — a Christian NGO founded in 1991, mobilizing medical professionals and resources to serve underserved communities across Ghana and Africa.",
+        "Founded in 1991, CMRF is a registered Ghanaian NGO and US 501(c)(3) that has served 700+ communities with free medical care, dental services, and eye care across Ghana and Africa.",
     openGraph: {
-        title: "About CMRF — Our Story",
-        description: "Founded in 1991 as a hospital prayer group, CMRF has grown into a global Christian medical missions organization serving 600+ communities across Ghana and Africa.",
+        title: "About CMRF — 30+ Years of Christian Medical Missions",
+        description: "Founded in 1991, CMRF has grown into a global Christian medical missions organization serving 700+ communities across Ghana and Africa.",
         url: "https://www.cmrfgh.com/about",
         type: "website",
     },
     twitter: {
-        title: "About CMRF — 30+ Years of Impact",
-        description: "From a hospital prayer group to a global mission — learn how CMRF serves underserved communities across Ghana and Africa.",
+        title: "About CMRF — 30+ Years of Medical Impact",
+        description: "30+ years of free medical care, 700+ communities served across Ghana and Africa. CMMRF-USA 501(c)(3).",
     },
     alternates: { canonical: "https://www.cmrfgh.com/about" },
 };
@@ -23,23 +23,23 @@ export const metadata: Metadata = {
 const services = [
     {
         icon: Stethoscope,
-        title: "Medical & Surgical",
-        description: "Free consultations and treatment as our primary mission",
+        title: "Medical Outreaches",
+        description: "Mobile clinics offering free consultations, vitals checkups, and prescription medicines",
     },
     {
         icon: Eye,
-        title: "Optical Services",
-        description: "Eye examinations and treatments for underserved communities",
+        title: "Eye & Dental Clinics",
+        description: "Free vision testing, prescription glasses, eye drops, and dental extractions",
     },
     {
         icon: Heart,
-        title: "Dental Care",
-        description: "Oral health services delivered across mission outreaches",
+        title: "Pastoral Care & Prayer",
+        description: "Spiritual counseling, prayer ministry, and sharing the Gospel during outreaches",
     },
     {
         icon: Droplets,
-        title: "Potable Water",
-        description: "Boreholes and filtration systems for clean drinking water",
+        title: "Clean Water & Relief",
+        description: "Installing clean water boreholes and distributing essential relief supplies",
     },
     {
         icon: BookOpen,
@@ -65,12 +65,26 @@ export default function AboutPage() {
                 { name: "Home", url: "https://www.cmrfgh.com" },
                 { name: "About", url: "https://www.cmrfgh.com/about" },
             ])} />
+            <JsonLd data={faqPageJsonLd([
+                {
+                    question: "What is CMRF?",
+                    answer: "The Christian Missions Resource Foundation (CMRF) is a medical NGO founded in 1991 that provides free healthcare, dental care, and eye care to underserved communities across Ghana and Africa.",
+                },
+                {
+                    question: "Is CMRF a registered nonprofit?",
+                    answer: "Yes. CMRF is a registered NGO in Ghana, and CMMRF-USA is a tax-exempt 501(c)(3) organization in the United States.",
+                },
+                {
+                    question: "How can I volunteer or support CMRF?",
+                    answer: "You can volunteer as a medical professional, prayer partner, or general volunteer, or support through one-time or recurring tax-deductible financial donations.",
+                },
+            ])} />
             {/* Hero Banner */}
             <section className="relative h-[60vh] min-h-[400px] flex flex-col justify-end overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-overlay"
                     style={{
-                        backgroundImage: `url('/surgery.png')`,
+                        backgroundImage: `url('/surgery.webp')`,
                     }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />

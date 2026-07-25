@@ -125,10 +125,18 @@ export function Navbar() {
                 </div>
 
                 {/* CTA + Mobile Trigger */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
+                    <Link
+                        href="/get-involved"
+                        className="hidden lg:inline-flex px-3.5 py-1.5 text-xs font-semibold text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-full transition-all duration-300 no-underline hover:bg-white/5"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                        Volunteer
+                    </Link>
+
                     <Link
                         href="/donate"
-                        className="hidden md:inline-flex btn btn-primary text-xs py-2 px-5"
+                        className="hidden sm:inline-flex btn btn-primary text-xs py-2 px-5"
                     >
                         <Heart size={14} fill="currentColor" />
                         <span className="btn-text">Donate</span>
