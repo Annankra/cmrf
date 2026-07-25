@@ -93,6 +93,8 @@ export default function FrontendLayout({
                 <link rel="dns-prefetch" href="https://images.squarespace-cdn.com" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                {/* RSS Feed Auto-Discovery */}
+                <link rel="alternate" type="application/rss+xml" title="CMRF Mission RSS Feed" href="/feed.xml" />
                 <link rel="dns-prefetch" href="https://maps.googleapis.com" />
                 <link rel="dns-prefetch" href="https://js.stripe.com" />
                 {/* Global JSON-LD Structured Data */}

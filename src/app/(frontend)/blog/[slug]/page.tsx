@@ -15,6 +15,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const imageUrl = getMediaUrl(post.image);
+    const ogApiUrl = `https://www.cmrfgh.com/api/og?title=${encodeURIComponent(post.title)}&badge=MISSION%20STORY&description=${encodeURIComponent(post.excerpt || "")}`;
+    const socialImage = imageUrl || ogApiUrl;
 
     return {
         title: post.title,
@@ -24,15 +26,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             description: post.excerpt,
             type: "article",
             url: `https://www.cmrfgh.com/blog/${p.slug}`,
-            ...(imageUrl && {
-                images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
-            }),
+            images: [{ url: socialImage, width: 1200, height: 630, alt: post.title }],
         },
         twitter: {
             card: "summary_large_image",
             title: post.title,
             description: post.excerpt,
-            ...(imageUrl && { images: [imageUrl] }),
+            images: [socialImage],
         },
         alternates: { canonical: `https://www.cmrfgh.com/blog/${p.slug}` },
     };

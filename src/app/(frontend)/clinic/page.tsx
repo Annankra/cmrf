@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, Clock, Phone, Stethoscope, Eye, Heart } from "lucide-react";
-import { JsonLd, breadcrumbJsonLd, medicalClinicJsonLd } from "@/lib/jsonLd";
+import { JsonLd, breadcrumbJsonLd, medicalClinicJsonLd, medicalWebPageJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
     title: "Free Medical Clinic — Eye Care, Dental & Primary Healthcare in Ghana",
@@ -23,13 +23,13 @@ export const metadata: Metadata = {
 const clinicServices = [
     {
         icon: Stethoscope,
-        title: "General Medical",
-        description: "Primary healthcare consultations and treatments",
+        title: "General Consultation",
+        description: "Comprehensive medical examinations and primary healthcare consultations",
     },
     {
         icon: Eye,
-        title: "Eye Care",
-        description: "Optical examinations, prescriptions, and treatments",
+        title: "Optical Services",
+        description: "Eye screenings, prescription glasses, and treatments for vision care",
     },
     {
         icon: Heart,
@@ -46,6 +46,11 @@ export default function ClinicPage() {
                 { name: "Clinic", url: "https://www.cmrfgh.com/clinic" },
             ])} />
             <JsonLd data={medicalClinicJsonLd()} />
+            <JsonLd data={medicalWebPageJsonLd({
+                title: "Free Medical Clinic — Eye Care, Dental & Primary Healthcare in Ghana",
+                description: "CMRF operates free medical clinics providing primary healthcare, eye screenings, dental care, and prescription medication to underserved communities across Ghana.",
+                url: "https://www.cmrfgh.com/clinic",
+            })} />
             {/* Hero */}
             <section className="relative h-[60vh] min-h-[400px] flex flex-col justify-end overflow-hidden">
                 <div

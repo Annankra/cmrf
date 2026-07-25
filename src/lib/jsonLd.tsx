@@ -55,6 +55,14 @@ export function webSiteJsonLd() {
             "@type": "NonprofitOrganization",
             name: ORG_NAME,
         },
+        potentialAction: {
+            "@type": "SearchAction",
+            target: {
+                "@type": "EntryPoint",
+                urlTemplate: `${SITE_URL}/blog?q={search_term_string}`,
+            },
+            "query-input": "required name=search_term_string",
+        },
     };
 }
 
@@ -209,6 +217,26 @@ export function faqPageJsonLd(
                 text: faq.answer,
             },
         })),
+    };
+}
+
+// ─── MedicalWebPage (for Clinic & Mission pages) ───
+export function medicalWebPageJsonLd(opts: {
+    title: string;
+    description: string;
+    url: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "MedicalWebPage",
+        name: opts.title,
+        description: opts.description,
+        url: opts.url,
+        aspect: "Overview",
+        about: {
+            "@type": "MedicalCondition",
+            name: "Community Primary Healthcare & Vision Care",
+        },
     };
 }
 
