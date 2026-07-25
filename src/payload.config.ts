@@ -34,10 +34,20 @@ const dirname = path.dirname(filename)
 const isProduction = process.env.NODE_ENV === 'production'
 let dbUri = process.env.DATABASE_URI || ''
 
-// Auto-fix common Supabase URI mixups:
-// Direct Supabase host (db.[ref].supabase.co or port 5432) requires username "postgres" (without .[ref] suffix)
-if (dbUri.includes('db.') && dbUri.includes('.supabase.co') && dbUri.includes('postgres.')) {
-    dbUri = dbUri.replace(/postgresql:\/\/postgres\.[a-z0-9]+:/, 'postgresql://postgres:')
+// Auto-fix common Supabase URI mixups for Vercel/serverless environments:
+// Direct Supabase host (db.[ref].supabase.co) does not have IPv4 A records, causing getaddrinfo ENOTFOUND in IPv4-only serverless containers.
+// We auto-route to Supabase Transaction Pooler (aws-0-us-east-1.pooler.supabase.com:6543 or pooler.supabase.com) if direct db.[ref] is used.
+if (dbUri.includes('db.') && dbUri.includes('.supabase.co')) {
+    const match = dbUri.match(/db\.([a-z0-9]+)\.supabase\.co/);
+    if (match) {
+        const ref = match[1];
+        // Replace direct host with connection pooler and update username format for pooler (postgres.[ref])
+        dbUri = dbUri
+            .replace(/postgresql:\/\/postgres:/, `postgresql://postgres.${ref}:`)
+            .replace(/postgresql:\/\/postgres\.[a-z0-9]+:/, `postgresql://postgres.${ref}:`)
+            .replace(`db.${ref}.supabase.co:5432`, `aws-0-us-east-1.pooler.supabase.com:6543`)
+            .replace(`db.${ref}.supabase.co`, `aws-0-us-east-1.pooler.supabase.com`);
+    }
 }
 
 const isLocalhost = dbUri.includes('127.0.0.1') || dbUri.includes('localhost')
