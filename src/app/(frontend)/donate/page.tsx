@@ -6,9 +6,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { StripeForm } from "@/components/donate/StripeForm";
 import { DirectTransferInfo } from "@/components/donate/DirectTransferInfo";
-import dynamic from 'next/dynamic';
-
-const PaystackForm = dynamic(() => import('@/components/donate/PaystackForm').then(mod => mod.PaystackForm), { ssr: false });
 
 // ---------------------------------------------------------------------------
 // Constants & Initialization
@@ -24,7 +21,7 @@ if (typeof window !== "undefined") {
 // Page Main
 // ---------------------------------------------------------------------------
 export default function DonatePage() {
-    const [activeTab, setActiveTab] = useState<'international' | 'local' | 'direct'>('international');
+    const [activeTab, setActiveTab] = useState<'international' | 'direct'>('international');
     const pageRef = useRef<HTMLDivElement>(null);
 
     // Entrance Animations
@@ -136,9 +133,8 @@ export default function DonatePage() {
                                 className="flex flex-col sm:flex-row bg-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl sm:rounded-full p-2 gap-2 shadow-2xl"
                             >
                                 {[
-                                    { id: 'international', label: 'International (USD)', icon: Globe },
-                                    { id: 'local', label: 'Ghana (GHS)', icon: Smartphone },
-                                    { id: 'direct', label: 'Direct Transfer', icon: Landmark }
+                                    { id: 'international', label: 'Online (USD / Card)', icon: Globe },
+                                    { id: 'direct', label: 'Direct Bank / MoMo Transfer', icon: Landmark }
                                 ].map((tab) => {
                                     const Icon = tab.icon;
                                     const isActive = activeTab === tab.id;
@@ -166,12 +162,6 @@ export default function DonatePage() {
                                 {activeTab === 'international' && (
                                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
                                         <StripeForm />
-                                    </div>
-                                )}
-                                
-                                {activeTab === 'local' && (
-                                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                        <PaystackForm />
                                     </div>
                                 )}
                                 
