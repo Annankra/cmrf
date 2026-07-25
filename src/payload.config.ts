@@ -19,7 +19,14 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const isProduction = process.env.NODE_ENV === 'production'
-const dbUri = process.env.DATABASE_URI || ''
+let dbUri = process.env.DATABASE_URI || ''
+
+// Auto-fix common Supabase URI mixups:
+// Direct Supabase host (db.[ref].supabase.co or port 5432) requires username "postgres" (without .[ref] suffix)
+if (dbUri.includes('db.') && dbUri.includes('.supabase.co') && dbUri.includes('postgres.')) {
+    dbUri = dbUri.replace(/postgresql:\/\/postgres\.[a-z0-9]+:/, 'postgresql://postgres:')
+}
+
 const isLocalhost = dbUri.includes('127.0.0.1') || dbUri.includes('localhost')
 const isRemoteSupabase = (dbUri.includes('supabase.co') || dbUri.includes('supabase.com')) && !isLocalhost
 const useSsl = isRemoteSupabase || (isProduction && !isLocalhost)
