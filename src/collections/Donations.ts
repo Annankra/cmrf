@@ -8,7 +8,7 @@ export const Donations: CollectionConfig = {
     },
     admin: {
         group: 'Donations',
-        defaultColumns: ['donorName', 'amount', 'status', 'createdAt'],
+        defaultColumns: ['donorName', 'amount', 'provider', 'status', 'createdAt'],
         useAsTitle: 'donorName',
     },
     access: {
@@ -43,6 +43,18 @@ export const Donations: CollectionConfig = {
             type: 'text',
             label: 'Currency',
             defaultValue: 'usd',
+        },
+        {
+            name: 'provider',
+            type: 'select',
+            label: 'Payment Provider',
+            defaultValue: 'stripe',
+            options: [
+                { label: 'Stripe', value: 'stripe' },
+                { label: 'Paystack', value: 'paystack' },
+                { label: 'Donorbox', value: 'donorbox' },
+                { label: 'Direct Transfer', value: 'direct' },
+            ],
         },
         {
             name: 'status',

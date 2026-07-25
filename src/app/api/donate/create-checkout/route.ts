@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
 
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
-            payment_method_types: ["card"],
+            payment_method_types: ["card", "link"],
             line_items: [
                 {
                     price_data: {
@@ -134,6 +134,7 @@ export async function POST(request: NextRequest) {
                     quantity: 1,
                 },
             ],
+            allow_promotion_codes: true,
             ...(donorEmail ? { customer_email: donorEmail } : {}),
             metadata: {
                 donorName: donorName || "",

@@ -319,6 +319,7 @@ export interface Donation {
    */
   amount: number;
   currency?: string | null;
+  provider?: ('stripe' | 'paystack' | 'donorbox' | 'direct') | null;
   status: 'pending' | 'completed' | 'failed';
   stripeSessionId?: string | null;
   stripePaymentIntentId?: string | null;
@@ -592,6 +593,7 @@ export interface DonationsSelect<T extends boolean = true> {
   donorEmail?: T;
   amount?: T;
   currency?: T;
+  provider?: T;
   status?: T;
   stripeSessionId?: T;
   stripePaymentIntentId?: T;

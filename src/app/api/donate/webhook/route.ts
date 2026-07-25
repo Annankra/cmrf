@@ -74,6 +74,7 @@ export async function POST(request: NextRequest) {
                             ? session.payment_intent
                             : session.payment_intent?.id || "",
                     receiptSent: false,
+                    provider: 'stripe',
                 },
             });
 

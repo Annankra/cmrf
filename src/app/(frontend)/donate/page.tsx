@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Heart, Stethoscope, Droplets, Globe, Smartphone, Landmark } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DonorboxEmbed } from "@/components/donate/DonorboxEmbed";
+import { StripeForm } from "@/components/donate/StripeForm";
 import { DirectTransferInfo } from "@/components/donate/DirectTransferInfo";
 import dynamic from 'next/dynamic';
 
@@ -165,7 +165,7 @@ export default function DonatePage() {
                             <div className="relative">
                                 {activeTab === 'international' && (
                                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                        <DonorboxEmbed />
+                                        <StripeForm />
                                     </div>
                                 )}
                                 
