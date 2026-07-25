@@ -5,6 +5,14 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import dns from 'node:dns'
+
+// Force IPv4-first resolution for Vercel IPv4-only build containers
+try {
+    dns.setDefaultResultOrder('ipv4first')
+} catch {
+    // ignore
+}
 
 import { Users } from './collections/Users.ts'
 import { Media } from './collections/Media.ts'

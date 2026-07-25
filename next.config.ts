@@ -1,5 +1,13 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
+import dns from "node:dns";
+
+// Force IPv4-first resolution for Vercel IPv4-only build containers
+try {
+  dns.setDefaultResultOrder("ipv4first");
+} catch {
+  // ignore
+}
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
