@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
 
         const session = await stripe.checkout.sessions.create({
             mode: isSubscription ? "subscription" : "payment",
-            payment_method_types: ["card", "link"],
+            payment_method_types: isSubscription ? ["card", "link"] : ["card", "link", "amazon_pay", "cashapp"],
             line_items: [
                 {
                     price_data: {
