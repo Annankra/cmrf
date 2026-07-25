@@ -52,5 +52,8 @@
     "tailwindcss": "^4",
     "turndown": "^7.2.2",
     "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "@img/sharp-linux-x64": "^0.35.3"
   }
 }
