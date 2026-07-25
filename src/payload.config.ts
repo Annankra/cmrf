@@ -18,6 +18,12 @@ import { Volunteers } from './collections/Volunteers.ts'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const isProduction = process.env.NODE_ENV === 'production'
+const dbUri = process.env.DATABASE_URI || ''
+const isLocalhost = dbUri.includes('127.0.0.1') || dbUri.includes('localhost')
+const isRemoteSupabase = (dbUri.includes('supabase.co') || dbUri.includes('supabase.com')) && !isLocalhost
+const useSsl = isRemoteSupabase || (isProduction && !isLocalhost)
+
 export default buildConfig({
     admin: {
         user: Users.slug,
@@ -29,9 +35,11 @@ export default buildConfig({
     editor: lexicalEditor({}),
     db: postgresAdapter({
         pool: {
-            connectionString: process.env.DATABASE_URI || '',
+            connectionString: dbUri,
+            max: isProduction ? 10 : 5,
+            ssl: useSsl ? { rejectUnauthorized: false } : false,
         },
-        push: true, // Force schema push in production to avoid migration build failures
+        push: true, // Force schema push in production to keep DB in sync without migration build failures
     }),
     secret: process.env.PAYLOAD_SECRET || 'fallback-secret-for-dev',
     typescript: {
