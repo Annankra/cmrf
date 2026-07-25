@@ -1,5 +1,10 @@
 import { buildConfig } from 'payload'
-import sharp from 'sharp'
+let sharp: any;
+try {
+    sharp = require('sharp')
+} catch {
+    // sharp binary not available in edge/serverless runtime
+}
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -69,5 +74,5 @@ export default buildConfig({
             token: process.env.BLOB_READ_WRITE_TOKEN || 'dummy-token',
         }),
     ],
-    sharp,
+    ...(sharp ? { sharp } : {}),
 })
