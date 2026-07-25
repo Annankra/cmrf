@@ -71,6 +71,7 @@ function MagneticSelection({
 }
 
 export function StripeForm() {
+    const [mode, setMode] = useState<'one_time' | 'monthly'>('one_time');
     const [selectedCents, setSelectedCents] = useState<number>(10000); // Default $100
     const [customAmount, setCustomAmount] = useState("");
     const [donorName, setDonorName] = useState("");
@@ -108,6 +109,7 @@ export function StripeForm() {
                     amount: amountInCents,
                     donorName: donorName || "Anonymous Donor",
                     donorEmail,
+                    mode,
                 }),
             });
             
@@ -137,6 +139,34 @@ export function StripeForm() {
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
                     Card & Digital Wallets
                 </h3>
+            </div>
+
+            {/* Donation Frequency Toggle */}
+            <div className="flex justify-center mb-8">
+                <div className="inline-flex bg-black/40 border border-white/10 rounded-full p-1.5 backdrop-blur-md">
+                    <button
+                        type="button"
+                        onClick={() => setMode('one_time')}
+                        className={`px-6 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                            mode === 'one_time'
+                                ? 'bg-[var(--color-clay)] text-white shadow-lg'
+                                : 'text-white/40 hover:text-white'
+                        }`}
+                    >
+                        One-Time
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setMode('monthly')}
+                        className={`px-6 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                            mode === 'monthly'
+                                ? 'bg-[var(--color-clay)] text-white shadow-lg'
+                                : 'text-white/40 hover:text-white'
+                        }`}
+                    >
+                        Monthly
+                    </button>
+                </div>
             </div>
 
             <div className="mb-8 md:mb-10">

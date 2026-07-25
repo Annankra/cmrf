@@ -31,6 +31,7 @@ interface DonatePayload {
     amount: number; // in cents
     donorName?: string;
     donorEmail?: string;
+    mode?: "one_time" | "monthly";
 }
 
 function validate(
@@ -40,7 +41,7 @@ function validate(
         return { ok: false, error: "Invalid request body." };
     }
 
-    const { amount, donorName, donorEmail } = body as Record<string, unknown>;
+    const { amount, donorName, donorEmail, mode } = body as Record<string, unknown>;
 
     if (typeof amount !== "number" || !Number.isInteger(amount)) {
         return { ok: false, error: "Amount must be an integer (in cents)." };
@@ -56,12 +57,15 @@ function validate(
         return { ok: false, error: "Invalid email address." };
     }
 
+    const validMode = mode === "monthly" ? "monthly" : "one_time";
+
     return {
         ok: true,
         data: {
             amount,
             donorName: typeof donorName === "string" ? donorName.trim() : undefined,
             donorEmail: typeof donorEmail === "string" ? donorEmail.trim() : undefined,
+            mode: validMode,
         },
     };
 }
@@ -100,7 +104,7 @@ export async function POST(request: NextRequest) {
         );
     }
 
-    const { amount, donorName, donorEmail } = result.data;
+    const { amount, donorName, donorEmail, mode } = result.data;
 
     // --- Stripe ---
     const secretKey = process.env.STRIPE_SECRET_KEY;
@@ -116,9 +120,10 @@ export async function POST(request: NextRequest) {
 
     try {
         const origin = request.headers.get("origin") || "http://localhost:3000";
+        const isSubscription = mode === "monthly";
 
         const session = await stripe.checkout.sessions.create({
-            mode: "payment",
+            mode: isSubscription ? "subscription" : "payment",
             payment_method_types: ["card", "link"],
             line_items: [
                 {
@@ -126,10 +131,11 @@ export async function POST(request: NextRequest) {
                         currency: "usd",
                         unit_amount: amount,
                         product_data: {
-                            name: "Donation to CMRF",
+                            name: isSubscription ? "Monthly Recurring Donation to CMRF" : "Donation to CMRF",
                             description:
                                 "Tax-deductible donation to CMMRF-USA, a 501(c)(3) charitable organization.",
                         },
+                        ...(isSubscription ? { recurring: { interval: "month" } } : {}),
                     },
                     quantity: 1,
                 },
@@ -139,6 +145,7 @@ export async function POST(request: NextRequest) {
             metadata: {
                 donorName: donorName || "",
                 donorEmail: donorEmail || "",
+                donationType: isSubscription ? "monthly" : "one_time",
             },
             success_url: `${origin}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${origin}/donate/cancel`,
