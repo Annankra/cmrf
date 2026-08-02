@@ -54,7 +54,7 @@ export default function DonatePage() {
                 <div
                     className="absolute inset-0 bg-cover bg-center lg:bg-fixed scale-110"
                     style={{
-                        backgroundImage: `url('/childerndoctor.jpg')`,
+                        backgroundImage: `url('/hero/bringing-hope-and-healing.webp')`,
                     }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/60 to-transparent" />
