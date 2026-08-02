@@ -9,12 +9,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HERO_IMAGES = [
-    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80&auto=format", // Kids smiling
-    "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1920&q=80&auto=format", // Medical outreach
-    "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920&q=80&auto=format", // Healthcare professional
-    "https://images.unsplash.com/photo-1593113580332-ceb4b88d227f?w=1920&q=80&auto=format", // Humanitarian aid
-    "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=1920&q=80&auto=format", // Doctor and child
-    "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80&auto=format"  // Hands holding
+    "/media/2025-tamale-medical-outreach-brings-hope-and-healing-to-over.jpg", // Tamale Medical Outreach, Ghana
+    "/childerndoctor.jpg",                                                     // Medical mission doctor & child
+    "/media/2024-hohoe-missions-and-outreach.jpg",                              // Hohoe Medical Outreach, Volta Region
+    "/media/keta-2023-medical-outreach-in-loving-memory-of-madam-florenc.jpg", // Keta Medical Outreach, Ghana
+    "/media/2023-kadjebi-missions-outreach.jpg",                                // Kadjebi Medical Mission, Ghana
+    "/media/haatso-community-medical-mission.jpg"                               // Haatso Community Medical Outreach, Greater Accra
 ];
 
 export function Hero() {
