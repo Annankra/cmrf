@@ -18,16 +18,21 @@ const HERO_IMAGES = [
 
 export function Hero() {
     const sectionRef = useRef<HTMLElement>(null);
-    const bgRef = useRef<HTMLDivElement>(null);
+    const bgRef1 = useRef<HTMLDivElement>(null);
+    const bgRef2 = useRef<HTMLDivElement>(null);
     const particlesRef = useRef<HTMLDivElement>(null);
 
-    const [bgImage, setBgImage] = useState<string>(HERO_IMAGES[0]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [activeLayer, setActiveLayer] = useState<1 | 2>(1);
+    const [layer1Img, setLayer1Img] = useState<string>(HERO_IMAGES[0]);
+    const [layer2Img, setLayer2Img] = useState<string>(HERO_IMAGES[1] || HERO_IMAGES[0]);
     const [particles, setParticles] = useState<Array<{ width: string, height: string, top: string, left: string, background: string }>>([]);
 
-    useEffect(() => {
-        const randomImageIndex = Math.floor(Math.random() * HERO_IMAGES.length);
-        setBgImage(HERO_IMAGES[randomImageIndex]);
+    const kenBurnsTlRef = useRef<gsap.core.Timeline | null>(null);
+    const isTransitioningRef = useRef(false);
 
+    // Initial particles setup
+    useEffect(() => {
         const generatedParticles = Array.from({ length: 10 }).map((_, i) => ({
             width: `${6 + Math.random() * 10}px`,
             height: `${6 + Math.random() * 10}px`,
@@ -40,35 +45,97 @@ export function Hero() {
         setParticles(generatedParticles);
     }, []);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Ken Burns zoom effect
-            if (bgRef.current) {
-                gsap.fromTo(
-                    bgRef.current,
-                    { scale: 1.0 },
-                    {
-                        scale: 1.15,
-                        duration: 22,
-                        ease: "none",
-                        repeat: -1,
-                        yoyo: true,
-                    }
-                );
+    // -------------------------------------------------------------------
+    // Ken Burns Animation Logic (matching Gallery Fullscreen Viewer)
+    // -------------------------------------------------------------------
+    const startKenBurns = (targetEl: HTMLDivElement | null) => {
+        if (!targetEl) return;
+        if (kenBurnsTlRef.current) kenBurnsTlRef.current.kill();
 
-                gsap.to(bgRef.current, {
-                    yPercent: 25,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: true,
-                    },
-                });
+        const zoomIn = Math.random() > 0.5;
+        const startScale = zoomIn ? 1.05 : 1.25;
+        const endScale = zoomIn ? 1.25 : 1.05;
+        const xDir = (Math.random() - 0.5) * 30;
+        const yDir = (Math.random() - 0.5) * 30;
+
+        kenBurnsTlRef.current = gsap.timeline({ repeat: -1, yoyo: true });
+        kenBurnsTlRef.current.fromTo(
+            targetEl,
+            { scale: startScale, x: -xDir, y: -yDir },
+            {
+                scale: endScale,
+                x: xDir,
+                y: yDir,
+                duration: 9,
+                ease: "sine.inOut",
             }
+        );
+    };
 
-            // Staggered text reveal
+    // Transition to target slide index
+    const goToSlide = (nextIndex: number) => {
+        if (isTransitioningRef.current || nextIndex === currentIndex) return;
+        isTransitioningRef.current = true;
+
+        const nextImgUrl = HERO_IMAGES[nextIndex];
+        const currentBg = activeLayer === 1 ? bgRef1.current : bgRef2.current;
+        const nextBg = activeLayer === 1 ? bgRef2.current : bgRef1.current;
+
+        if (activeLayer === 1) {
+            setLayer2Img(nextImgUrl);
+        } else {
+            setLayer1Img(nextImgUrl);
+        }
+
+        // Wait brief frame for state update
+        requestAnimationFrame(() => {
+            if (!nextBg || !currentBg) return;
+
+            // Prepare incoming layer
+            gsap.set(nextBg, { opacity: 0, scale: 0.98, filter: "blur(12px)" });
+
+            // Cross-fade timeline
+            gsap.timeline({
+                onComplete: () => {
+                    setActiveLayer(activeLayer === 1 ? 2 : 1);
+                    setCurrentIndex(nextIndex);
+                    isTransitioningRef.current = false;
+                    startKenBurns(nextBg);
+                }
+            })
+            .to(currentBg, {
+                opacity: 0,
+                scale: 1.15,
+                filter: "blur(10px)",
+                duration: 1.2,
+                ease: "power2.inOut",
+            }, 0)
+            .to(nextBg, {
+                opacity: 1,
+                scale: 1.05,
+                filter: "blur(0px)",
+                duration: 1.4,
+                ease: "power2.out",
+            }, 0.2);
+        });
+    };
+
+    // Autoplay slideshow timer (6s per slide)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const nextIdx = (currentIndex + 1) % HERO_IMAGES.length;
+            goToSlide(nextIdx);
+        }, 6500);
+
+        return () => clearInterval(interval);
+    }, [currentIndex, activeLayer]);
+
+    // Initial entrance animations
+    useEffect(() => {
+        const activeBg = activeLayer === 1 ? bgRef1.current : bgRef2.current;
+        startKenBurns(activeBg);
+
+        const ctx = gsap.context(() => {
             const tl = gsap.timeline({ delay: 0.3 });
 
             tl.from("[data-hero-line]", {
@@ -98,7 +165,7 @@ export function Hero() {
                         duration: 0.6,
                         ease: "power3.out",
                     },
-                    "-=0.3"
+                    "-=0.4"
                 );
 
             // Floating particles
@@ -131,19 +198,28 @@ export function Hero() {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, [particles, bgImage]);
+    }, [particles]);
 
     return (
         <section
             ref={sectionRef}
             className="relative h-dvh w-full flex flex-col justify-end overflow-hidden"
         >
-            {/* Background Image */}
+            {/* Dual Layer Cross-Fade Background Images */}
             <div
-                ref={bgRef}
-                className="absolute inset-[-10%] bg-cover bg-center bg-no-repeat will-change-transform"
+                ref={bgRef1}
+                className="absolute inset-[-10%] bg-cover bg-center bg-no-repeat will-change-transform transition-opacity duration-1000"
                 style={{
-                    backgroundImage: `url('${bgImage}')`,
+                    backgroundImage: `url('${layer1Img}')`,
+                    opacity: activeLayer === 1 ? 1 : 0,
+                }}
+            />
+            <div
+                ref={bgRef2}
+                className="absolute inset-[-10%] bg-cover bg-center bg-no-repeat will-change-transform transition-opacity duration-1000"
+                style={{
+                    backgroundImage: `url('${layer2Img}')`,
+                    opacity: activeLayer === 2 ? 1 : 0,
                 }}
             />
 
@@ -222,18 +298,36 @@ export function Hero() {
                     </div>
                 </div>
 
-                {/* Scroll Indicator */}
-                <div
-                    data-hero-scroll
-                    className="absolute bottom-8 right-8 md:right-12 flex flex-col items-center gap-2 text-[var(--color-cream)]/50"
-                >
-                    <span
-                        className="text-xs uppercase tracking-widest font-mono"
-                        style={{ writingMode: "vertical-rl" }}
+                {/* Slide Indicator Dots & Scroll Indicator */}
+                <div className="absolute bottom-8 right-8 md:right-12 flex items-end gap-6 z-20">
+                    {/* Slideshow Progress Dots */}
+                    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10">
+                        {HERO_IMAGES.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => goToSlide(idx)}
+                                aria-label={`Go to slide ${idx + 1}`}
+                                className={`h-2 rounded-full transition-all duration-500 cursor-pointer ${
+                                    currentIndex === idx
+                                        ? "w-6 bg-[var(--color-clay)] shadow-[0_0_10px_rgba(204,88,51,0.5)]"
+                                        : "w-2 bg-white/30 hover:bg-white/70"
+                                }`}
+                            />
+                        ))}
+                    </div>
+
+                    <div
+                        data-hero-scroll
+                        className="hidden sm:flex flex-col items-center gap-2 text-[var(--color-cream)]/50"
                     >
-                        Scroll
-                    </span>
-                    <ArrowDown size={16} className="animate-float" />
+                        <span
+                            className="text-xs uppercase tracking-widest font-mono"
+                            style={{ writingMode: "vertical-rl" }}
+                        >
+                            Scroll
+                        </span>
+                        <ArrowDown size={16} className="animate-float" />
+                    </div>
                 </div>
             </div>
         </section>
