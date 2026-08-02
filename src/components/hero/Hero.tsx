@@ -9,12 +9,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HERO_IMAGES = [
-    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80&auto=format", // Kids smiling
-    "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1920&q=80&auto=format", // Medical outreach
-    "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920&q=80&auto=format", // Healthcare professional
-    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&q=80&auto=format", // Medical care
-    "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=1920&q=80&auto=format", // Doctor and child
-    "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80&auto=format"  // Hands holding
+    "/hero/medical-outreach.webp", // CMRF Medical Mission Outreach, Ghana
+    "/hero/surgery-hd.webp",        // Specialized Surgery Mission
+    "/hero/surgery-care.webp",      // Surgical Care & Clinical Procedure
+    "/hero/clean-water.webp",       // Clean Water Initiative & Community Health
+    "/childerndoctor.jpg",          // Pediatric Medical Consultation
 ];
 
 export function Hero() {
