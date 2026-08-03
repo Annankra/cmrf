@@ -1,0 +1,162 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - link "CMRF" [ref=e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=e7]:
+      - link "About" [ref=e8] [cursor=pointer]:
+        - /url: /about
+      - link "Mission" [ref=e9] [cursor=pointer]:
+        - /url: /mission
+      - link "Clinic" [ref=e10] [cursor=pointer]:
+        - /url: /clinic
+      - link "Events" [ref=e11] [cursor=pointer]:
+        - /url: /events
+      - link "Gallery" [ref=e12] [cursor=pointer]:
+        - /url: /gallery
+      - link "Blog" [ref=e13] [cursor=pointer]:
+        - /url: /blog
+    - generic [ref=e14]:
+      - link "Volunteer" [ref=e15] [cursor=pointer]:
+        - /url: /get-involved
+      - link "Donate" [ref=e16] [cursor=pointer]:
+        - /url: /donate
+  - generic:
+    - link "About":
+      - /url: /about
+    - link "Mission":
+      - /url: /mission
+    - link "Clinic":
+      - /url: /clinic
+    - link "Events":
+      - /url: /events
+    - link "Gallery":
+      - /url: /gallery
+    - link "Blog":
+      - /url: /blog
+    - link "Donate Now":
+      - /url: /donate
+  - main [ref=e20]:
+    - generic [ref=e22]:
+      - generic [ref=e28]:
+        - paragraph [ref=e29]: Impact Protocol — 002
+        - heading "Heal the Future." [level=1] [ref=e30]
+        - paragraph [ref=e31]: Mobilizing medical professionals and resources to deliver high-fidelity care to 600+ communities across Africa for 30 years.
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - heading "Your donation is transformational." [level=2] [ref=e37]
+            - paragraph [ref=e38]: CMRF is a 501(c)(3) boutique medical NGO. We focus on clinical precision and sustainable community health infrastructures, not just relief.
+          - generic [ref=e39]:
+            - generic [ref=e46]:
+              - paragraph [ref=e47]: Clinical Excellence
+              - paragraph [ref=e48]: 30+ Years
+            - generic [ref=e54]:
+              - paragraph [ref=e55]: Clean Water
+              - paragraph [ref=e56]: 600+ Communities
+            - generic [ref=e61]:
+              - paragraph [ref=e62]: Success Rate
+              - paragraph [ref=e63]: 99.8% Recovery
+        - generic [ref=e64]:
+          - tablist "Donation Methods" [ref=e65]:
+            - tab "International (USD)" [selected] [ref=e66]
+            - tab "Ghana (GHS)" [ref=e71]
+            - tab "Direct Transfer" [ref=e75]
+          - generic [ref=e81]:
+            - generic [ref=e83]:
+              - paragraph [ref=e84]: Secure International Gateway
+              - heading "Card & Digital Wallets" [level=3] [ref=e85]
+            - generic [ref=e86]:
+              - heading "Select Contribution (USD)" [level=4] [ref=e87]
+              - generic [ref=e88]:
+                - button "$25" [ref=e89] [cursor=pointer]
+                - button "$50" [ref=e91] [cursor=pointer]
+                - button "$100" [ref=e93] [cursor=pointer]
+                - button "$250" [ref=e95] [cursor=pointer]
+                - button "$500" [ref=e97] [cursor=pointer]
+              - generic [ref=e99]:
+                - generic [ref=e100]: "Impact Level:"
+                - paragraph [ref=e104]: supports a complete specialized surgical procedure.
+            - generic [ref=e105]:
+              - generic [ref=e106]: Custom Amount (USD)
+              - generic [ref=e107]:
+                - generic [ref=e108]: $
+                - spinbutton "Amount..." [ref=e109]
+            - generic [ref=e110]:
+              - generic [ref=e111]:
+                - generic [ref=e112]: Donor Name (Optional)
+                - textbox "Full Name" [ref=e113]
+              - generic [ref=e114]:
+                - generic [ref=e115]: Email Address (Required)
+                - textbox "your@email.com" [ref=e116]
+            - button [ref=e117] [cursor=pointer]
+            - generic [ref=e121]:
+              - generic [ref=e122]: Encrypted-SSL
+              - generic [ref=e125]: Powered by Stripe
+              - generic [ref=e129]: Secure Payment
+  - contentinfo [ref=e134]:
+    - generic [ref=e135]:
+      - generic [ref=e136]:
+        - generic [ref=e137]:
+          - link "CMRF" [ref=e138] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e143]: Mobilizing Christians and resources worldwide to show God's love through word and positive acts of deed across Ghana and Africa.
+          - generic [ref=e144]:
+            - link "cmmrf@usa.com" [ref=e145] [cursor=pointer]:
+              - /url: mailto:cmmrf@usa.com
+            - generic [ref=e149]: Accra, Ghana · West Africa
+        - generic [ref=e153]:
+          - heading "Organization" [level=4] [ref=e154]
+          - list [ref=e155]:
+            - listitem [ref=e156]:
+              - link "About Us" [ref=e157] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e158]:
+              - link "Our Mission" [ref=e159] [cursor=pointer]:
+                - /url: /mission
+            - listitem [ref=e160]:
+              - link "Permanent Clinic" [ref=e161] [cursor=pointer]:
+                - /url: /clinic
+            - listitem [ref=e162]:
+              - link "Partners & Sponsors" [ref=e163] [cursor=pointer]:
+                - /url: /about#partners
+        - generic [ref=e164]:
+          - heading "Engage" [level=4] [ref=e165]
+          - list [ref=e166]:
+            - listitem [ref=e167]:
+              - link "Outreach Events" [ref=e168] [cursor=pointer]:
+                - /url: /events
+            - listitem [ref=e169]:
+              - link "Photo Gallery" [ref=e170] [cursor=pointer]:
+                - /url: /gallery
+            - listitem [ref=e171]:
+              - link "Stories & Blog" [ref=e172] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e173]:
+              - link "Contact Us" [ref=e174] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e175]:
+          - heading "Support" [level=4] [ref=e176]
+          - list [ref=e177]:
+            - listitem [ref=e178]:
+              - link "Donate" [ref=e179] [cursor=pointer]:
+                - /url: /donate
+            - listitem [ref=e180]:
+              - link "Volunteer" [ref=e181] [cursor=pointer]:
+                - /url: /get-involved#volunteer
+            - listitem [ref=e182]:
+              - link "Newsletter" [ref=e183] [cursor=pointer]:
+                - /url: /#newsletter
+      - paragraph [ref=e185]: "CMRF is a registered NGO in Ghana (Reg #G-1,540).CMMRF-USA is a registered, federally authorized tax-exempt 501(c)3 charitable organization."
+      - generic [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e190]: System Operational
+          - generic [ref=e191]: · Active Network
+        - generic [ref=e192]:
+          - generic [ref=e193]: © 2026 CMRF
+          - generic [ref=e194]: ·
+          - generic [ref=e195]: CMMRF-USA 501(c)3
+          - generic [ref=e196]: ·
+          - generic [ref=e197]: Crafted with
+  - button "Open Next.js Dev Tools" [ref=e205] [cursor=pointer]

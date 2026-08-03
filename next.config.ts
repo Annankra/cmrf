@@ -39,7 +39,8 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/(.*)\\.(jpg|jpeg|png|webp|avif|svg|ico)",
+        // Only cache static assets, not /api routes (which serve dynamic media from Blob)
+        source: "/:path((?!api/).*)\\.(jpg|jpeg|png|webp|avif|svg|ico)",
         headers: [
           {
             key: "Cache-Control",

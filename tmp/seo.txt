@@ -1,0 +1,31 @@
+Act as an expert non-profit UX/UI designer, faith-based medical copywriter, and SEO specialist. Analyze and provide a comprehensive website redesign and optimization plan for CMRF (Christian Missions Resource Foundation), a medical NGO based in Ghana with a 501(c)(3) arm in the US.
+
+### 1. NGO Background & Context
+* Organization Name: Christian Missions Resource Foundation (CMRF / CMMRF-USA)
+* Medical & Spiritual Focus: Combining general medical, dental, surgical, and eye care with Christian evangelism and church partnerships.
+* Track Record: Over 30 years of experience serving 700+ communities, targeting 12,000+ people annually with free healthcare.
+* Primary Target Audience: International and local donors, corporate sponsors, churches, and Christian medical volunteers.
+* Main Objective: Modernize the website layout to increase donor conversions, streamline volunteer sign-ups, and effectively showcase mission impact reports (like the Tamale and Haatso missions).
+
+### 2. Redesign & Optimization Tasks
+
+#### A. Navigation & Information Architecture
+* Your current navigation is heavily fragmented: Home, About, Mission, Clinic, Calendar, Our Partners, Gallery, Blog, Others, Contact Us. Provide a consolidated, modern 5-item main menu structure that categorizes these pages without confusing the user.
+* Define a dual call-to-action (CTA) button strategy for the top header menu to target both financial donors and medical volunteers.
+
+#### B. Homepage UX/UI Redesign (Above & Below the Fold)
+* **Hero Section (Above the Fold):** Design a high-impact header layout using your surgical and outreach imagery. Provide 3 options for a compelling headline that balances the medical mission with the evangelistic message of hope.
+* **Impact Section (Below the Fold):** Outline a section that visually highlights your quantitative impact metrics (e.g., 30+ Years, 700+ Communities, 12,000+ Annual Patients). 
+* **Recent Missions:** Suggest a dynamic layout block to display recent reports like the "Tamale 2026 Medical Outreach" and "Haatso One-Day Mission" so the site feels active and current.
+
+#### C. Trust, Compliance & Frictionless Giving
+* Show how to prominently highlight your dual legal status (Registered NGO in Ghana & tax-exempt 501(c)(3) organization in the USA) directly on the giving page to build immediate international trust.
+* Create a layout framework for a 3-step frictionless donation form. 
+* Detail how to ethically display patient case studies and surgery photos while respecting privacy and dignity.
+
+#### D. Localized Technical SEO & Performance
+* Many medical volunteers and local partners access the site via mobile networks within Ghana. Provide a 5-step checklist to optimize the site speed for low-bandwidth mobile environments (reducing image sizes from outreach photo uploads like "_PAG1976.jpg" or "surgery.jpg").
+* Identify 5 high-intent keyword clusters (targeting both local Ghanaian partnerships and international Christian medical missions) to improve organic search rankings.
+
+### 3. Expected Output
+Provide highly practical, bulleted action items for each section. Include specific copy examples for CTA buttons, section headings, and form fields. Do not use overly complex tech jargon; keep it ready for a web developer to implement.

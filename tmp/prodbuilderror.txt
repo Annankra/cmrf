@@ -1,0 +1,18 @@
+      "syscall": "connect",
+      "address": "2600:1f14:359d:9303:8d11:ed2a:cbb3:4b95",
+      "port": 5432
+    }
+undefined
+Error occurred prerendering page "/blog". Read more: https://nextjs.org/docs/messages/prerender-error
+Error: Error: cannot connect to Postgres: connect ENETUNREACH 2600:1f14:359d:9303:8d11:ed2a:cbb3:4b95:5432 - Local (:::0)
+    at Object.h [as connect] (.next/server/chunks/ssr/_1aedb445._.js:284:31635)
+    at async bt.init (.next/server/chunks/ssr/_1aedb445._.js:134:9886)
+    at async bw (.next/server/chunks/ssr/_1aedb445._.js:134:13064)
+    at async k (.next/server/chunks/ssr/[root-of-the-server]__88590619._.js:1:699)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__a0c46e9f._.js:1:13997) {
+  payloadInitError: true,
+  digest: '2943147731'
+}
+Export encountered an error on /(frontend)/blog/page: /blog, exiting the build.
+⨯ Next.js build worker exited with code: 1 and signal: null
+Error: Command "npm run build" exited with 1
