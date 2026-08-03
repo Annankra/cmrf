@@ -1,0 +1,129 @@
+- generic [active] [ref=f1e1]:
+  - link "Skip to main content" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=f1e3]:
+    - link "CMRF" [ref=f1e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f1e7]:
+      - link "About" [ref=f1e8] [cursor=pointer]:
+        - /url: /about
+      - link "Mission" [ref=f1e9] [cursor=pointer]:
+        - /url: /mission
+      - link "Clinic" [ref=f1e10] [cursor=pointer]:
+        - /url: /clinic
+      - link "Events" [ref=f1e11] [cursor=pointer]:
+        - /url: /events
+      - link "Gallery" [ref=f1e12] [cursor=pointer]:
+        - /url: /gallery
+      - link "Blog" [ref=f1e13] [cursor=pointer]:
+        - /url: /blog
+    - generic [ref=f1e14]:
+      - link "Volunteer" [ref=f1e15] [cursor=pointer]:
+        - /url: /get-involved
+      - link "Donate" [ref=f1e16] [cursor=pointer]:
+        - /url: /donate
+  - generic:
+    - link "About":
+      - /url: /about
+    - link "Mission":
+      - /url: /mission
+    - link "Clinic":
+      - /url: /clinic
+    - link "Events":
+      - /url: /events
+    - link "Gallery":
+      - /url: /gallery
+    - link "Blog":
+      - /url: /blog
+    - link "Donate Now":
+      - /url: /donate
+  - main [ref=f1e20]:
+    - generic [ref=f1e21]:
+      - generic [ref=f1e25]:
+        - paragraph [ref=f1e26]: Gallery / 2017
+        - heading "Mission Volta 2017" [level=1] [ref=f1e27]
+        - paragraph [ref=f1e28]: Comprehensive medical outreach, health screenings, and free clinical care delivered across underserved communities in Volta Region, Ghana.
+      - generic [ref=f1e30]:
+        - link "Back to Gallery" [ref=f1e32] [cursor=pointer]:
+          - /url: /gallery
+        - generic [ref=f1e36]:
+          - button [ref=f1e37] [cursor=pointer]:
+            - img "Mission Volta 2017 Cover" [ref=f1e38]
+            - paragraph [ref=f1e45]: Mission Volta 2017 photo
+          - button [ref=f1e46] [cursor=pointer]:
+            - img "Volta Medical Mission Consultation" [ref=f1e47]
+            - paragraph [ref=f1e54]: Mission Volta 2017 photo
+          - button [ref=f1e55] [cursor=pointer]:
+            - img "Volta Community Patient Care" [ref=f1e56]
+            - paragraph [ref=f1e63]: Mission Volta 2017 photo
+          - button [ref=f1e64] [cursor=pointer]:
+            - img "Volta Health Screening Station" [ref=f1e65]
+            - paragraph [ref=f1e72]: Mission Volta 2017 photo
+          - button [ref=f1e73] [cursor=pointer]:
+            - img "Volta Mission Outreach Team" [ref=f1e74]
+            - paragraph [ref=f1e81]: Mission Volta 2017 photo
+  - contentinfo [ref=f1e82]:
+    - generic [ref=f1e83]:
+      - generic [ref=f1e84]:
+        - generic [ref=f1e85]:
+          - link "CMRF" [ref=f1e86] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f1e91]: Mobilizing Christians and resources worldwide to show God's love through word and positive acts of deed across Ghana and Africa.
+          - generic [ref=f1e92]:
+            - link "cmmrf@usa.com" [ref=f1e93] [cursor=pointer]:
+              - /url: mailto:cmmrf@usa.com
+            - generic [ref=f1e97]: Accra, Ghana · West Africa
+        - generic [ref=f1e101]:
+          - heading "Organization" [level=4] [ref=f1e102]
+          - list [ref=f1e103]:
+            - listitem [ref=f1e104]:
+              - link "About Us" [ref=f1e105] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=f1e106]:
+              - link "Our Mission" [ref=f1e107] [cursor=pointer]:
+                - /url: /mission
+            - listitem [ref=f1e108]:
+              - link "Permanent Clinic" [ref=f1e109] [cursor=pointer]:
+                - /url: /clinic
+            - listitem [ref=f1e110]:
+              - link "Partners & Sponsors" [ref=f1e111] [cursor=pointer]:
+                - /url: /about#partners
+        - generic [ref=f1e112]:
+          - heading "Engage" [level=4] [ref=f1e113]
+          - list [ref=f1e114]:
+            - listitem [ref=f1e115]:
+              - link "Outreach Events" [ref=f1e116] [cursor=pointer]:
+                - /url: /events
+            - listitem [ref=f1e117]:
+              - link "Photo Gallery" [ref=f1e118] [cursor=pointer]:
+                - /url: /gallery
+            - listitem [ref=f1e119]:
+              - link "Stories & Blog" [ref=f1e120] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=f1e121]:
+              - link "Contact Us" [ref=f1e122] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=f1e123]:
+          - heading "Support" [level=4] [ref=f1e124]
+          - list [ref=f1e125]:
+            - listitem [ref=f1e126]:
+              - link "Donate" [ref=f1e127] [cursor=pointer]:
+                - /url: /donate
+            - listitem [ref=f1e128]:
+              - link "Volunteer" [ref=f1e129] [cursor=pointer]:
+                - /url: /get-involved#volunteer
+            - listitem [ref=f1e130]:
+              - link "Newsletter" [ref=f1e131] [cursor=pointer]:
+                - /url: /#newsletter
+      - paragraph [ref=f1e133]: "CMRF is a registered NGO in Ghana (Reg #G-1,540).CMMRF-USA is a registered, federally authorized tax-exempt 501(c)3 charitable organization."
+      - generic [ref=f1e135]:
+        - generic [ref=f1e136]:
+          - generic [ref=f1e138]: System Operational
+          - generic [ref=f1e139]: · Active Network
+        - generic [ref=f1e140]:
+          - generic [ref=f1e141]: © 2026 CMRF
+          - generic [ref=f1e142]: ·
+          - generic [ref=f1e143]: CMMRF-USA 501(c)3
+          - generic [ref=f1e144]: ·
+          - generic [ref=f1e145]: Crafted with
+  - alert [ref=f1e148]

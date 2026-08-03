@@ -7,10 +7,18 @@ export async function getPayload() {
     return getPayloadClient({ config })
 }
 
+const VERCEL_BLOB_BASE = "https://umiff0vttpz6cxtl.public.blob.vercel-storage.com";
+
 /** Helper to resolve a Media relation to a URL */
 export function getMediaUrl(media: number | Media | null | undefined): string | null {
-    if (!media) return null
-    if (typeof media === 'number') return null
+    if (!media || typeof media === 'number') return null
+    if (media.filename) {
+        return `${VERCEL_BLOB_BASE}/${media.filename}`
+    }
+    if (media.url?.startsWith('/api/media/file/')) {
+        const filename = media.url.replace('/api/media/file/', '')
+        return `${VERCEL_BLOB_BASE}/${filename}`
+    }
     return media.url || null
 }
 
