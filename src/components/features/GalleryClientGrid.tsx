@@ -49,9 +49,10 @@ export function GalleryClientGrid({ albums }: { albums: AlbumItem[] }) {
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredAlbums.map((album) => (
-                    <div
+                    <Link
                         key={album.slug}
-                        className="group relative rounded-[2rem] bg-black/40 border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500 hover:-translate-y-2"
+                        href={`/gallery/${album.slug}`}
+                        className="group relative block rounded-[2rem] bg-black/40 border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500 hover:-translate-y-2 no-underline"
                     >
                         {/* Cover Image Container */}
                         <div className="relative h-64 overflow-hidden bg-black/60">
@@ -64,8 +65,12 @@ export function GalleryClientGrid({ albums }: { albums: AlbumItem[] }) {
                             {/* Lightbox Quick View Button */}
                             <button
                                 type="button"
-                                onClick={() => setLightboxImage({ url: album.coverImage, title: album.title })}
-                                className="absolute top-4 right-4 p-2.5 rounded-full bg-black/50 backdrop-blur-md text-white/70 hover:text-white hover:bg-black/80 transition-colors opacity-0 group-hover:opacity-100"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setLightboxImage({ url: album.coverImage, title: album.title });
+                                }}
+                                className="absolute top-4 right-4 p-2.5 rounded-full bg-black/50 backdrop-blur-md text-white/70 hover:text-white hover:bg-black/80 transition-colors opacity-0 group-hover:opacity-100 z-10"
                                 title="Quick Preview"
                             >
                                 <Maximize2 size={16} />
@@ -93,15 +98,12 @@ export function GalleryClientGrid({ albums }: { albums: AlbumItem[] }) {
                             <p className="text-xs text-white/60 leading-relaxed font-light">
                                 {album.description}
                             </p>
-                            <Link
-                                href={`/gallery/${album.slug}`}
-                                className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[var(--color-clay)] hover:translate-x-1 transition-transform"
-                            >
+                            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[var(--color-clay)] group-hover:translate-x-1 transition-transform">
                                 <span>View Archive</span>
                                 <ArrowRight size={14} />
-                            </Link>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
 
