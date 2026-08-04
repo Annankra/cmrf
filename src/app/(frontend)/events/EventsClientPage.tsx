@@ -23,6 +23,60 @@ interface EventItem {
 
 export function EventsClientPage({ events }: { events: EventItem[] }) {
     const container = useRef<HTMLDivElement>(null);
+    const eventsGridRef = useRef<HTMLDivElement>(null);
+
+    const performSmoothScroll = () => {
+        if (!eventsGridRef.current) return;
+
+        const targetY = eventsGridRef.current.getBoundingClientRect().top + window.scrollY - 90;
+        const startY = window.scrollY;
+        const distance = targetY - startY;
+        const duration = 1800;
+        let startTime: number | null = null;
+
+        const easeInOutCubic = (t: number): number => {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        const animationStep = (currentTime: number) => {
+            if (!startTime) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const easeProgress = easeInOutCubic(progress);
+
+            window.scrollTo(0, startY + distance * easeProgress);
+
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animationStep);
+            }
+        };
+
+        requestAnimationFrame(animationStep);
+    };
+
+    // Auto-scroll to first event after 3 seconds unless user scrolls manually
+    useGSAP(() => {
+        let hasScrolledManually = false;
+
+        const handleUserScroll = () => {
+            if (window.scrollY > 50) {
+                hasScrolledManually = true;
+            }
+        };
+
+        window.addEventListener("scroll", handleUserScroll, { passive: true });
+
+        const timer = setTimeout(() => {
+            if (!hasScrolledManually) {
+                performSmoothScroll();
+            }
+        }, 3000);
+
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener("scroll", handleUserScroll);
+        };
+    }, { scope: container });
 
     useGSAP(
         () => {
@@ -80,8 +134,9 @@ export function EventsClientPage({ events }: { events: EventItem[] }) {
 
                 {/* Left Scroll Indicator */}
                 <div
+                    onClick={performSmoothScroll}
                     data-hero-scroll
-                    className="hidden sm:flex absolute bottom-8 left-8 md:left-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50"
+                    className="hidden sm:flex absolute bottom-8 left-8 md:left-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50 hover:text-[var(--color-clay)] cursor-pointer transition-colors duration-300"
                 >
                     <span
                         className="text-xs uppercase tracking-widest font-mono"
@@ -94,8 +149,9 @@ export function EventsClientPage({ events }: { events: EventItem[] }) {
 
                 {/* Right Scroll Indicator */}
                 <div
+                    onClick={performSmoothScroll}
                     data-hero-scroll
-                    className="hidden sm:flex absolute bottom-8 right-8 md:right-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50"
+                    className="hidden sm:flex absolute bottom-8 right-8 md:right-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50 hover:text-[var(--color-clay)] cursor-pointer transition-colors duration-300"
                 >
                     <span
                         className="text-xs uppercase tracking-widest font-mono"
@@ -127,7 +183,7 @@ export function EventsClientPage({ events }: { events: EventItem[] }) {
             <section className="section bg-transparent border-t border-white/5 relative z-10">
                 <div className="container-main px-6 md:px-12">
 
-                    <div className="mb-16 hero-anim">
+                    <div ref={eventsGridRef} className="mb-16 hero-anim scroll-mt-24">
                         <div className="section-divider ml-0 bg-white/10" />
                         <h2
                             className="text-4xl md:text-5xl font-bold text-white"
