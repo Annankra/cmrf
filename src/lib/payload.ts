@@ -39,8 +39,7 @@ export async function getEvents(): Promise<Event[]> {
             depth: 1, // populate media relations
         })
         return result.docs
-    } catch (err) {
-        console.warn("Payload database unavailable, using fallback data for events:", err instanceof Error ? err.message : err);
+    } catch {
         return [];
     }
 }
@@ -56,8 +55,7 @@ export async function getPosts(): Promise<Post[]> {
             depth: 1,
         })
         return result.docs
-    } catch (err) {
-        console.warn("Payload database unavailable, using fallback data for posts:", err instanceof Error ? err.message : err);
+    } catch {
         return [];
     }
 }
@@ -73,8 +71,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
             depth: 2,
         })
         return result.docs[0] || null
-    } catch (err) {
-        console.warn("Payload database unavailable, returning null for post slug:", err instanceof Error ? err.message : err);
+    } catch {
         return null;
     }
 }
@@ -90,8 +87,7 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
             depth: 1,
         })
         return result.docs[0] || null
-    } catch (err) {
-        console.warn("Payload database unavailable, returning null for event slug:", err instanceof Error ? err.message : err);
+    } catch {
         return null;
     }
 }
@@ -107,8 +103,7 @@ export async function getAlbums(): Promise<Album[]> {
             depth: 1,
         })
         return result.docs
-    } catch (err) {
-        console.warn("Payload database unavailable, using fallback data for albums:", err instanceof Error ? err.message : err);
+    } catch {
         return [];
     }
 }
@@ -124,8 +119,7 @@ export async function getAlbumBySlug(slug: string): Promise<Album | null> {
             depth: 2, // deeper for nested galleryImages.image
         })
         return result.docs[0] || null
-    } catch (err) {
-        console.warn("Payload database unavailable, returning null for album slug:", err instanceof Error ? err.message : err);
+    } catch {
         return null;
     }
 }
