@@ -30,72 +30,102 @@ export function getMediaAlt(media: number | Media | null | undefined): string {
 
 /** Fetch all upcoming events (featured first, then by date) */
 export async function getEvents(): Promise<Event[]> {
-    const payload = await getPayload()
-    const result = await payload.find({
-        collection: 'events',
-        sort: '-startDate',
-        limit: 50,
-        depth: 1, // populate media relations
-    })
-    return result.docs
+    try {
+        const payload = await getPayload()
+        const result = await payload.find({
+            collection: 'events',
+            sort: '-startDate',
+            limit: 50,
+            depth: 1, // populate media relations
+        })
+        return result.docs
+    } catch (err) {
+        console.warn("Payload database unavailable, using fallback data for events:", err instanceof Error ? err.message : err);
+        return [];
+    }
 }
 
 /** Fetch all blog posts (featured first, then by date) */
 export async function getPosts(): Promise<Post[]> {
-    const payload = await getPayload()
-    const result = await payload.find({
-        collection: 'posts',
-        sort: '-date',
-        limit: 100,
-        depth: 1,
-    })
-    return result.docs
+    try {
+        const payload = await getPayload()
+        const result = await payload.find({
+            collection: 'posts',
+            sort: '-date',
+            limit: 100,
+            depth: 1,
+        })
+        return result.docs
+    } catch (err) {
+        console.warn("Payload database unavailable, using fallback data for posts:", err instanceof Error ? err.message : err);
+        return [];
+    }
 }
 
 /** Fetch a single post by slug */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-    const payload = await getPayload()
-    const result = await payload.find({
-        collection: 'posts',
-        where: { slug: { equals: slug } },
-        limit: 1,
-        depth: 1,
-    })
-    return result.docs[0] || null
+    try {
+        const payload = await getPayload()
+        const result = await payload.find({
+            collection: 'posts',
+            where: { slug: { equals: slug } },
+            limit: 1,
+            depth: 2,
+        })
+        return result.docs[0] || null
+    } catch (err) {
+        console.warn("Payload database unavailable, returning null for post slug:", err instanceof Error ? err.message : err);
+        return null;
+    }
 }
 
 /** Fetch a single event by slug */
 export async function getEventBySlug(slug: string): Promise<Event | null> {
-    const payload = await getPayload()
-    const result = await payload.find({
-        collection: 'events',
-        where: { slug: { equals: slug } },
-        limit: 1,
-        depth: 1,
-    })
-    return result.docs[0] || null
+    try {
+        const payload = await getPayload()
+        const result = await payload.find({
+            collection: 'events',
+            where: { slug: { equals: slug } },
+            limit: 1,
+            depth: 1,
+        })
+        return result.docs[0] || null
+    } catch (err) {
+        console.warn("Payload database unavailable, returning null for event slug:", err instanceof Error ? err.message : err);
+        return null;
+    }
 }
 
 /** Fetch all photo albums */
 export async function getAlbums(): Promise<Album[]> {
-    const payload = await getPayload()
-    const result = await payload.find({
-        collection: 'albums',
-        sort: '-year',
-        limit: 50,
-        depth: 1,
-    })
-    return result.docs
+    try {
+        const payload = await getPayload()
+        const result = await payload.find({
+            collection: 'albums',
+            sort: '-year',
+            limit: 50,
+            depth: 1,
+        })
+        return result.docs
+    } catch (err) {
+        console.warn("Payload database unavailable, using fallback data for albums:", err instanceof Error ? err.message : err);
+        return [];
+    }
 }
 
 /** Fetch a single album by slug with full gallery images */
 export async function getAlbumBySlug(slug: string): Promise<Album | null> {
-    const payload = await getPayload()
-    const result = await payload.find({
-        collection: 'albums',
-        where: { slug: { equals: slug } },
-        limit: 1,
-        depth: 2, // deeper for nested galleryImages.image
-    })
-    return result.docs[0] || null
+    try {
+        const payload = await getPayload()
+        const result = await payload.find({
+            collection: 'albums',
+            where: { slug: { equals: slug } },
+            limit: 1,
+            depth: 2, // deeper for nested galleryImages.image
+        })
+        return result.docs[0] || null
+    } catch (err) {
+        console.warn("Payload database unavailable, returning null for album slug:", err instanceof Error ? err.message : err);
+        return null;
+    }
 }
