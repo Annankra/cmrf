@@ -298,7 +298,21 @@ export function Hero() {
                     </div>
                 </div>
 
-                {/* Slide Indicator Dots & Scroll Indicator */}
+                {/* Left Scroll Indicator */}
+                <div
+                    data-hero-scroll
+                    className="hidden sm:flex absolute bottom-8 left-8 md:left-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50"
+                >
+                    <span
+                        className="text-xs uppercase tracking-widest font-mono"
+                        style={{ writingMode: "vertical-rl" }}
+                    >
+                        Scroll
+                    </span>
+                    <ArrowDown size={16} className="animate-float" />
+                </div>
+
+                {/* Slide Indicator Dots & Right Scroll Indicator */}
                 <div className="absolute bottom-8 right-8 md:right-12 flex items-end gap-6 z-20">
                     {/* Slideshow Progress Dots */}
                     <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10">

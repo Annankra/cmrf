@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, ArrowDown } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -77,6 +77,34 @@ export function EventsClientPage({ events }: { events: EventItem[] }) {
                 {/* Cinematic Gradient Fade */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
                 <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal-light)]/60 via-transparent to-transparent pointer-events-none" />
+
+                {/* Left Scroll Indicator */}
+                <div
+                    data-hero-scroll
+                    className="hidden sm:flex absolute bottom-8 left-8 md:left-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50"
+                >
+                    <span
+                        className="text-xs uppercase tracking-widest font-mono"
+                        style={{ writingMode: "vertical-rl" }}
+                    >
+                        Scroll
+                    </span>
+                    <ArrowDown size={16} className="animate-float" />
+                </div>
+
+                {/* Right Scroll Indicator */}
+                <div
+                    data-hero-scroll
+                    className="hidden sm:flex absolute bottom-8 right-8 md:right-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50"
+                >
+                    <span
+                        className="text-xs uppercase tracking-widest font-mono"
+                        style={{ writingMode: "vertical-rl" }}
+                    >
+                        Scroll
+                    </span>
+                    <ArrowDown size={16} className="animate-float" />
+                </div>
 
                 <div className="relative z-10 container-main px-6 md:px-12 pt-32 pb-12 md:pb-16 w-full">
                     <p
