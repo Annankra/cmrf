@@ -21,6 +21,37 @@ export default function DonatePage() {
     const [activeTab, setActiveTab] = useState<'international' | 'direct'>('international');
     const pageRef = useRef<HTMLDivElement>(null);
     const formSectionRef = useRef<HTMLDivElement>(null);
+    const formContainerRef = useRef<HTMLDivElement>(null);
+
+    const performSmoothScroll = () => {
+        const targetElement = window.innerWidth < 1024 ? formContainerRef.current : formSectionRef.current;
+        if (!targetElement) return;
+
+        const targetY = targetElement.getBoundingClientRect().top + window.scrollY - 80;
+        const startY = window.scrollY;
+        const distance = targetY - startY;
+        const duration = 1800; // 1.8s slow, luxury smooth scroll
+        let startTime: number | null = null;
+
+        const easeInOutCubic = (t: number): number => {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        const animationStep = (currentTime: number) => {
+            if (!startTime) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const easeProgress = easeInOutCubic(progress);
+
+            window.scrollTo(0, startY + distance * easeProgress);
+
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animationStep);
+            }
+        };
+
+        requestAnimationFrame(animationStep);
+    };
 
     // Auto-scroll to donation form after 3 seconds unless user scrolls manually
     useEffect(() => {
@@ -35,8 +66,8 @@ export default function DonatePage() {
         window.addEventListener("scroll", handleUserScroll, { passive: true });
 
         const timer = setTimeout(() => {
-            if (!hasScrolledManually && formSectionRef.current) {
-                formSectionRef.current.scrollIntoView({ behavior: "smooth" });
+            if (!hasScrolledManually) {
+                performSmoothScroll();
             }
         }, 3000);
 
@@ -70,9 +101,7 @@ export default function DonatePage() {
     }, []);
 
     const scrollToForm = () => {
-        if (formSectionRef.current) {
-            formSectionRef.current.scrollIntoView({ behavior: "smooth" });
-        }
+        performSmoothScroll();
     };
 
     return (
@@ -182,7 +211,7 @@ export default function DonatePage() {
                         </div>
 
                         {/* Right — The Instrument (Tabs & Forms) */}
-                        <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8" data-animate-scale>
+                        <div ref={formContainerRef} className="lg:col-span-7 flex flex-col gap-6 md:gap-8 scroll-mt-24" data-animate-scale>
                             
                             {/* Tab Selectors */}
                             <div 
