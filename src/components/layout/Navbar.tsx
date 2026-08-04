@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Heart } from "lucide-react";
 import gsap from "gsap";
@@ -93,8 +94,15 @@ export function Navbar() {
                 {/* Logo */}
                 <Link
                     href="/"
-                    className="flex items-center gap-2 group no-underline"
+                    className="flex items-center gap-2.5 group no-underline"
                 >
+                    <Image
+                        src="/cmrflogo.png"
+                        alt="CMRF Logo"
+                        width={36}
+                        height={36}
+                        className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
                     <span
                         className="font-extrabold text-xl md:text-2xl tracking-tight text-[var(--color-cream)] transition-colors group-hover:text-[var(--color-clay)]"
                         style={{ fontFamily: "var(--font-heading)" }}

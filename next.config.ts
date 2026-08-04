@@ -10,6 +10,7 @@ try {
 }
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   trailingSlash: false,
   images: {
     formats: ['image/avif', 'image/webp'],
