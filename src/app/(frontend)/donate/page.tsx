@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Heart, Stethoscope, Droplets, Globe, Smartphone, Landmark } from "lucide-react";
+import { Heart, Stethoscope, Droplets, Globe, Smartphone, Landmark, ArrowDown } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { StripeForm } from "@/components/donate/StripeForm";
@@ -14,15 +14,37 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// Replaced old utility components.
-
-
 // ---------------------------------------------------------------------------
 // Page Main
 // ---------------------------------------------------------------------------
 export default function DonatePage() {
     const [activeTab, setActiveTab] = useState<'international' | 'direct'>('international');
     const pageRef = useRef<HTMLDivElement>(null);
+    const formSectionRef = useRef<HTMLDivElement>(null);
+
+    // Auto-scroll to donation form after 3 seconds unless user scrolls manually
+    useEffect(() => {
+        let hasScrolledManually = false;
+
+        const handleUserScroll = () => {
+            if (window.scrollY > 50) {
+                hasScrolledManually = true;
+            }
+        };
+
+        window.addEventListener("scroll", handleUserScroll, { passive: true });
+
+        const timer = setTimeout(() => {
+            if (!hasScrolledManually && formSectionRef.current) {
+                formSectionRef.current.scrollIntoView({ behavior: "smooth" });
+            }
+        }, 3000);
+
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener("scroll", handleUserScroll);
+        };
+    }, []);
 
     // Entrance Animations
     useEffect(() => {
@@ -47,6 +69,12 @@ export default function DonatePage() {
         return () => ctx.revert();
     }, []);
 
+    const scrollToForm = () => {
+        if (formSectionRef.current) {
+            formSectionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
     return (
         <div ref={pageRef} className="bg-transparent min-h-screen">
             {/* ─── Hero Section ─── */}
@@ -60,6 +88,36 @@ export default function DonatePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-[var(--color-charcoal)]/60 to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal)]/80 via-[var(--color-charcoal)]/20 to-transparent" />
                 <div className="absolute inset-0 z-12 bg-[radial-gradient(circle,transparent_10%,var(--color-charcoal)_150%)] md:bg-[radial-gradient(circle,transparent_20%,var(--color-charcoal)_150%)] pointer-events-none" />
+
+                {/* Left Scroll Indicator */}
+                <div
+                    onClick={scrollToForm}
+                    data-hero-scroll
+                    className="hidden sm:flex absolute bottom-8 left-8 md:left-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50 hover:text-[var(--color-clay)] cursor-pointer transition-colors duration-300"
+                >
+                    <span
+                        className="text-xs uppercase tracking-widest font-mono"
+                        style={{ writingMode: "vertical-rl" }}
+                    >
+                        Scroll
+                    </span>
+                    <ArrowDown size={16} className="animate-float" />
+                </div>
+
+                {/* Right Scroll Indicator */}
+                <div
+                    onClick={scrollToForm}
+                    data-hero-scroll
+                    className="hidden sm:flex absolute bottom-8 right-8 md:right-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50 hover:text-[var(--color-clay)] cursor-pointer transition-colors duration-300"
+                >
+                    <span
+                        className="text-xs uppercase tracking-widest font-mono"
+                        style={{ writingMode: "vertical-rl" }}
+                    >
+                        Scroll
+                    </span>
+                    <ArrowDown size={16} className="animate-float" />
+                </div>
 
                 <div className="relative z-20 container-main px-6 md:px-12 pt-32 pb-16 md:pb-24">
                     <div className="max-w-4xl">
@@ -88,7 +146,7 @@ export default function DonatePage() {
             </section>
 
             {/* ─── Donation Interaction ─── */}
-            <section className="section py-16 md:py-32">
+            <section ref={formSectionRef} className="section py-16 md:py-32">
                 <div className="container-main px-6 md:px-12">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
