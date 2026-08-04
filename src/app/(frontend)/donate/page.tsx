@@ -7,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { StripeForm } from "@/components/donate/StripeForm";
 import { DirectTransferInfo } from "@/components/donate/DirectTransferInfo";
 import { ImpactCalculator } from "@/components/donate/ImpactCalculator";
+import { CurrencyDetector, CURRENCIES, CurrencyConfig } from "@/components/donate/CurrencyDetector";
+import { DonorWall } from "@/components/donate/DonorWall";
 
 // ---------------------------------------------------------------------------
 // Constants & Initialization
@@ -20,6 +22,7 @@ if (typeof window !== "undefined") {
 // ---------------------------------------------------------------------------
 export default function DonatePage() {
     const [activeTab, setActiveTab] = useState<'international' | 'direct'>('international');
+    const [currency, setCurrency] = useState<CurrencyConfig>(CURRENCIES.USD);
     const pageRef = useRef<HTMLDivElement>(null);
     const formSectionRef = useRef<HTMLDivElement>(null);
     const formContainerRef = useRef<HTMLDivElement>(null);
@@ -214,6 +217,9 @@ export default function DonatePage() {
                         {/* Right — The Instrument (Tabs & Forms) */}
                         <div ref={formContainerRef} className="lg:col-span-7 flex flex-col gap-6 md:gap-8 scroll-mt-24" data-animate-scale>
                             
+                            {/* Auto-Currency Detector & Switcher */}
+                            <CurrencyDetector activeCurrency={currency} onCurrencyChange={setCurrency} />
+
                             {/* Tab Selectors */}
                             <div 
                                 role="tablist" 
@@ -267,8 +273,9 @@ export default function DonatePage() {
 
             {/* ─── Interactive Impact Calculator Section ─── */}
             <section className="section py-12 md:py-20 border-t border-white/5">
-                <div className="container-main px-6 md:px-12">
+                <div className="container-main px-6 md:px-12 space-y-16">
                     <ImpactCalculator />
+                    <DonorWall />
                 </div>
             </section>
 
