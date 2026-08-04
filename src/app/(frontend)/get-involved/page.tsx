@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Heart, Globe, HandHeart } from "lucide-react";
 import VolunteerForm from "@/components/forms/VolunteerForm";
 import NewsletterForm from "@/components/forms/NewsletterForm";
+import { VolunteerMatcher } from "@/components/sections/VolunteerMatcher";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
@@ -106,8 +107,13 @@ export default function GetInvolvedPage() {
                         </p>
                     </div>
 
+                    {/* Interactive Volunteer Deployment Wizard */}
+                    <div className="mb-16">
+                        <VolunteerMatcher />
+                    </div>
+
                     {/* Dark wrapper for the form */}
-                    <div className="p-8 md:p-10 rounded-[2rem] bg-black/40 border border-white/5 backdrop-blur-md">
+                    <div id="volunteer-form" className="p-8 md:p-10 rounded-[2rem] bg-black/40 border border-white/5 backdrop-blur-md">
                         <VolunteerForm />
                     </div>
                 </div>

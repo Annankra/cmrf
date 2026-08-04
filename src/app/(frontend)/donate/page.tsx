@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { StripeForm } from "@/components/donate/StripeForm";
 import { DirectTransferInfo } from "@/components/donate/DirectTransferInfo";
+import { ImpactCalculator } from "@/components/donate/ImpactCalculator";
 
 // ---------------------------------------------------------------------------
 // Constants & Initialization
@@ -261,6 +262,13 @@ export default function DonatePage() {
                         </div>
 
                     </div>
+                </div>
+            </section>
+
+            {/* ─── Interactive Impact Calculator Section ─── */}
+            <section className="section py-12 md:py-20 border-t border-white/5">
+                <div className="container-main px-6 md:px-12">
+                    <ImpactCalculator />
                 </div>
             </section>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
+import { MissionMap } from "@/components/sections/MissionMap";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
@@ -160,6 +161,12 @@ export default function MissionPage() {
                             </div>
                         ))}
                     </div>
+                </div>
+            </section>
+            {/* Interactive Ghana Mission Deployments Map */}
+            <section className="section py-16 md:py-24 border-t border-white/5 bg-black/20">
+                <div className="container-main px-6 md:px-12">
+                    <MissionMap />
                 </div>
             </section>
         </>

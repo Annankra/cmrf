@@ -10,6 +10,7 @@ import { Philosophy } from "@/components/philosophy/Philosophy";
 import { StickyStacker } from "@/components/protocol/StickyStacker";
 import { ImpactMetrics } from "@/components/ui/ImpactMetrics";
 import { GetInvolvedTiers } from "@/components/sections/GetInvolvedTiers";
+import { ImpactCalculator } from "@/components/donate/ImpactCalculator";
 import { ScrollReveal } from "@/components/animation/ScrollReveal";
 import NewsletterForm from "@/components/forms/NewsletterForm";
 
@@ -141,6 +142,13 @@ export default function Home() {
                     </div>
                 </ScrollReveal>
                 <StickyStacker />
+            </section>
+
+            {/* Impact Calculator Section */}
+            <section className="section border-t border-white/5 bg-black/20">
+                <div className="container-main px-6 md:px-12">
+                    <ImpactCalculator />
+                </div>
             </section>
 
             {/* F. Get Involved Tiers */}

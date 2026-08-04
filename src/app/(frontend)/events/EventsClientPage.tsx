@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight, ArrowDown } from "lucide-react";
+import { MissionCountdown } from "@/components/features/MissionCountdown";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -182,6 +183,11 @@ export function EventsClientPage({ events }: { events: EventItem[] }) {
             {/* Brutalist Protocol / Dossier Grid */}
             <section className="section bg-transparent border-t border-white/5 relative z-10">
                 <div className="container-main px-6 md:px-12">
+
+                    {/* Mission Countdown Ticker */}
+                    <div className="mb-16">
+                        <MissionCountdown />
+                    </div>
 
                     <div ref={eventsGridRef} className="mb-16 hero-anim scroll-mt-24">
                         <div className="section-divider ml-0 bg-white/10" />
