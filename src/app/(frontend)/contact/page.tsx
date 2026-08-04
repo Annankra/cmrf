@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/layout/PageHero";
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
@@ -28,30 +29,14 @@ export default function ContactPage() {
                 { name: "Contact", url: "https://www.cmrfgh.com/contact" },
             ])} />
             {/* Hero */}
-            <section className="relative h-[50vh] min-h-[350px] flex items-end overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-overlay"
-                    style={{
-                        backgroundImage: `url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&q=80&auto=format')`,
-                    }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
-                <div className="relative z-10 container-main px-6 md:px-12 pb-12 md:pb-16 w-full">
-                    <p
-                        className="hero-anim text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-3"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                    >
-                        Get in Touch
-                    </p>
-                    <h1
-                        className="hero-anim text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.9] tracking-tight"
-                        style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                        Contact{" "}
-                        <span className="font-drama text-[var(--color-clay)] block lg:inline-block pr-2">Us.</span>
-                    </h1>
-                </div>
-            </section>
+            <PageHero
+                badge="Get in Touch"
+                titleLine1="Contact"
+                titleLine2="Us."
+                description="Have questions about our medical missions, partnerships, or volunteering? We'd love to hear from you."
+                bgImage="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&q=80&auto=format"
+                imageAlt="CMRF Contact Office"
+            />
 
             {/* Contact Content */}
             <section className="section bg-transparent relative z-10 border-t border-white/5">

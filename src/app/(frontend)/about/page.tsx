@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/layout/PageHero";
 import Image from "next/image";
 import { Heart, Stethoscope, Eye, BookOpen, Droplets, GraduationCap, Users } from "lucide-react";
 import { JsonLd, breadcrumbJsonLd, faqPageJsonLd } from "@/lib/jsonLd";
@@ -80,31 +81,13 @@ export default function AboutPage() {
                 },
             ])} />
             {/* Hero Banner */}
-            <section className="relative h-[60vh] min-h-[400px] flex flex-col justify-end overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-overlay"
-                    style={{
-                        backgroundImage: `url('/surgery.webp')`,
-                    }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
-                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal-light)]/60 via-transparent to-transparent pointer-events-none" />
-                <div className="relative z-10 container-main px-6 md:px-12 pt-32 pb-12 md:pb-16 w-full">
-                    <p
-                        className="hero-anim text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-3"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                    >
-                        About Us
-                    </p>
-                    <h1
-                        className="hero-anim text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.9] tracking-tight"
-                        style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                        Our{" "}
-                        <span className="font-drama text-[var(--color-clay)] block lg:inline-block pr-2">Story.</span>
-                    </h1>
-                </div>
-            </section>
+            <PageHero
+                badge="About Us"
+                titleLine1="Our"
+                titleLine2="Story."
+                bgImage="/surgery.webp"
+                imageAlt="CMRF Surgical Mission"
+            />
 
             {/* About Content */}
             <section className="section bg-transparent border-t border-white/5 relative z-10">

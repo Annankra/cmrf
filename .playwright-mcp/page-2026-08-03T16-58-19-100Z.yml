@@ -1,0 +1,144 @@
+- generic [active] [ref=f4e1]:
+  - link "Skip to main content" [ref=f4e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=f4e3]:
+    - link "CMRF" [ref=f4e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f4e7]:
+      - link "About" [ref=f4e8] [cursor=pointer]:
+        - /url: /about
+      - link "Mission" [ref=f4e9] [cursor=pointer]:
+        - /url: /mission
+      - link "Clinic" [ref=f4e10] [cursor=pointer]:
+        - /url: /clinic
+      - link "Events" [ref=f4e11] [cursor=pointer]:
+        - /url: /events
+      - link "Gallery" [ref=f4e12] [cursor=pointer]:
+        - /url: /gallery
+      - link "Blog" [ref=f4e13] [cursor=pointer]:
+        - /url: /blog
+    - generic [ref=f4e14]:
+      - link "Volunteer" [ref=f4e15] [cursor=pointer]:
+        - /url: /get-involved
+      - link "Donate" [ref=f4e16] [cursor=pointer]:
+        - /url: /donate
+  - generic:
+    - link "About":
+      - /url: /about
+    - link "Mission":
+      - /url: /mission
+    - link "Clinic":
+      - /url: /clinic
+    - link "Events":
+      - /url: /events
+    - link "Gallery":
+      - /url: /gallery
+    - link "Blog":
+      - /url: /blog
+    - link "Donate Now":
+      - /url: /donate
+  - main [ref=f4e20]:
+    - generic [ref=f4e21]:
+      - generic [ref=f4e25]:
+        - paragraph [ref=f4e26]: Photo Gallery
+        - heading "Our Gallery." [level=1] [ref=f4e27]:
+          - text: Our
+          - generic [ref=f4e28]: Gallery.
+      - generic [ref=f4e31]:
+        - link "3 Photos 2024 Medical Outreach 2024 Images from our medical mission deployments across Ghana" [ref=f4e32] [cursor=pointer]:
+          - /url: /gallery/medical-outreach-2024
+          - generic [ref=f4e33]:
+            - generic [ref=f4e34]: 3 Photos
+            - generic [ref=f4e37]:
+              - generic [ref=f4e38]: "2024"
+              - heading "Medical Outreach 2024" [level=3] [ref=f4e43]
+              - paragraph [ref=f4e44]: Images from our medical mission deployments across Ghana
+        - link "2 Photos 2023 Children 2023 The children we serve and impact across communities" [ref=f4e45] [cursor=pointer]:
+          - /url: /gallery/children-2023
+          - generic [ref=f4e46]:
+            - generic [ref=f4e47]: 2 Photos
+            - generic [ref=f4e50]:
+              - generic [ref=f4e51]: "2023"
+              - heading "Children 2023" [level=3] [ref=f4e56]
+              - paragraph [ref=f4e57]: The children we serve and impact across communities
+        - link "2 Photos 2022 Kpando '22 Mission to Kpando, Volta Region" [ref=f4e58] [cursor=pointer]:
+          - /url: /gallery/kpando-2022
+          - generic [ref=f4e59]:
+            - generic [ref=f4e60]: 2 Photos
+            - generic [ref=f4e63]:
+              - generic [ref=f4e64]: "2022"
+              - heading "Kpando '22" [level=3] [ref=f4e69]
+              - paragraph [ref=f4e70]: Mission to Kpando, Volta Region
+        - link "5 Photos 2017 Mission Volta 2017 Comprehensive medical outreach, health screenings, and free clinical care delivered across underserved communities in Volta Region, Ghana." [ref=f4e71] [cursor=pointer]:
+          - /url: /gallery/mission-volta-2017
+          - generic [ref=f4e72]:
+            - generic [ref=f4e73]: 5 Photos
+            - generic [ref=f4e76]:
+              - generic [ref=f4e77]: "2017"
+              - heading "Mission Volta 2017" [level=3] [ref=f4e82]
+              - paragraph [ref=f4e83]: Comprehensive medical outreach, health screenings, and free clinical care delivered across underserved communities in Volta Region, Ghana.
+  - contentinfo [ref=f4e84]:
+    - generic [ref=f4e85]:
+      - generic [ref=f4e86]:
+        - generic [ref=f4e87]:
+          - link "CMRF" [ref=f4e88] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f4e93]: Mobilizing Christians and resources worldwide to show God's love through word and positive acts of deed across Ghana and Africa.
+          - generic [ref=f4e94]:
+            - link "cmmrf@usa.com" [ref=f4e95] [cursor=pointer]:
+              - /url: mailto:cmmrf@usa.com
+            - generic [ref=f4e99]: Accra, Ghana · West Africa
+        - generic [ref=f4e103]:
+          - heading "Organization" [level=4] [ref=f4e104]
+          - list [ref=f4e105]:
+            - listitem [ref=f4e106]:
+              - link "About Us" [ref=f4e107] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=f4e108]:
+              - link "Our Mission" [ref=f4e109] [cursor=pointer]:
+                - /url: /mission
+            - listitem [ref=f4e110]:
+              - link "Permanent Clinic" [ref=f4e111] [cursor=pointer]:
+                - /url: /clinic
+            - listitem [ref=f4e112]:
+              - link "Partners & Sponsors" [ref=f4e113] [cursor=pointer]:
+                - /url: /about#partners
+        - generic [ref=f4e114]:
+          - heading "Engage" [level=4] [ref=f4e115]
+          - list [ref=f4e116]:
+            - listitem [ref=f4e117]:
+              - link "Outreach Events" [ref=f4e118] [cursor=pointer]:
+                - /url: /events
+            - listitem [ref=f4e119]:
+              - link "Photo Gallery" [ref=f4e120] [cursor=pointer]:
+                - /url: /gallery
+            - listitem [ref=f4e121]:
+              - link "Stories & Blog" [ref=f4e122] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=f4e123]:
+              - link "Contact Us" [ref=f4e124] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=f4e125]:
+          - heading "Support" [level=4] [ref=f4e126]
+          - list [ref=f4e127]:
+            - listitem [ref=f4e128]:
+              - link "Donate" [ref=f4e129] [cursor=pointer]:
+                - /url: /donate
+            - listitem [ref=f4e130]:
+              - link "Volunteer" [ref=f4e131] [cursor=pointer]:
+                - /url: /get-involved#volunteer
+            - listitem [ref=f4e132]:
+              - link "Newsletter" [ref=f4e133] [cursor=pointer]:
+                - /url: /#newsletter
+      - paragraph [ref=f4e135]: "CMRF is a registered NGO in Ghana (Reg #G-1,540).CMMRF-USA is a registered, federally authorized tax-exempt 501(c)3 charitable organization."
+      - generic [ref=f4e137]:
+        - generic [ref=f4e138]:
+          - generic [ref=f4e140]: System Operational
+          - generic [ref=f4e141]: · Active Network
+        - generic [ref=f4e142]:
+          - generic [ref=f4e143]: © 2026 CMRF
+          - generic [ref=f4e144]: ·
+          - generic [ref=f4e145]: CMMRF-USA 501(c)3
+          - generic [ref=f4e146]: ·
+          - generic [ref=f4e147]: Crafted with
+  - alert [ref=f4e150]

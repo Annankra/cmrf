@@ -1,0 +1,132 @@
+- generic [active] [ref=f5e1]:
+  - link "Skip to main content" [ref=f5e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=f5e3]:
+    - link "CMRF" [ref=f5e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f5e7]:
+      - link "About" [ref=f5e8] [cursor=pointer]:
+        - /url: /about
+      - link "Mission" [ref=f5e9] [cursor=pointer]:
+        - /url: /mission
+      - link "Clinic" [ref=f5e10] [cursor=pointer]:
+        - /url: /clinic
+      - link "Events" [ref=f5e11] [cursor=pointer]:
+        - /url: /events
+      - link "Gallery" [ref=f5e12] [cursor=pointer]:
+        - /url: /gallery
+      - link "Blog" [ref=f5e13] [cursor=pointer]:
+        - /url: /blog
+    - generic [ref=f5e14]:
+      - link "Volunteer" [ref=f5e15] [cursor=pointer]:
+        - /url: /get-involved
+      - link "Donate" [ref=f5e16] [cursor=pointer]:
+        - /url: /donate
+  - generic:
+    - link "About":
+      - /url: /about
+    - link "Mission":
+      - /url: /mission
+    - link "Clinic":
+      - /url: /clinic
+    - link "Events":
+      - /url: /events
+    - link "Gallery":
+      - /url: /gallery
+    - link "Blog":
+      - /url: /blog
+    - link "Donate Now":
+      - /url: /donate
+  - main [ref=f5e20]:
+    - generic [ref=f5e21]:
+      - generic [ref=f5e25]:
+        - paragraph [ref=f5e26]: Gallery / 2023
+        - heading "Children 2023" [level=1] [ref=f5e27]
+        - paragraph [ref=f5e28]: The children we serve and impact across communities
+      - generic [ref=f5e30]:
+        - link "Back to Gallery" [ref=f5e32] [cursor=pointer]:
+          - /url: /gallery
+        - generic [ref=f5e36]:
+          - button [ref=f5e37] [cursor=pointer]:
+            - img "Pediatric Health Checkup & Compassionate Care" [ref=f5e38]
+            - paragraph [ref=f5e45]: Pediatric health checkups provided to children during the 2023 outreach mission.
+          - button [ref=f5e46] [cursor=pointer]:
+            - img "Joyful Smiles of Hope and Healing" [ref=f5e47]
+            - paragraph [ref=f5e54]: Bright smiles from children receiving medical care and support.
+          - button [ref=f5e55] [cursor=pointer]:
+            - img "Doctor and Child during Ghana Medical Outreach" [ref=f5e56]
+            - paragraph [ref=f5e63]: CMRF medical volunteers delivering personalized care to young patients.
+          - button [ref=f5e64] [cursor=pointer]:
+            - img "Children Health Screening Station" [ref=f5e65]
+            - paragraph [ref=f5e72]: Comprehensive health screenings and vitals check for young community members.
+          - button [ref=f5e73] [cursor=pointer]:
+            - img "Youth Wellness and Community Support" [ref=f5e74]
+            - paragraph [ref=f5e81]: Providing essential nutrition, vitamins, and healthcare support to children.
+          - button [ref=f5e82] [cursor=pointer]:
+            - img "Community Children Celebration" [ref=f5e83]
+            - paragraph [ref=f5e90]: Celebrating health, hope, and smiles with children across rural communities.
+  - contentinfo [ref=f5e91]:
+    - generic [ref=f5e92]:
+      - generic [ref=f5e93]:
+        - generic [ref=f5e94]:
+          - link "CMRF" [ref=f5e95] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f5e100]: Mobilizing Christians and resources worldwide to show God's love through word and positive acts of deed across Ghana and Africa.
+          - generic [ref=f5e101]:
+            - link "cmmrf@usa.com" [ref=f5e102] [cursor=pointer]:
+              - /url: mailto:cmmrf@usa.com
+            - generic [ref=f5e106]: Accra, Ghana · West Africa
+        - generic [ref=f5e110]:
+          - heading "Organization" [level=4] [ref=f5e111]
+          - list [ref=f5e112]:
+            - listitem [ref=f5e113]:
+              - link "About Us" [ref=f5e114] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=f5e115]:
+              - link "Our Mission" [ref=f5e116] [cursor=pointer]:
+                - /url: /mission
+            - listitem [ref=f5e117]:
+              - link "Permanent Clinic" [ref=f5e118] [cursor=pointer]:
+                - /url: /clinic
+            - listitem [ref=f5e119]:
+              - link "Partners & Sponsors" [ref=f5e120] [cursor=pointer]:
+                - /url: /about#partners
+        - generic [ref=f5e121]:
+          - heading "Engage" [level=4] [ref=f5e122]
+          - list [ref=f5e123]:
+            - listitem [ref=f5e124]:
+              - link "Outreach Events" [ref=f5e125] [cursor=pointer]:
+                - /url: /events
+            - listitem [ref=f5e126]:
+              - link "Photo Gallery" [ref=f5e127] [cursor=pointer]:
+                - /url: /gallery
+            - listitem [ref=f5e128]:
+              - link "Stories & Blog" [ref=f5e129] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=f5e130]:
+              - link "Contact Us" [ref=f5e131] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=f5e132]:
+          - heading "Support" [level=4] [ref=f5e133]
+          - list [ref=f5e134]:
+            - listitem [ref=f5e135]:
+              - link "Donate" [ref=f5e136] [cursor=pointer]:
+                - /url: /donate
+            - listitem [ref=f5e137]:
+              - link "Volunteer" [ref=f5e138] [cursor=pointer]:
+                - /url: /get-involved#volunteer
+            - listitem [ref=f5e139]:
+              - link "Newsletter" [ref=f5e140] [cursor=pointer]:
+                - /url: /#newsletter
+      - paragraph [ref=f5e142]: "CMRF is a registered NGO in Ghana (Reg #G-1,540).CMMRF-USA is a registered, federally authorized tax-exempt 501(c)3 charitable organization."
+      - generic [ref=f5e144]:
+        - generic [ref=f5e145]:
+          - generic [ref=f5e147]: System Operational
+          - generic [ref=f5e148]: · Active Network
+        - generic [ref=f5e149]:
+          - generic [ref=f5e150]: © 2026 CMRF
+          - generic [ref=f5e151]: ·
+          - generic [ref=f5e152]: CMMRF-USA 501(c)3
+          - generic [ref=f5e153]: ·
+          - generic [ref=f5e154]: Crafted with
+  - alert [ref=f5e157]

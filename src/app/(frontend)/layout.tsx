@@ -28,6 +28,14 @@ const ibmPlexMono = IBM_Plex_Mono({
     display: "swap",
 });
 
+import type { Viewport } from "next";
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    themeColor: "#1A1A1A",
+};
+
 export const metadata = {
     metadataBase: new URL("https://www.cmrfgh.com"),
     title: {

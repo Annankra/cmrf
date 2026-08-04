@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/layout/PageHero";
 import Link from "next/link";
 import { MapPin, Clock, Phone, Stethoscope, Eye, Heart } from "lucide-react";
 import { JsonLd, breadcrumbJsonLd, medicalClinicJsonLd, medicalWebPageJsonLd } from "@/lib/jsonLd";
@@ -52,31 +53,14 @@ export default function ClinicPage() {
                 url: "https://www.cmrfgh.com/clinic",
             })} />
             {/* Hero */}
-            <section className="relative h-[60vh] min-h-[400px] flex flex-col justify-end overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-overlay"
-                    style={{
-                        backgroundImage: `url('https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1920&q=100&auto=format')`,
-                    }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
-                <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-charcoal-light)]/60 via-transparent to-transparent pointer-events-none" />
-                <div className="relative z-10 container-main px-6 md:px-12 pt-32 pb-12 md:pb-16 w-full">
-                    <p
-                        className="hero-anim text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-3"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                    >
-                        CMRF Clinic
-                    </p>
-                    <h1
-                        className="hero-anim text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.9] tracking-tight"
-                        style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                        Our{" "}
-                        <span className="font-drama text-[var(--color-clay)] block lg:inline-block pr-2">Clinic.</span>
-                    </h1>
-                </div>
-            </section>
+            <PageHero
+                badge="CMRF Clinic"
+                titleLine1="Our"
+                titleLine2="Clinic."
+                description="Providing free consultations, eye care, dental extractions, and essential medicine."
+                bgImage="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1920&q=100&auto=format"
+                imageAlt="CMRF Free Medical Clinic"
+            />
 
             {/* Clinic Info */}
             <section className="section bg-transparent relative z-10">

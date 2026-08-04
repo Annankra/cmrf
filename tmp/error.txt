@@ -1,0 +1,41 @@
+{
+  "error": {
+    "code": "parameter_unknown",
+    "doc_url": "https://stripe.com/docs/error-codes/parameter-unknown",
+    "message": "Received unknown parameter: automatic_payment_methods",
+    "param": "automatic_payment_methods",
+    "request_log_url": "https://dashboard.stripe.com/acct_1TzyC02FHN2feuUK/workbench/logs?object=req_8vKhcAj64C8bYz",
+    "type": "invalid_request_error"
+  }
+}
+
+
+request
+{
+  "allow_promotion_codes": "true",
+  "automatic_payment_methods": {
+    "enabled": "true"
+  },
+  "cancel_url": "https://www.cmrfgh.com/donate/cancel",
+  "customer_email": "dannankra@gmail.com",
+  "line_items": {
+    "0": {
+      "price_data": {
+        "currency": "usd",
+        "product_data": {
+          "description": "Tax-deductible donation to CMMRF-USA, a 501(c)(3) charitable organization.",
+          "name": "Donation to CMRF"
+        },
+        "unit_amount": "100"
+      },
+      "quantity": "1"
+    }
+  },
+  "metadata": {
+    "donationType": "one_time",
+    "donorEmail": "dannankra@gmail.com",
+    "donorName": "daniel"
+  },
+  "mode": "payment",
+  "success_url": "https://www.cmrfgh.com/donate/success?session_id={CHECKOUT_SESSION_ID}"
+}

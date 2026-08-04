@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/layout/PageHero";
 import Link from "next/link";
 import { Heart, Globe, HandHeart } from "lucide-react";
 import VolunteerForm from "@/components/forms/VolunteerForm";
@@ -30,32 +31,14 @@ export default function GetInvolvedPage() {
                 { name: "Get Involved", url: "https://www.cmrfgh.com/get-involved" },
             ])} />
             {/* Hero */}
-            <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-overlay"
-                    style={{
-                        backgroundImage: `url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&q=80&auto=format')`,
-                    }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal-light)] via-[var(--color-charcoal-light)]/80 to-[var(--color-charcoal-light)]/30" />
-                <div className="relative z-10 container-main px-6 md:px-12 pb-12 md:pb-16 w-full">
-                    <p
-                        className="hero-anim text-[var(--color-clay)] text-xs uppercase tracking-[0.2em] mb-3"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                    >
-                        Get Involved
-                    </p>
-                    <h1
-                        className="hero-anim text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.9] tracking-tight"
-                        style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                        Make a{" "}
-                        <span className="font-drama text-[var(--color-clay)] block lg:inline-block pr-2">
-                            Difference.
-                        </span>
-                    </h1>
-                </div>
-            </section>
+            <PageHero
+                badge="Get Involved"
+                titleLine1="Make a"
+                titleLine2="Difference."
+                description="Join our team of volunteers, support medical missions, or partner with us to bring healthcare and hope."
+                bgImage="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&q=80&auto=format"
+                imageAlt="CMRF Volunteers"
+            />
 
             {/* Donate Section */}
             <section className="section bg-transparent relative z-10 border-t border-white/5">
