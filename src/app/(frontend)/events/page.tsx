@@ -108,5 +108,25 @@ export default async function EventsPage() {
     // Sort: featured first
     const sorted = [...events].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 
-    return <EventsClientPage events={sorted} />;
+    // Find the next upcoming event for the countdown
+    // Look through CMS events for the nearest future startDate
+    const now = new Date();
+    const upcomingCms = cmsEvents
+        .filter((e) => e.startDate && new Date(e.startDate) > now)
+        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+
+    const nextEvent = upcomingCms[0] ?? null;
+
+    const countdownEvent = nextEvent
+        ? {
+            title: nextEvent.title,
+            location: nextEvent.location,
+            startDate: nextEvent.startDate,
+            endDate: nextEvent.endDate,
+            slug: nextEvent.slug,
+            category: nextEvent.category,
+        }
+        : null;
+
+    return <EventsClientPage events={sorted} countdownEvent={countdownEvent} />;
 }

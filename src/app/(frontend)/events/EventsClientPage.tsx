@@ -22,7 +22,16 @@ interface EventItem {
     image: string;
 }
 
-export function EventsClientPage({ events }: { events: EventItem[] }) {
+export interface CountdownEvent {
+    title: string;
+    location: string;
+    startDate: string;
+    endDate: string;
+    slug: string;
+    category: string;
+}
+
+export function EventsClientPage({ events, countdownEvent }: { events: EventItem[]; countdownEvent: CountdownEvent | null }) {
     const container = useRef<HTMLDivElement>(null);
     const eventsGridRef = useRef<HTMLDivElement>(null);
 
@@ -186,7 +195,7 @@ export function EventsClientPage({ events }: { events: EventItem[] }) {
 
                     {/* Mission Countdown Ticker */}
                     <div className="mb-16">
-                        <MissionCountdown />
+                        <MissionCountdown event={countdownEvent} />
                     </div>
 
                     <div ref={eventsGridRef} className="mb-16 hero-anim scroll-mt-24">
