@@ -9,11 +9,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HERO_IMAGES = [
-    "/hero/medical-outreach.webp", // CMRF Medical Mission Outreach, Ghana
     "/hero/surgery-hd.webp",        // Specialized Surgery Mission
+    "/hero/medical-outreach.webp", // CMRF Medical Mission Outreach, Ghana
     "/hero/surgery-care.webp",      // Surgical Care & Clinical Procedure
     "/hero/clean-water.webp",       // Clean Water Initiative & Community Health
-    "/childerndoctor.jpg",          // Pediatric Medical Consultation
+    "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=1920&q=80&auto=format", // Professional Doctor Consultation
 ];
 
 export function Hero() {
