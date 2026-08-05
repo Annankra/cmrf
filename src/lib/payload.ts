@@ -35,6 +35,9 @@ let dbReachable: boolean | null = null
 
 /** Check (and cache) whether the database is reachable */
 async function isDatabaseReachable(): Promise<boolean> {
+    // In production (Vercel serverless functions), node:net socket probing can be blocked or unreliable.
+    // Always attempt database calls in production.
+    if (process.env.NODE_ENV === 'production') return true;
     if (dbReachable !== null) return dbReachable
     const hp = parseDatabaseHostPort()
     if (!hp) { dbReachable = false; return false }
