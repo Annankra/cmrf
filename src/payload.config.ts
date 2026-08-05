@@ -45,6 +45,7 @@ const isRemoteSupabase = (dbUri.includes('supabase.co') || dbUri.includes('supab
 const useSsl = isRemoteSupabase || (isProduction && !isLocalhost)
 
 export default buildConfig({
+    serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'https://www.cmrfgh.com',
     admin: {
         user: Users.slug,
         importMap: {
@@ -57,7 +58,7 @@ export default buildConfig({
         pool: {
             connectionString: dbUri,
             max: isProduction ? 10 : 5,
-            ssl: useSsl ? { rejectUnauthorized: true } : false,
+            ssl: useSsl ? { rejectUnauthorized: false } : false,
         },
         push: true, // Force schema push in production to keep DB in sync without migration build failures
     }),
