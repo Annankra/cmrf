@@ -57,6 +57,10 @@ function validate(
         return { ok: false, error: "Invalid email address." };
     }
 
+    if (donorName && typeof donorName === 'string' && donorName.length > 200) {
+        return { ok: false, error: 'Name must be 200 characters or fewer.' };
+    }
+
     const validMode = mode === "monthly" ? "monthly" : "one_time";
 
     return {
@@ -75,8 +79,7 @@ function validate(
 // ---------------------------------------------------------------------------
 export async function POST(request: NextRequest) {
     // --- Rate limit ---
-    const forwarded = request.headers.get("x-forwarded-for");
-    const ip = forwarded?.split(",")[0]?.trim() ?? "unknown";
+    const ip = request.headers.get("x-real-ip") || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 
     if (isRateLimited(ip)) {
         return NextResponse.json(
@@ -119,7 +122,13 @@ export async function POST(request: NextRequest) {
     const stripe = new Stripe(secretKey);
 
     try {
-        const origin = request.headers.get("origin") || "http://localhost:3000";
+        const allowedOrigins = [
+            "https://www.cmrfgh.com",
+            "https://cmrfgh.com",
+            "http://localhost:3000",
+        ];
+        const requestOrigin = request.headers.get("origin") || "";
+        const origin = allowedOrigins.includes(requestOrigin) ? requestOrigin : allowedOrigins[0];
         const isSubscription = mode === "monthly";
 
         const session = await stripe.checkout.sessions.create({

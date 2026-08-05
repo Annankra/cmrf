@@ -8,6 +8,9 @@ export const Albums: CollectionConfig = {
     },
     access: {
         read: () => true,
+        create: ({ req: { user } }) => Boolean(user),
+        update: ({ req: { user } }) => Boolean(user),
+        delete: ({ req: { user } }) => user?.role === 'admin',
     },
     fields: [
         {

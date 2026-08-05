@@ -57,11 +57,11 @@ export default buildConfig({
         pool: {
             connectionString: dbUri,
             max: isProduction ? 10 : 5,
-            ssl: useSsl ? { rejectUnauthorized: false } : false,
+            ssl: useSsl ? { rejectUnauthorized: true } : false,
         },
         push: true, // Force schema push in production to keep DB in sync without migration build failures
     }),
-    secret: process.env.PAYLOAD_SECRET || 'fallback-secret-for-dev',
+    secret: process.env.PAYLOAD_SECRET || (() => { throw new Error('PAYLOAD_SECRET environment variable is required') })(),
     typescript: {
         outputFile: path.resolve(dirname, 'payload-types.ts'),
     },

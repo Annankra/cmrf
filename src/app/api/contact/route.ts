@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
+/** Escape HTML special characters to prevent injection in email templates */
+function escapeHtml(str: string): string {
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 // ---------------------------------------------------------------------------
 // In-memory rate limiter (per-IP, resets on cold start — good enough for a
 // contact form; swap for Redis/Upstash if you need persistence).
@@ -81,8 +91,7 @@ function validate(
 // ---------------------------------------------------------------------------
 export async function POST(request: NextRequest) {
     // --- Rate limit ---------------------------------------------------------
-    const forwarded = request.headers.get("x-forwarded-for");
-    const ip = forwarded?.split(",")[0]?.trim() ?? "unknown";
+    const ip = request.headers.get("x-real-ip") || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 
     if (isRateLimited(ip)) {
         return NextResponse.json(
@@ -136,20 +145,20 @@ export async function POST(request: NextRequest) {
             html: `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #FAF9F6; border-radius: 16px;">
           <h2 style="margin: 0 0 24px; font-size: 22px; color: #1A1A1A;">
-            New message from <span style="color: #CC5833;">${name}</span>
+            New message from <span style="color: #CC5833;">${escapeHtml(name)}</span>
           </h2>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
             <tr>
               <td style="padding: 8px 12px; font-size: 13px; color: #8A8A7A; vertical-align: top; width: 90px;">From</td>
-              <td style="padding: 8px 12px; font-size: 14px; color: #1A1A1A;">${name} &lt;${email}&gt;</td>
+              <td style="padding: 8px 12px; font-size: 14px; color: #1A1A1A;">${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</td>
             </tr>
             <tr>
               <td style="padding: 8px 12px; font-size: 13px; color: #8A8A7A; vertical-align: top;">Subject</td>
-              <td style="padding: 8px 12px; font-size: 14px; color: #1A1A1A;">${subject}</td>
+              <td style="padding: 8px 12px; font-size: 14px; color: #1A1A1A;">${escapeHtml(subject)}</td>
             </tr>
           </table>
           <div style="background: #FFFFFF; border: 1px solid #E8E4DD; border-radius: 12px; padding: 20px;">
-            <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #1A1A1A; white-space: pre-wrap;">${message}</p>
+            <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #1A1A1A; white-space: pre-wrap;">${escapeHtml(message)}</p>
           </div>
           <p style="margin: 24px 0 0; font-size: 12px; color: #8A8A7A;">
             Sent from the CMRF website contact form · <a href="https://www.cmrfgh.com/contact" style="color: #CC5833;">cmrfgh.com</a>

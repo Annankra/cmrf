@@ -33,10 +33,13 @@ export const Media: CollectionConfig = {
             },
         ],
         adminThumbnail: 'thumbnail',
-        mimeTypes: ['image/*'],
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif'],
     },
     access: {
         read: () => true,
+        create: ({ req: { user } }) => Boolean(user),
+        update: ({ req: { user } }) => Boolean(user),
+        delete: ({ req: { user } }) => user?.role === 'admin',
     },
     fields: [
         {

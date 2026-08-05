@@ -60,8 +60,7 @@ function validate(
 // Route handler
 // ---------------------------------------------------------------------------
 export async function POST(request: NextRequest) {
-    const forwarded = request.headers.get("x-forwarded-for");
-    const ip = forwarded?.split(",")[0]?.trim() ?? "unknown";
+    const ip = request.headers.get("x-real-ip") || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 
     if (isRateLimited(ip)) {
         return NextResponse.json(

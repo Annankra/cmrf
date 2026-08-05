@@ -1,3 +1,4 @@
+import 'server-only'
 import { getPayload as getPayloadClient } from 'payload'
 import config from '@payload-config'
 import type { Event, Post, Album, Media } from '@/payload-types'

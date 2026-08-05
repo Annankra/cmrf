@@ -42,6 +42,14 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://js.paystack.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.unsplash.com https://images.squarespace-cdn.com https://*.public.blob.vercel-storage.com; frame-src https://js.stripe.com https://checkout.paystack.com; connect-src 'self' https://api.stripe.com https://api.paystack.co https://umiff0vttpz6cxtl.public.blob.vercel-storage.com;",
+          },
         ],
       },
       {

@@ -85,10 +85,10 @@ export function PaystackForm() {
         : selectedGhsCents;
 
     const config = {
-        reference: new Date().getTime().toString(),
+        reference: `cmrf_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`,
         email: donorEmail || "anonymous@cmrfgh.com",
         amount: amountInPesewas, 
-        publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "pk_test_placeholder_key_replace_me",
+        publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
         currency: "GHS",
         metadata: {
             custom_fields: [
@@ -134,7 +134,8 @@ export function PaystackForm() {
         }
 
         if (!process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY) {
-            console.warn("Missing Paystack public key. Using placeholder.");
+            setError("Payment service is not configured. Please try again later.");
+            return;
         }
 
         setLoading(true);

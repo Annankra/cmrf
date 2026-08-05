@@ -14,8 +14,8 @@ export const Volunteers: CollectionConfig = {
     access: {
         create: () => false,
         read: ({ req: { user } }) => Boolean(user),
-        update: ({ req: { user } }) => Boolean(user),
-        delete: ({ req: { user } }) => Boolean(user),
+        update: ({ req: { user } }) => user?.role === 'admin',
+        delete: ({ req: { user } }) => user?.role === 'admin',
     },
     fields: [
         {

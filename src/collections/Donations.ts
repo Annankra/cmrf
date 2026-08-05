@@ -15,8 +15,8 @@ export const Donations: CollectionConfig = {
         // Donations are created programmatically via webhook — no public create
         create: () => false,
         read: ({ req: { user } }) => Boolean(user),
-        update: ({ req: { user } }) => Boolean(user),
-        delete: ({ req: { user } }) => Boolean(user),
+        update: ({ req: { user } }) => user?.role === 'admin',
+        delete: ({ req: { user } }) => user?.role === 'admin',
     },
     fields: [
         {
