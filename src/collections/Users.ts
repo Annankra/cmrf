@@ -7,8 +7,8 @@ export const Users: CollectionConfig = {
     },
     auth: true,
     access: {
-        // Only admins can create new users
-        create: ({ req: { user } }) => user?.role === 'admin',
+        // Anyone can create if unauthenticated (for initial setup/seed) or if admin
+        create: ({ req: { user } }) => !user || user?.role === 'admin',
         // Authenticated users can read user list (needed for admin UI)
         read: ({ req: { user } }) => Boolean(user),
         // Users can update themselves; admins can update anyone
