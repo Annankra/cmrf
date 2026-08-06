@@ -32,10 +32,10 @@ export const Donations: CollectionConfig = {
         {
             name: 'amount',
             type: 'number',
-            label: 'Amount (cents)',
+            label: 'Amount ($)',
             required: true,
             admin: {
-                description: 'Donation amount in cents (e.g. 2500 = $25.00)',
+                description: 'Donation amount in major units / dollars (e.g. 1.00 = $1.00 or 100 = $100.00)',
             },
         },
         {

@@ -215,10 +215,19 @@ export function StripeForm() {
                     <span className="absolute left-6 top-1/2 -translate-y-1/2 text-lg md:text-2xl font-bold text-[var(--color-clay)]">$</span>
                     <input
                         type="number"
+                        min="0"
+                        step="any"
                         value={customAmount}
                         onChange={(e) => {
-                            setCustomAmount(e.target.value);
+                            const val = e.target.value;
+                            if (val !== "" && parseFloat(val) < 0) return;
+                            setCustomAmount(val);
                             setSelectedCents(0);
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === "-" || e.key === "e") {
+                                e.preventDefault();
+                            }
                         }}
                         placeholder="Amount..."
                         className="w-full bg-black/20 border border-white/10 focus:border-[var(--color-clay)] focus:bg-white/[0.05] focus:shadow-[0_0_30px_rgba(204,88,51,0.15)] rounded-[2rem] py-5 md:py-6 pl-12 pr-6 md:px-12 text-xl md:text-3xl font-bold text-white transition-all outline-none placeholder:text-white/20"

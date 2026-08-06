@@ -315,7 +315,7 @@ export interface Donation {
   donorName?: string | null;
   donorEmail?: string | null;
   /**
-   * Donation amount in cents (e.g. 2500 = $25.00)
+   * Donation amount in major units / dollars (e.g. 1.00 = $1.00 or 100 = $100.00)
    */
   amount: number;
   currency?: string | null;

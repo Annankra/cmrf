@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
                 data: {
                     donorName,
                     donorEmail: donorEmail || undefined,
-                    amount: session.amount_total || 0,
+                    amount: (session.amount_total || 0) / 100,
                     currency: session.currency || "usd",
                     status: "completed",
                     stripeSessionId: session.id,
