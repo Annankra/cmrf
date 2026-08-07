@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getEvents } from "@/lib/payload";
 import { Hero } from "@/components/hero/Hero";
 import { OutreachReports } from "@/components/sections/OutreachReports";
 import { WhoWeAre } from "@/components/sections/WhoWeAre";
@@ -30,11 +31,63 @@ export const metadata: Metadata = {
     alternates: { canonical: "https://www.cmrfgh.com" },
 };
 
-export default function Home() {
+export default async function Home() {
+    const cmsEvents = await getEvents();
+    const now = new Date();
+
+    // Fallback mock events for local preview & testing if Payload database is offline/empty
+    const mockEvents = [
+        {
+            title: "Northern Ghana Medical & Surgical Mission",
+            location: "Tamale Regional Hospital, Northern Region",
+            startDate: new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000 + 5 * 60 * 60 * 1000).toISOString(), // 14 days 5 hours from now
+            endDate: new Date(now.getTime() + 21 * 24 * 60 * 60 * 1000).toISOString(),
+            slug: "northern-ghana-medical-surgical-mission-2026",
+            category: "Surgical Outreach",
+        },
+        {
+            title: "Volta Basin Eye Care & Dental Clinic",
+            location: "Hohoe Municipal Hospital, Volta Region",
+            startDate: new Date(now.getTime() + 45 * 24 * 60 * 60 * 1000).toISOString(),
+            endDate: new Date(now.getTime() + 50 * 24 * 60 * 60 * 1000).toISOString(),
+            slug: "volta-basin-eye-care-dental-clinic-2026",
+            category: "General Outreach",
+        },
+    ];
+
+    const effectiveEvents = cmsEvents.length > 0 ? cmsEvents : mockEvents;
+
+    // Check for currently live/active event first (startDate <= now <= endDate)
+    const activeEvent = effectiveEvents.find((e) => {
+        if (!e.startDate || !e.endDate) return false;
+        const start = new Date(e.startDate);
+        const end = new Date(e.endDate);
+        return now >= start && now <= end;
+    });
+
+    // Otherwise find the next upcoming event
+    const upcomingEvent = effectiveEvents
+        .filter((e) => e.startDate && new Date(e.startDate) > now)
+        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())[0] ?? null;
+
+    const selectedEvent = activeEvent || upcomingEvent;
+
+    const countdownEvent = selectedEvent
+        ? {
+              title: selectedEvent.title,
+              location: selectedEvent.location,
+              startDate: selectedEvent.startDate,
+              endDate: selectedEvent.endDate,
+              slug: selectedEvent.slug,
+              category: selectedEvent.category,
+              isLive: Boolean(activeEvent),
+          }
+        : null;
+
     return (
         <div className="bg-[var(--color-charcoal-light)] min-h-screen text-[var(--color-cream)]">
             {/* A. Hero — "The Opening Shot" */}
-            <Hero />
+            <Hero countdownEvent={countdownEvent} />
 
             {/* Outreach Reports & Calendar Grid */}
             <OutreachReports />

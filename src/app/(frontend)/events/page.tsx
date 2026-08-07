@@ -93,6 +93,8 @@ export default async function EventsPage() {
                 slug: e.slug,
                 title: e.title,
                 description: e.description,
+                startDate: e.startDate || "",
+                endDate: e.endDate || "",
                 date: e.startDate && e.endDate && e.startDate !== e.endDate
                     ? `${formatDate(e.startDate)} – ${formatDate(e.endDate)}`
                     : formatDate(e.startDate || ""),
@@ -103,29 +105,37 @@ export default async function EventsPage() {
                     getMediaUrl(e.image) ||
                     "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format",
             }))
-            : fallbackUpcoming;
+            : fallbackUpcoming.map((e) => ({
+                ...e,
+                startDate: "",
+                endDate: "",
+            }));
 
     // Sort: featured first
     const sorted = [...events].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 
-    // Find the next upcoming event for the countdown
-    // Look through CMS events for the nearest future startDate
+    // Find active event or next upcoming event for the countdown
     const now = new Date();
-    const upcomingCms = cmsEvents
-        .filter((e) => e.startDate && new Date(e.startDate) > now)
-        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+    const activeEvent = sorted.find((e) => {
+        if (!e.startDate || !e.endDate) return false;
+        const start = new Date(e.startDate);
+        const end = new Date(e.endDate);
+        return now >= start && now <= end;
+    });
 
-    const nextEvent = upcomingCms[0] ?? null;
+    const upcomingEvent = sorted.find((e) => e.startDate && new Date(e.startDate) > now);
+    const selectedEvent = activeEvent || upcomingEvent;
 
-    const countdownEvent = nextEvent
+    const countdownEvent = selectedEvent
         ? {
-            title: nextEvent.title,
-            location: nextEvent.location,
-            startDate: nextEvent.startDate,
-            endDate: nextEvent.endDate,
-            slug: nextEvent.slug,
-            category: nextEvent.category,
-        }
+              title: selectedEvent.title,
+              location: selectedEvent.location,
+              startDate: selectedEvent.startDate,
+              endDate: selectedEvent.endDate,
+              slug: selectedEvent.slug,
+              category: selectedEvent.category,
+              isLive: Boolean(activeEvent),
+          }
         : null;
 
     return <EventsClientPage events={sorted} countdownEvent={countdownEvent} />;

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Clock, Calendar, Bell, CheckCircle2, MapPin } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
+import { Clock, Calendar, Bell, CheckCircle2, MapPin, ArrowUpRight } from "lucide-react";
 
 interface CountdownTimer {
     days: number;
@@ -10,17 +11,19 @@ interface CountdownTimer {
     seconds: number;
 }
 
-interface CountdownEvent {
+export interface CountdownEvent {
     title: string;
     location: string;
     startDate: string;
     endDate: string;
     slug: string;
     category: string;
+    isLive?: boolean;
 }
 
 interface MissionCountdownProps {
     event: CountdownEvent | null;
+    variant?: "hero" | "default";
 }
 
 /** Format an ISO date string to a readable date */
@@ -29,7 +32,7 @@ function formatDisplayDate(isoDate: string): string {
         const d = new Date(isoDate);
         if (isNaN(d.getTime())) return isoDate;
         return new Intl.DateTimeFormat("en-US", {
-            month: "long",
+            month: "short",
             day: "numeric",
             year: "numeric",
         }).format(d);
@@ -51,48 +54,68 @@ function toIcsDate(isoDate: string, time = "T080000Z"): string {
     }
 }
 
-export function MissionCountdown({ event }: MissionCountdownProps) {
-    const targetDate = event ? new Date(event.startDate).getTime() : 0;
-    const [timeLeft, setTimeLeft] = useState<CountdownTimer>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+function calculateTimeRemaining(targetIso: string): { timer: CountdownTimer; isPast: boolean } {
+    if (!targetIso) return { timer: { days: 0, hours: 0, minutes: 0, seconds: 0 }, isPast: true };
+    const targetDate = new Date(targetIso).getTime();
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference > 0) {
+        return {
+            isPast: false,
+            timer: {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+                seconds: Math.floor((difference % (1000 * 60)) / 1000),
+            },
+        };
+    }
+
+    return {
+        isPast: true,
+        timer: { days: 0, hours: 0, minutes: 0, seconds: 0 },
+    };
+}
+
+export function MissionCountdown({ event, variant = "default" }: MissionCountdownProps) {
+    // Target date: If live event, count down until endDate. If upcoming event, count down to startDate.
+    const targetDateIso = useMemo(() => {
+        if (!event) return "";
+        return event.isLive && event.endDate ? event.endDate : event.startDate;
+    }, [event]);
+
+    // Initial state calculated lazily to prevent SSR hydration jump
+    const [{ timer: timeLeft, isPast }, setTimeState] = useState(() => calculateTimeRemaining(targetDateIso));
+    const [mounted, setMounted] = useState(false);
     const [email, setEmail] = useState("");
     const [submitted, setSubmitted] = useState(false);
-    const [isPast, setIsPast] = useState(false);
 
     useEffect(() => {
-        if (!event) return;
+        setMounted(true);
+        if (!targetDateIso) return;
 
         const updateTimer = () => {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference > 0) {
-                setIsPast(false);
-                setTimeLeft({
-                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                    hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                    minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-                    seconds: Math.floor((difference % (1000 * 60)) / 1000),
-                });
-            } else {
-                setIsPast(true);
-                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-            }
+            setTimeState(calculateTimeRemaining(targetDateIso));
         };
 
         updateTimer();
         const interval = setInterval(updateTimer, 1000);
         return () => clearInterval(interval);
-    }, [targetDate, event]);
+    }, [targetDateIso]);
 
     const handleSubscribe = (e: React.FormEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         if (email) {
             setSubmitted(true);
             setEmail("");
         }
     };
 
-    const downloadIcs = () => {
+    const downloadIcs = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (!event) return;
         const summary = event.title;
         const location = event.location;
@@ -110,8 +133,26 @@ export function MissionCountdown({ event }: MissionCountdownProps) {
         document.body.removeChild(link);
     };
 
-    // No upcoming event — show a subtle "stay tuned" state
+    // No upcoming event — show fallback state
     if (!event) {
+        if (variant === "hero") {
+            return (
+                <div className="bg-white/5 border border-white/10 rounded-[2rem] p-5 sm:p-6 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(204,88,51,0.18),transparent_45%)] pointer-events-none" />
+                    <div className="relative z-10 text-left space-y-3">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-clay)]/15 text-[var(--color-clay)] text-[11px] uppercase tracking-[0.25em] font-mono">
+                            <Clock size={14} />
+                            <span>Next Mission</span>
+                        </div>
+                        <h3 className="text-xl sm:text-2xl font-semibold text-white" style={{ fontFamily: "var(--font-heading)" }}>
+                            Next mission <span className="font-drama text-[var(--color-clay)] italic">coming soon.</span>
+                        </h3>
+                        <p className="text-sm text-white/60">Check back later for the next deployment date and countdown.</p>
+                    </div>
+                </div>
+            );
+        }
+
         return (
             <div className="bg-gradient-to-br from-white/[0.04] via-black/40 to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[var(--color-clay)]/10 blur-[120px] pointer-events-none" />
@@ -135,6 +176,45 @@ export function MissionCountdown({ event }: MissionCountdownProps) {
             ? `${formatDisplayDate(event.startDate)} – ${formatDisplayDate(event.endDate)}`
             : formatDisplayDate(event.startDate);
 
+    const isLiveMission = Boolean(event.isLive);
+
+    if (variant === "hero") {
+        return (
+            <Link
+                href={`/events`}
+                className="group inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/20 rounded-full h-12 px-5 shadow-2xl backdrop-blur-xl transition-all duration-300 transform hover:scale-[1.03] hover:-translate-y-[1px]"
+            >
+                <div className="flex items-center gap-2 pr-2.5 border-r border-white/15">
+                    <span className="w-2 h-2 rounded-full bg-[var(--color-clay)] animate-pulse" />
+                    <span
+                        className="text-[11px] uppercase tracking-[0.18em] font-mono font-bold text-[var(--color-cream)]/90 whitespace-nowrap"
+                        style={{ fontFamily: "var(--font-mono)" }}
+                    >
+                        NEXT MISSION
+                    </span>
+                </div>
+
+                <div className="flex items-center gap-1 sm:gap-1.5 font-mono text-white">
+                    {[
+                        { label: "D", val: timeLeft.days },
+                        { label: "H", val: timeLeft.hours },
+                        { label: "M", val: timeLeft.minutes },
+                        { label: "S", val: timeLeft.seconds },
+                    ].map((unit, idx) => (
+                        <div key={idx} className="flex items-baseline gap-0.5 bg-black/50 border border-white/10 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md">
+                            <span className="text-xs sm:text-sm font-bold text-white tracking-tight">
+                                {mounted ? String(unit.val).padStart(2, "0") : "--"}
+                            </span>
+                            <span className="text-[8px] sm:text-[9px] text-[var(--color-clay)] font-semibold uppercase">
+                                {unit.label}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </Link>
+        );
+    }
+
     return (
         <div className="bg-gradient-to-br from-white/[0.04] via-black/40 to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
             {/* Ambient Background Radial */}
@@ -144,8 +224,8 @@ export function MissionCountdown({ event }: MissionCountdownProps) {
                 {/* Left Ticker Information */}
                 <div className="lg:col-span-6 space-y-4 text-left">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-clay)]/20 text-[var(--color-clay)] text-xs font-mono font-bold uppercase tracking-widest border border-[var(--color-clay)]/30">
-                        <Clock size={14} className="animate-pulse" />
-                        <span>{isPast ? "Mission In Progress" : "Next Mission Deployment"}</span>
+                        <Clock size={14} className={isLiveMission ? "animate-spin text-emerald-400" : "animate-pulse"} />
+                        <span>{isLiveMission ? "Mission Currently Deployed" : isPast ? "Mission Concluded" : "Next Mission Deployment"}</span>
                     </div>
 
                     <h3 className="text-3xl sm:text-4xl font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
@@ -187,7 +267,7 @@ export function MissionCountdown({ event }: MissionCountdownProps) {
                         ].map((unit, idx) => (
                             <div key={idx} className="p-3 sm:p-5 rounded-2xl bg-black/60 border border-white/10 shadow-inner">
                                 <span className="text-2xl sm:text-4xl font-black font-mono text-white block">
-                                    {String(unit.val).padStart(2, "0")}
+                                    {mounted ? String(unit.val).padStart(2, "0") : "--"}
                                 </span>
                                 <span className="text-[10px] sm:text-xs text-white/40 uppercase font-mono tracking-widest mt-1 block">
                                     {unit.label}

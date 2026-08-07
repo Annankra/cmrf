@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowDown, HeartHandshake, Sparkles } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MissionCountdown, type CountdownEvent } from "@/components/features/MissionCountdown";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,7 +17,7 @@ const HERO_IMAGES = [
     "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=1920&q=80&auto=format", // Professional Doctor Consultation
 ];
 
-export function Hero() {
+export function Hero({ countdownEvent }: { countdownEvent: CountdownEvent | null }) {
     const sectionRef = useRef<HTMLElement>(null);
     const bgRef1 = useRef<HTMLDivElement>(null);
     const bgRef2 = useRef<HTMLDivElement>(null);
@@ -154,6 +155,7 @@ export function Hero() {
                         duration: 0.8,
                         ease: "back.out(1.4)",
                         stagger: 0.12,
+                        clearProps: "all",
                     },
                     "-=0.5"
                 )
@@ -287,52 +289,51 @@ export function Hero() {
                         across Ghana and Africa.
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-4">
-                        <Link href="/get-involved" className="btn btn-primary" data-hero-cta>
-                            <HeartHandshake size={18} />
-                            <span className="btn-text">Support Our Mission</span>
-                        </Link>
-                        <Link href="/about" className="btn btn-ghost" data-hero-cta>
-                            <span className="btn-text">Our Story</span>
-                        </Link>
+                    <div className="flex flex-row flex-nowrap sm:flex-wrap items-center gap-3 sm:gap-4 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 scrollbar-none">
+                        <div data-hero-cta className="flex items-center shrink-0">
+                            <Link href="/get-involved" className="btn btn-primary !py-0 h-12 px-6 rounded-full flex items-center justify-center gap-2.5 whitespace-nowrap">
+                                <HeartHandshake size={18} />
+                                <span className="btn-text">Support Our Mission</span>
+                            </Link>
+                        </div>
+                        <div data-hero-cta className="flex items-center shrink-0">
+                            <Link href="/about" className="btn btn-ghost !py-0 h-12 px-6 rounded-full flex items-center justify-center gap-2 border border-white/20 bg-white/5 hover:bg-white/10 whitespace-nowrap">
+                                <span className="btn-text">Our Story</span>
+                            </Link>
+                        </div>
+
+                        {countdownEvent ? (
+                            <div data-hero-cta className="flex items-center shrink-0">
+                                <MissionCountdown event={countdownEvent} variant="hero" />
+                            </div>
+                        ) : null}
                     </div>
                 </div>
 
-                {/* Left Scroll Indicator */}
-                <div
-                    data-hero-scroll
-                    className="hidden sm:flex absolute bottom-8 left-8 md:left-12 z-20 flex-col items-center gap-2 text-[var(--color-cream)]/50"
-                >
-                    <span
-                        className="text-xs uppercase tracking-widest font-mono"
-                        style={{ writingMode: "vertical-rl" }}
-                    >
-                        Scroll
-                    </span>
-                    <ArrowDown size={16} className="animate-float" />
-                </div>
-
-                {/* Slide Indicator Dots & Right Scroll Indicator */}
-                <div className="absolute bottom-8 right-8 md:right-12 flex items-end gap-6 z-20">
+                {/* Bottom Controls Bar (Slideshow dots + Scroll indicator on the right) */}
+                <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8 md:right-12 z-20 flex items-center justify-end gap-4 pointer-events-none">
                     {/* Slideshow Progress Dots */}
-                    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10">
-                        {HERO_IMAGES.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => goToSlide(idx)}
-                                aria-label={`Go to slide ${idx + 1}`}
-                                className={`h-2 rounded-full transition-all duration-500 cursor-pointer ${
-                                    currentIndex === idx
-                                        ? "w-6 bg-[var(--color-clay)] shadow-[0_0_10px_rgba(204,88,51,0.5)]"
-                                        : "w-2 bg-white/30 hover:bg-white/70"
-                                }`}
-                            />
-                        ))}
+                    <div className="pointer-events-auto">
+                        <div className="flex items-center gap-1.5 sm:gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full border border-white/10 shadow-lg">
+                            {HERO_IMAGES.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => goToSlide(idx)}
+                                    aria-label={`Go to slide ${idx + 1}`}
+                                    className={`h-2 rounded-full transition-all duration-500 cursor-pointer ${
+                                        currentIndex === idx
+                                            ? "w-5 sm:w-6 bg-[var(--color-clay)] shadow-[0_0_10px_rgba(204,88,51,0.5)]"
+                                            : "w-2 bg-white/30 hover:bg-white/70"
+                                    }`}
+                                />
+                            ))}
+                        </div>
                     </div>
 
+                    {/* Right-aligned Scroll Indicator */}
                     <div
                         data-hero-scroll
-                        className="hidden sm:flex flex-col items-center gap-2 text-[var(--color-cream)]/50"
+                        className="hidden sm:flex items-center gap-2 text-[var(--color-cream)]/50 pointer-events-auto"
                     >
                         <span
                             className="text-xs uppercase tracking-widest font-mono"
